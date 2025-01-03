@@ -18,8 +18,16 @@ A collection of my software design patterns course Assignments.
 * [Course Handout](Course_Handout)
 课程讲义
 
+* [Teamfight Tactics (Refactored)](Teamfight_Tactics_Refactored)
+基于 Cocos2d-x 3.17.2 开发的金铲铲之战游戏项目（重构版本）
+
 * [Pull Up Method Presentation](Pull_Up_Method_Presentation.pptx)
 重构技术：方法上移汇报 PPT
+
+## 相关仓库
+
+* [Teamfight Tactics](https://github.com/MinmusLin/Teamfight_Tactics)
+基于 Cocos2d-x 3.17.2 开发的金铲铲之战游戏项目
 
 ## 免责声明
 
@@ -29,4 +37,4 @@ The code and materials contained in this repository are intended for personal le
 
 ## 文档更新日期
 
-2024年12月26日
+2025年1月3日
