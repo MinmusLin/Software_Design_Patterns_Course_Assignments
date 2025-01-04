@@ -318,18 +318,49 @@ int OnlineModeControl::getSocketIndex()
     return -1;
 }
 
+/********************************************************************************
+ *
+ *   使用反应器模式重构 - 重构前代码
+ *
+ ********************************************************************************/
+
 // 监听服务器消息线程
-void OnlineModeControl::listenForServerMessages()
-{
-    while (keepListening) {
+// void OnlineModeControl::listenForServerMessages()
+// {
+//     while (keepListening) {
+//         char buffer[BUFFER_SIZE];
+//         recv(s, buffer, BUFFER_SIZE, 0);
+//         if (!strncmp(buffer, HEALTH_POINTS_IDENTIFIER, MESSAGE_IDENTIFIER_LENGTH)) {
+//             int healthPoints;
+//             SOCKET socket;
+//             sscanf(buffer, HEALTH_POINTS_FORMAT, &healthPoints, &socket);
+//             updatePlayerHealthPoints(healthPoints, socket);
+//         }
+//         std::this_thread::sleep_for(std::chrono::milliseconds(THREAD_SLEEP_DURATION_MILLISECONDS));
+//     }
+// }
+
+/********************************************************************************
+ *
+ *   使用反应器模式重构 - 重构后代码
+ *
+ ********************************************************************************/
+
+// 监听服务器消息线程
+void OnlineModeControl::listenForServerMessages() {
+    // 注册事件处理器
+    reactor->registerHandler(s, [this](SOCKET socket) {
         char buffer[BUFFER_SIZE];
-        recv(s, buffer, BUFFER_SIZE, 0);
-        if (!strncmp(buffer, HEALTH_POINTS_IDENTIFIER, MESSAGE_IDENTIFIER_LENGTH)) {
-            int healthPoints;
-            SOCKET socket;
-            sscanf(buffer, HEALTH_POINTS_FORMAT, &healthPoints, &socket);
-            updatePlayerHealthPoints(healthPoints, socket);
+        int recvSize = recv(socket, buffer, BUFFER_SIZE, 0);
+        if (recvSize > 0) {
+            buffer[recvSize] = '\0';
+            handleMessage(buffer); // 处理接收到的消息
         }
+    });
+
+    // 启动事件循环
+    while (keepListening) {
+        reactor->handleEvents();
         std::this_thread::sleep_for(std::chrono::milliseconds(THREAD_SLEEP_DURATION_MILLISECONDS));
     }
 }
@@ -345,5 +376,20 @@ void OnlineModeControl::updatePlayerHealthPoints(const int healthPoint, const SO
                 return;
             }
         }
+    }
+}
+
+/********************************************************************************
+ *
+ *   使用反应器模式重构 - 重构后代码
+ *
+ ********************************************************************************/
+
+void OnlineModeControl::handleMessage(const std::string& message) {
+    if (!strncmp(message.c_str(), HEALTH_POINTS_IDENTIFIER, MESSAGE_IDENTIFIER_LENGTH)) {
+        int healthPoints;
+        SOCKET socket;
+        sscanf(message.c_str(), HEALTH_POINTS_FORMAT, &healthPoints, &socket);
+        updatePlayerHealthPoints(healthPoints, socket);
     }
 }
