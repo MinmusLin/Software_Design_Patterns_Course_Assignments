@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     ReferenceScene.h
- * File Function: ReferenceSceneÀàµÄ¶¨Òå
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: ReferenceSceneç±»çš„å®šä¹‰
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -15,17 +15,17 @@
 
 /*
  * Class Name:     ReferenceScene
- * Class Function: Íæ·¨³¡¾°Àà
+ * Class Function: ç©æ³•åœºæ™¯ç±»
  */
 class ReferenceScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // ÊµÏÖ ReferenceScene ÀàµÄ create ·½·¨
+    // å®ç° ReferenceScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(ReferenceScene);
 };
 

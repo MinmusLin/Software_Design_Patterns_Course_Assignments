@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OnlineModePreparationScene.h
- * File Function: OnlineModePreparationSceneÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: OnlineModePreparationSceneç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -16,24 +16,24 @@
 
 /*
  * Class Name:     OnlineModePreparationScene
- * Class Function: Áª»úÄ£Ê½×¼±¸³¡¾°Àà
+ * Class Function: è”æœºæ¨¡å¼å‡†å¤‡åœºæ™¯ç±»
  */
 class OnlineModePreparationScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // µ±³¡¾°ÖØĞÂ½øÈëÊ±µ÷ÓÃ
+    // å½“åœºæ™¯é‡æ–°è¿›å…¥æ—¶è°ƒç”¨
     void onEnter();
 
-    // ÊµÏÖ OnlineModePreparationScene ÀàµÄ create ·½·¨
+    // å®ç° OnlineModePreparationScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(OnlineModePreparationScene);
 
 private:
-    // ÉèÖÃ½ø¶ÈÌõ¸üĞÂÂß¼­Óë¼ÆÊ±Æ÷
+    // è®¾ç½®è¿›åº¦æ¡æ›´æ–°é€»è¾‘ä¸è®¡æ—¶å™¨
     void setScheduleOnce(cocos2d::ui::LoadingBar* progressBar, cocos2d::Label* progressLabel);
 };
 

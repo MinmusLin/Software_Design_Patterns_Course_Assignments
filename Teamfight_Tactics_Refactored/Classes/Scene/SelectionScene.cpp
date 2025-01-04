@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     SelectionScene.h
- * File Function: SelectionSceneÀàµÄÊµÏÖ
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: SelectionSceneç±»çš„å®ç°
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/31
  ****************************************************************/
 
@@ -12,19 +12,19 @@
 #include "proj.win32/Constant.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// Ğ¡Ğ¡Ó¢ĞÛÖÖÀà
+// å°å°è‹±é›„ç§ç±»
 int g_littleChampionCategory = DEFAULT_LITTLE_CHAMPION_CATEGORY;
 
-// Íæ¼ÒêÇ³Æ
+// ç©å®¶æ˜µç§°
 extern std::string g_PlayerName;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* SelectionScene::createScene()
 {
     auto scene = Scene::create();
@@ -33,27 +33,27 @@ Scene* SelectionScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool SelectionScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/SelectionScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨±êÇ©
-    auto promptLabel = Label::createWithTTF(g_PlayerName + u8"£¬ÇëÑ¡ÔñÄãµÄĞ¡Ğ¡Ó¢ĞÛ!", "../Resources/Fonts/DingDingJinBuTi.ttf", SELECTION_SCENE_LABEL_FONT_SIZE);
+    // åˆ›å»ºæ ‡ç­¾
+    auto promptLabel = Label::createWithTTF(g_PlayerName + u8"ï¼Œè¯·é€‰æ‹©ä½ çš„å°å°è‹±é›„!", "../Resources/Fonts/DingDingJinBuTi.ttf", SELECTION_SCENE_LABEL_FONT_SIZE);
     promptLabel->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2 + SELECTION_SCENE_LABEL_OFFSET_Y));
     promptLabel->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     this->addChild(promptLabel);
 
-    // ´´½¨Ğ¡Ğ¡Ó¢ĞÛ°´Å¥
+    // åˆ›å»ºå°å°è‹±é›„æŒ‰é’®
     for (int i = 0; i < MAX_LITTLE_CHAMPION_COUNT; i++) {
         auto littleChampion = HoverButton::create(static_cast<std::string>("../Resources/Buttons/SelectionSceneButtons/LittleChampion") + std::to_string(i + 1) + static_cast<std::string>("DefaultButton.png"),
             static_cast<std::string>("../Resources/Buttons/SelectionSceneButtons/LittleChampion") + std::to_string(i + 1) + static_cast<std::string>("HoverButton.png"),
@@ -62,7 +62,7 @@ bool SelectionScene::init()
             screenSize.height / 2 + SELECTION_SCENE_BUTTON_OFFSET_Y + (i / (MAX_LITTLE_CHAMPION_COUNT / 2)) * SELECTION_SCENE_BUTTON_VERTICAL_INTERVAL));
         littleChampion->addTouchEventListener([i](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
             if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-                // ¼ÓÔØµã»÷ÒôĞ§
+                // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
                 audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
                 g_littleChampionCategory = i + 1;

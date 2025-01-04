@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     ScoreBoardLayer.h
- * File Function: ScoreBoardLayerÀàµÄ¶¨Òå
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: ScoreBoardLayerç±»çš„å®šä¹‰
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -18,31 +18,31 @@
 
 /*
  * Class Name:     ScoreBoardLayer
- * Class Function: ·ÖÊı±í²ãÀà
+ * Class Function: åˆ†æ•°è¡¨å±‚ç±»
  */
 class ScoreBoardLayer : public cocos2d::Layer {
 public:
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     ~ScoreBoardLayer();
 
-    // ³õÊ¼»¯·ÖÊı±í²ãÀà
+    // åˆå§‹åŒ–åˆ†æ•°è¡¨å±‚ç±»
     virtual bool init();
 
-    // ³õÊ¼»¯·ÖÊı±í±³¾°
+    // åˆå§‹åŒ–åˆ†æ•°è¡¨èƒŒæ™¯
     void initialize(const int playerNum);
 
-    // ÏÔÊ¾·ÖÊı±í£¨Á·Ï°Ä£Ê½£©
+    // æ˜¾ç¤ºåˆ†æ•°è¡¨ï¼ˆç»ƒä¹ æ¨¡å¼ï¼‰
     void showScoreBoard(HumanPlayer* humanPlayer, AIPlayer* enemyPlayer);
 
-    // ÏÔÊ¾·ÖÊı±í£¨Áª»úÄ£Ê½£©
+    // æ˜¾ç¤ºåˆ†æ•°è¡¨ï¼ˆè”æœºæ¨¡å¼ï¼‰
     void showScoreBoard(const int playerNum, const std::vector<std::map<SOCKET, std::string>>& playerNamesMap, const std::vector<std::map<SOCKET, int>>& playerHealthPointsMap);
 
-    // ÊµÏÖ ScoreBoardLayer ÀàµÄ create ·½·¨
+    // å®ç° ScoreBoardLayer ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(ScoreBoardLayer);
 
 private:
-    cocos2d::Label** playerNames = nullptr;  // Íæ¼ÒêÇ³Æ±êÇ©Ö¸Õë
-    cocos2d::Label** healthPoints = nullptr; // Íæ¼ÒÉúÃüÖµ±êÇ©Ö¸Õë
+    cocos2d::Label** playerNames = nullptr;  // ç©å®¶æ˜µç§°æ ‡ç­¾æŒ‡é’ˆ
+    cocos2d::Label** healthPoints = nullptr; // ç©å®¶ç”Ÿå‘½å€¼æ ‡ç­¾æŒ‡é’ˆ
 };
 
 #endif // !_SCORE_BOARD_LAYER_H_

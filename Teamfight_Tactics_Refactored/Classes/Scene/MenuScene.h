@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     MenuScene.h
- * File Function: MenuSceneÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: MenuSceneç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -15,17 +15,17 @@
 
 /*
  * Class Name:     MenuScene
- * Class Function: ²Ëµ¥³¡¾°Àà
+ * Class Function: èœå•åœºæ™¯ç±»
  */
 class MenuScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // ÊµÏÖ MenuScene ÀàµÄ create ·½·¨
+    // å®ç° MenuScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(MenuScene);
 };
 

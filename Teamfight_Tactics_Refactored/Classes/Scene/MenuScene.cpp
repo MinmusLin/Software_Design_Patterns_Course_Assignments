@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     MenuScene.cpp
- * File Function: MenuSceneÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê¡¢ÁõÊçÒÇ
+ * File Function: MenuSceneç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³ã€åˆ˜æ·‘ä»ª
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -17,16 +17,16 @@
 #include "SettingsScene.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// Íæ¼ÒêÇ³Æ
+// ç©å®¶æ˜µç§°
 extern std::string g_PlayerName;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* MenuScene::createScene()
 {
     auto scene = Scene::create();
@@ -35,27 +35,27 @@ Scene* MenuScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool MenuScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ÉèÖÃÄ¬ÈÏÌì¸³·ûÎÄ
+    // è®¾ç½®é»˜è®¤å¤©èµ‹ç¬¦æ–‡
     cocos2d::UserDefault::getInstance()->setIntegerForKey("TalentRune", static_cast<int>(NoTalentRune));
 
-    // ¼ÓÔØÒôÀÖ
+    // åŠ è½½éŸ³ä¹
     audioPlayer("../Resources/Music/MenuScene_DarkSideOfPower.mp3", true);
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/MenuScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨°´Å¥
+    // åˆ›å»ºæŒ‰é’®
     auto offlineModeButton = HoverButton::create("../Resources/Buttons/MenuSceneButtons/OfflineModeDefaultButton.png",
         "../Resources/Buttons/MenuSceneButtons/OfflineModeHoverButton.png",
         "../Resources/Buttons/MenuSceneButtons/OfflineModeActiveButton.png");
@@ -72,17 +72,17 @@ bool MenuScene::init()
         "../Resources/Buttons/MenuSceneButtons/ExitGameHoverButton.png",
         "../Resources/Buttons/MenuSceneButtons/ExitGameActiveButton.png");
 
-    // ÉèÖÃ°´Å¥Î»ÖÃ
+    // è®¾ç½®æŒ‰é’®ä½ç½®
     offlineModeButton->setPosition(Vec2(screenSize.width / 2 + MENU_SCENE_BUTTONS_OFFSET_X, screenSize.height / 2 + MENU_SCENE_OFFLINE_MODE_BUTTON_OFFSET_Y));
     onlineModeButton->setPosition(Vec2(screenSize.width / 2 + MENU_SCENE_BUTTONS_OFFSET_X, screenSize.height / 2 + MENU_SCENE_ONLINE_MODE_BUTTON_OFFSET_Y));
     settingsButton->setPosition(Vec2(screenSize.width / 2 + MENU_SCENE_BUTTONS_OFFSET_X, screenSize.height / 2 + MENU_SCENE_SETTINGS_BUTTON_OFFSET_Y));
     referenceButton->setPosition(Vec2(screenSize.width - MENU_SCENE_REFERENCE_BUTTON_OFFSET_X, MENU_SCENE_REFERENCE_BUTTON_OFFSET_Y));
     exitGameButton->setPosition(Vec2(screenSize.width - MENU_SCENE_EXIT_GAME_BUTTON_OFFSET_X, MENU_SCENE_EXIT_GAME_BUTTON_OFFSET_Y));
 
-    // Îª°´Å¥Ìí¼ÓÊÂ¼ş´¦ÀíÆ÷
+    // ä¸ºæŒ‰é’®æ·»åŠ äº‹ä»¶å¤„ç†å™¨
     offlineModeButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, OfflineModeRuneScene::createScene(), cocos2d::Color3B::WHITE));
@@ -90,7 +90,7 @@ bool MenuScene::init()
         });
     onlineModeButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, OnlineModeMenuScene::createScene(), cocos2d::Color3B::WHITE));
@@ -98,7 +98,7 @@ bool MenuScene::init()
         });
     settingsButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, SettingsScene::createScene(), cocos2d::Color3B::WHITE));
@@ -106,7 +106,7 @@ bool MenuScene::init()
         });
     referenceButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, ReferenceScene::createScene(), cocos2d::Color3B::WHITE));
@@ -114,21 +114,21 @@ bool MenuScene::init()
         });
     exitGameButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             cocos2d::Director::getInstance()->end();
         }
         });
 
-    // ½«°´Å¥Ìí¼Óµ½³¡¾°ÖĞ
+    // å°†æŒ‰é’®æ·»åŠ åˆ°åœºæ™¯ä¸­
     this->addChild(offlineModeButton);
     this->addChild(onlineModeButton);
     this->addChild(settingsButton);
     this->addChild(referenceButton);
     this->addChild(exitGameButton);
 
-    // ´´½¨Ò»¸ö»¶Ó­ÌáÊ¾
+    // åˆ›å»ºä¸€ä¸ªæ¬¢è¿æç¤º
     const std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     const int number = (rand() % 100 < RANDOM_WELCOME_PROMPT_PROBABILITY * 100) ? std::localtime(&now)->tm_hour : rand() % RANDOM_PROMPT_COUNT + 24;
     auto welcomeLabel = Label::createWithTTF(g_PlayerName + WELCOME_PROMPT.at(number), "../Resources/Fonts/DingDingJinBuTi.ttf", MENU_SCENE_FONT_SIZE);

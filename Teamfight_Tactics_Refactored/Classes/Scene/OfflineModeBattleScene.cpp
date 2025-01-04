@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModeBattleScene.cpp
- * File Function: OfflineModeBattleSceneÀàµÄÊµÏÖ
- * Author:        ÑîÓîçû¡¢ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: OfflineModeBattleSceneç±»çš„å®ç°
+ * Author:        æ¨å®‡ç¨ã€åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -14,19 +14,19 @@
 #include "MenuScene.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// Á·Ï°Ä£Ê½ÓÎÏ·¿ØÖÆÀà
+// ç»ƒä¹ æ¨¡å¼æ¸¸æˆæ§åˆ¶ç±»
 extern OfflineModeControl* g_offlineModeControl;
 
-// Ğ¡Ğ¡Ó¢ĞÛÖÖÀà
+// å°å°è‹±é›„ç§ç±»
 extern int g_littleChampionCategory;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* OfflineModeBattleScene::createScene()
 {
     auto scene = Scene::create();
@@ -35,39 +35,39 @@ Scene* OfflineModeBattleScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool OfflineModeBattleScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/OfflineModeBattleScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ³õÊ¼»¯¶ÔÕ½Àà
+    // åˆå§‹åŒ–å¯¹æˆ˜ç±»
     g_offlineModeControl->initializeBattle();
 
-    // ±éÀúÕ½¶·ÇøµØÍ¼
+    // éå†æˆ˜æ–—åŒºåœ°å›¾
     for (int i = 0; i < BATTLE_MAP_ROWS; i++) {
         for (int j = 0; j < BATTLE_MAP_COLUMNS; j++) {
             if (g_offlineModeControl->getBattle()->getChampion(i, j) != nullptr) {
-                // ÏÔÊ¾ËùÓĞÕ½¶·Ó¢ĞÛ
+                // æ˜¾ç¤ºæ‰€æœ‰æˆ˜æ–—è‹±é›„
                 Champion* currentChampion = g_offlineModeControl->getBattle()->getChampion(i, j);
                 currentChampion->getSprite()->setPosition(LocationMap::getInstance().getLocationMap().at({ BattleArea, i * BATTLE_MAP_COLUMNS + j }));
                 this->addChild(g_offlineModeControl->getBattle()->getChampion(i, j)->getSprite());
 
-                // ÏÔÊ¾Õ½¶·Ó¢ĞÛ¶ÔÓ¦ÎäÆ÷
+                // æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å¯¹åº”æ­¦å™¨
                 Vec2 currentChampionLocation = LocationMap::getInstance().getLocationMap().at({ BattleArea, i * BATTLE_MAP_COLUMNS + j });
                 currentChampion->initializeSword(currentChampionLocation + Vec2(INTERVAL_BETWEEN_WEAPON_AND_CHAMPION, 0));
                 this->addChild(currentChampion->getSword());
                 currentChampion->setSwordVisible(true);
 
-                // ´´½¨ÉúÃüÌõºÍ¾­ÑéÌõ
+                // åˆ›å»ºç”Ÿå‘½æ¡å’Œç»éªŒæ¡
                 if (currentChampion->getCamp()) {
                     currentChampion->setHealthBar(Sprite::create("../Resources/ImageElements/MyCampHealthBar.png"));
                 }
@@ -80,7 +80,7 @@ bool OfflineModeBattleScene::init()
                 this->addChild(currentChampion->getHealthBar(), 1);
                 this->addChild(currentChampion->getManaBar(), 1);
 
-                // ¼ÆËã³õÊ¼Õ½¶·Ó¢ĞÛ¸öÊı
+                // è®¡ç®—åˆå§‹æˆ˜æ–—è‹±é›„ä¸ªæ•°
                 if (i < PLACE_MAP_ROWS) {
                     g_offlineModeControl->getBattle()->addMyCount();
                 }
@@ -88,7 +88,7 @@ bool OfflineModeBattleScene::init()
                     g_offlineModeControl->getBattle()->addEnemyCount();
                 }
 
-                // °ó¶¨Õ½¶·Àà
+                // ç»‘å®šæˆ˜æ–—ç±»
                 currentChampion->setBattle(g_offlineModeControl->getBattle());
                 currentChampion->setCurrentPosition(i, j);
                 battleChampion[battleChampionCount++] = currentChampion;
@@ -99,7 +99,7 @@ bool OfflineModeBattleScene::init()
         }
     }
 
-    // ÏÔÊ¾î¿°íĞ§¹û
+    // æ˜¾ç¤ºç¾ç»Šæ•ˆæœ
     for (int i = 1; i < MAX_BOND_COUNT; i++) {
         if (g_offlineModeControl->getBattle()->getMyBond()[i] >= BOND_EFFECT_TRIGGER_CONDITION) {
             g_offlineModeControl->getBattle()->bondEffect(static_cast<Bond>(i), true);
@@ -159,19 +159,19 @@ bool OfflineModeBattleScene::init()
         }
     }
 
-    // ´´½¨·ÖÊı±í²ã
+    // åˆ›å»ºåˆ†æ•°è¡¨å±‚
     auto scoreBoardLayer = ScoreBoardLayer::create();
     scoreBoardLayer->initialize(2);
     scoreBoardLayer->showScoreBoard(g_offlineModeControl->getHumanPlayer(), g_offlineModeControl->getAIPlayer());
     scoreBoardLayer->setName("ScoreBoardLayer");
     this->addChild(scoreBoardLayer);
 
-    // ÆôÓÃÃ¿Ò»Ö¡±»×Ô¶¯µ÷ÓÃµÄ update ·½·¨
+    // å¯ç”¨æ¯ä¸€å¸§è¢«è‡ªåŠ¨è°ƒç”¨çš„ update æ–¹æ³•
     this->scheduleUpdate();
 
-    // ´´½¨Ğ¡Ğ¡Ó¢ĞÛµÇ³¡±êÇ©
+    // åˆ›å»ºå°å°è‹±é›„ç™»åœºæ ‡ç­¾
     auto winSize = cocos2d::Director::getInstance()->getWinSize();
-    auto littleChampionLabel = Label::createWithTTF(u8"Ğ¡Ğ¡Ó¢ĞÛµÇ³¡!", "../Resources/Fonts/DingDingJinBuTi.ttf", LITTLE_CHAMPION_LABEL_FONT_SIZE);
+    auto littleChampionLabel = Label::createWithTTF(u8"å°å°è‹±é›„ç™»åœº!", "../Resources/Fonts/DingDingJinBuTi.ttf", LITTLE_CHAMPION_LABEL_FONT_SIZE);
     littleChampionLabel->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     littleChampionLabel->setPosition(winSize.width / 2, winSize.height / 2 + LITTLE_CHAMPION_LABEL_OFFSET_Y);
     this->addChild(littleChampionLabel);
@@ -179,14 +179,14 @@ bool OfflineModeBattleScene::init()
         littleChampionLabel->setVisible(false);
         }, PROMPT_MESSAGE_DURATION, "HideLittleChampionLabel");
 
-    // ´´½¨Ğ¡Ğ¡Ó¢ĞÛ
+    // åˆ›å»ºå°å°è‹±é›„
     auto littleChampion = Sprite::create(static_cast<std::string>("../Resources/Champions/LittleChampion")
         + std::to_string(g_littleChampionCategory)
         + static_cast<std::string>(".png"));
     littleChampion->setPosition(winSize.width / 2, winSize.height / 2 + LITTLE_CHAMPION_OFFSET_Y);
     this->addChild(littleChampion, 2);
 
-    // ´´½¨Á£×ÓÏµÍ³
+    // åˆ›å»ºç²’å­ç³»ç»Ÿ
     auto particleSystem = cocos2d::ParticleFlower::create();
     particleSystem->setPosition(littleChampion->getPosition());
     particleSystem->setScale(LITTLE_CHAMPION_PARTICLE_SCALE);
@@ -197,7 +197,7 @@ bool OfflineModeBattleScene::init()
         particleSystem->setPosition(littleChampion->getPosition());
         }, "ParticleFollow");
 
-    // ´´½¨Ğ¡Ğ¡Ó¢ĞÛÊó±êÊÂ¼ş¼àÌı
+    // åˆ›å»ºå°å°è‹±é›„é¼ æ ‡äº‹ä»¶ç›‘å¬
     auto listener = cocos2d::EventListenerMouse::create();
     listener->onMouseDown = [littleChampion](cocos2d::Event* event) {
         const cocos2d::EventMouse* e = dynamic_cast<cocos2d::EventMouse*>(event);
@@ -215,10 +215,10 @@ bool OfflineModeBattleScene::init()
     return true;
 }
 
-// Ã¿Ò»Ö¡±»×Ô¶¯µ÷ÓÃµÄ update ·½·¨
+// æ¯ä¸€å¸§è¢«è‡ªåŠ¨è°ƒç”¨çš„ update æ–¹æ³•
 void OfflineModeBattleScene::update(float delta)
 {
-    // ¸üĞÂÕ½¶·Ó¢ĞÛÊıÁ¿
+    // æ›´æ–°æˆ˜æ–—è‹±é›„æ•°é‡
     g_offlineModeControl->getBattle()->resetCount();
     for (int i = 0; i < BATTLE_MAP_ROWS; i++) {
         for (int j = 0; j < BATTLE_MAP_COLUMNS; j++) {
@@ -236,34 +236,34 @@ void OfflineModeBattleScene::update(float delta)
         }
     }
 
-    // ÅĞ¶ÏÕ½¶·ÊÇ·ñ½áÊø
+    // åˆ¤æ–­æˆ˜æ–—æ˜¯å¦ç»“æŸ
     if (g_offlineModeControl->getBattle()->getEnemyCount() == 0 || g_offlineModeControl->getBattle()->getMyCount() == 0) {
-        // ¹Ø±ÕÃ¿Ò»Ö¡±»×Ô¶¯µ÷ÓÃµÄ update ·½·¨
+        // å…³é—­æ¯ä¸€å¸§è¢«è‡ªåŠ¨è°ƒç”¨çš„ update æ–¹æ³•
         this->unscheduleUpdate();
 
-        // ÉèÖÃÕ½¶·Ê¤¸º×´Ì¬
+        // è®¾ç½®æˆ˜æ–—èƒœè´ŸçŠ¶æ€
         int myCount = g_offlineModeControl->getBattle()->getMyCount();
         int enemyCount = g_offlineModeControl->getBattle()->getEnemyCount();
-        if (myCount == 0 && enemyCount == 0) { // Æ½¾Ö
+        if (myCount == 0 && enemyCount == 0) { // å¹³å±€
             g_offlineModeControl->getBattle()->setBattleSituation(Draw);
             g_offlineModeControl->getHumanPlayer()->addGoldCoin(REFRESH_SHOP_PRICE + NEW_BATTLE_INCREASED_GOLD_COINS);
         }
-        else if (enemyCount == 0) { // Ê¤Àû
+        else if (enemyCount == 0) { // èƒœåˆ©
             g_offlineModeControl->getBattle()->setBattleSituation(Win);
             g_offlineModeControl->getAIPlayer()->decreaseHealthPoints(myCount * DECREASED_HEALTH_POINTS);
             g_offlineModeControl->getHumanPlayer()->addGoldCoin(myCount * INCREASED_GOLD_COINS + REFRESH_SHOP_PRICE + NEW_BATTLE_INCREASED_GOLD_COINS);
         }
-        else { // Ê§°Ü
+        else { // å¤±è´¥
             g_offlineModeControl->getBattle()->setBattleSituation(Lose);
             g_offlineModeControl->getHumanPlayer()->decreaseHealthPoints(enemyCount * DECREASED_HEALTH_POINTS);
             g_offlineModeControl->getHumanPlayer()->addGoldCoin(REFRESH_SHOP_PRICE + NEW_BATTLE_INCREASED_GOLD_COINS);
         }
 
-        // ÖØÖÃ·ÖÊı±í²ã
+        // é‡ç½®åˆ†æ•°è¡¨å±‚
         auto scoreBoardLayer = dynamic_cast<ScoreBoardLayer*>(this->getChildByName("ScoreBoardLayer"));
         scoreBoardLayer->showScoreBoard(g_offlineModeControl->getHumanPlayer(), g_offlineModeControl->getAIPlayer());
 
-        // ¼ì²éÁ·Ï°Ä£Ê½ÊÇ·ñ½áÊø
+        // æ£€æŸ¥ç»ƒä¹ æ¨¡å¼æ˜¯å¦ç»“æŸ
         const int humanPlayerHealth = g_offlineModeControl->getHumanPlayer()->getHealthPoints();
         const int enemyPlayerHealth = g_offlineModeControl->getAIPlayer()->getHealthPoints();
         bool isEnd = false;
@@ -271,28 +271,28 @@ void OfflineModeBattleScene::update(float delta)
         cocos2d::Color4B outlineColor = cocos2d::Color4B::ORANGE;
         if (humanPlayerHealth == 0 && enemyPlayerHealth == 0) {
             isEnd = true;
-            winningPrompt = u8"Æ½¾Ö";
+            winningPrompt = u8"å¹³å±€";
         }
         else if (enemyPlayerHealth == 0) {
-            // ¼ÓÔØÊ¤ÀûÒôÀÖ
+            // åŠ è½½èƒœåˆ©éŸ³ä¹
             audioPlayer("../Resources/Music/Victory_ElectricRomeo.mp3", true);
 
-            // ¼ÓÔØÊ¤ÀûÒôĞ§
+            // åŠ è½½èƒœåˆ©éŸ³æ•ˆ
             audioPlayer("../Resources/Music/VictorySoundEffect.mp3", false);
 
             isEnd = true;
-            winningPrompt = u8"Ê¤Àû";
+            winningPrompt = u8"èƒœåˆ©";
             outlineColor = cocos2d::Color4B::RED;
         }
         else if (humanPlayerHealth == 0) {
-            // ¼ÓÔØÊ§°ÜÒôÀÖ
+            // åŠ è½½å¤±è´¥éŸ³ä¹
             audioPlayer("../Resources/Music/Defeat_TheDeadlySword.mp3", true);
 
-            // ¼ÓÔØÊ§°ÜÒôĞ§
+            // åŠ è½½å¤±è´¥éŸ³æ•ˆ
             audioPlayer("../Resources/Music/DefeatSoundEffect.mp3", false);
 
             isEnd = true;
-            winningPrompt = u8"Ê§°Ü";
+            winningPrompt = u8"å¤±è´¥";
             outlineColor = cocos2d::Color4B::BLUE;
         }
         if (isEnd) {
@@ -305,7 +305,7 @@ void OfflineModeBattleScene::update(float delta)
             this->addChild(winningLabel, 3);
         }
 
-        // ÊÍ·ÅÁ·Ï°Ä£Ê½¶ÔÕ½³¡¾°
+        // é‡Šæ”¾ç»ƒä¹ æ¨¡å¼å¯¹æˆ˜åœºæ™¯
         auto switchScene = [isEnd](float dt) {
             cocos2d::Director::getInstance()->getRunningScene()->unscheduleUpdate();
             cocos2d::Director::getInstance()->popScene();
@@ -315,101 +315,101 @@ void OfflineModeBattleScene::update(float delta)
             };
         this->scheduleOnce(switchScene, BATTLE_END_DURATION, "OfflineModeBattleSceneToOfflineModePreparationScene");
 
-        // ÖØÖÃ¶ÔÕ½Àà
+        // é‡ç½®å¯¹æˆ˜ç±»
         g_offlineModeControl->releaseBattle();
 
         return;
     }
 
-    // ¸üĞÂÕ½¶·Ó¢ĞÛ
+    // æ›´æ–°æˆ˜æ–—è‹±é›„
     for (int i = 0; i < battleChampionCount; i++) {
-        if (battleChampion[i] != nullptr) { // ´æÔÚÕ½¶·Ó¢ĞÛ
-            // ÉèÖÃÉúÃüÌõºÍ¾­ÑéÌõ
+        if (battleChampion[i] != nullptr) { // å­˜åœ¨æˆ˜æ–—è‹±é›„
+            // è®¾ç½®ç”Ÿå‘½æ¡å’Œç»éªŒæ¡
             battleChampion[i]->getHealthBar()->setScaleX(battleChampion[i]->getAttributes().healthPoints / battleChampion[i]->getMaxHealthPoints());
             battleChampion[i]->getManaBar()->setScaleX((battleChampion[i]->getAttributes().magicPoints / battleChampion[i]->getMaxMagicPoints() >= 1) ? 1 : battleChampion[i]->getAttributes().magicPoints / battleChampion[i]->getMaxMagicPoints());
 
-            if (battleChampion[i]->getAttributes().healthPoints > 0) { // ½ÇÉ«´æ»î
-                if (battleChampion[i]->getIsMoving()) { // ½ÇÉ«ÕıÔÚÒÆ¶¯
-                    // Ôö¼ÓÒÆ¶¯Ê±¼ä¼ä¸ô
+            if (battleChampion[i]->getAttributes().healthPoints > 0) { // è§’è‰²å­˜æ´»
+                if (battleChampion[i]->getIsMoving()) { // è§’è‰²æ­£åœ¨ç§»åŠ¨
+                    // å¢åŠ ç§»åŠ¨æ—¶é—´é—´éš”
                     battleChampion[i]->addMoveIntervalTimer(delta);
 
-                    if (battleChampion[i]->getMoveIntervalTimer() >= (1.0f / battleChampion[i]->getAttributes().movementSpeed)) { // ´ïµ½Í£Ö¹ÒÆ¶¯Ìõ¼ş
-                        // Í£Ö¹Õ½¶·Ó¢ĞÛÒÆ¶¯
+                    if (battleChampion[i]->getMoveIntervalTimer() >= (1.0f / battleChampion[i]->getAttributes().movementSpeed)) { // è¾¾åˆ°åœæ­¢ç§»åŠ¨æ¡ä»¶
+                        // åœæ­¢æˆ˜æ–—è‹±é›„ç§»åŠ¨
                         battleChampion[i]->getSprite()->stopAction(battleChampion[i]->getCurrentMove());
 
-                        // ÖØÖÃÒÆ¶¯Ê±¼ä¼ä¸ô
+                        // é‡ç½®ç§»åŠ¨æ—¶é—´é—´éš”
                         battleChampion[i]->resetMoveIntervalTimer();
 
-                        // ÖØÖÃÕ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+                        // é‡ç½®æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
                         battleChampion[i]->resetIsMoving();
 
-                        // ÖØÖÃµ±Ç°ÒÆ¶¯
+                        // é‡ç½®å½“å‰ç§»åŠ¨
                         battleChampion[i]->resetCurrentMove();
                     }
                 }
-                else { // ½ÇÉ«Í£Ö¹ÒÆ¶¯
-                    if (battleChampion[i]->getAttributes().magicPoints >= battleChampion[i]->getAttributes().skillTriggerThreshold) { // ´ïµ½¼¼ÄÜ´¥·¢Ìõ¼ş
-                        battleChampion[i]->skill(); // ¼¼ÄÜ
+                else { // è§’è‰²åœæ­¢ç§»åŠ¨
+                    if (battleChampion[i]->getAttributes().magicPoints >= battleChampion[i]->getAttributes().skillTriggerThreshold) { // è¾¾åˆ°æŠ€èƒ½è§¦å‘æ¡ä»¶
+                        battleChampion[i]->skill(); // æŠ€èƒ½
                     }
 
-                    // »ñÈ¡×î½üµĞ·½Õ½¶·Ó¢ĞÛ
+                    // è·å–æœ€è¿‘æ•Œæ–¹æˆ˜æ–—è‹±é›„
                     battleChampion[i]->findNearestEnemy(true);
 
-                    if (battleChampion[i]->getCurrentEnemy()) { // »ñÈ¡µ±Ç°Ëø¶¨µĞÈËÕ½¶·Ó¢ĞÛÖ¸Õë
-                        if (battleChampion[i]->isInAttackRange()) { // ¹¥»÷·¶Î§ÄÚ´æÔÚµĞÈËÕ½¶·Ó¢ĞÛ
-                            // Ôö¼Ó¹¥»÷Ê±¼ä¼ä¸ô
+                    if (battleChampion[i]->getCurrentEnemy()) { // è·å–å½“å‰é”å®šæ•Œäººæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
+                        if (battleChampion[i]->isInAttackRange()) { // æ”»å‡»èŒƒå›´å†…å­˜åœ¨æ•Œäººæˆ˜æ–—è‹±é›„
+                            // å¢åŠ æ”»å‡»æ—¶é—´é—´éš”
                             battleChampion[i]->addAttackIntervalTimer(delta);
 
-                            if (battleChampion[i]->getAttackIntervalTimer() >= (1.0f / battleChampion[i]->getAttributes().attackSpeed)) { // ´ïµ½¹¥»÷Ê±¼ä¼ä¸ô
-                                // ¹¥»÷
+                            if (battleChampion[i]->getAttackIntervalTimer() >= (1.0f / battleChampion[i]->getAttributes().attackSpeed)) { // è¾¾åˆ°æ”»å‡»æ—¶é—´é—´éš”
+                                // æ”»å‡»
                                 battleChampion[i]->attack();
 
-                                // ÖØÖÃ¹¥»÷Ê±¼ä¼ä¸ô
+                                // é‡ç½®æ”»å‡»æ—¶é—´é—´éš”
                                 battleChampion[i]->resetAttackIntervalTimer();
                             }
                         }
-                        else { // ¹¥»÷·¶Î§ÄÚ²»´æÔÚµĞÈËÕ½¶·Ó¢ĞÛ
-                            // ÉèÖÃÕ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+                        else { // æ”»å‡»èŒƒå›´å†…ä¸å­˜åœ¨æ•Œäººæˆ˜æ–—è‹±é›„
+                            // è®¾ç½®æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
                             battleChampion[i]->setIsMoving();
 
-                            // ÉèÖÃµ±Ç°Ä¿±êÎ»ÖÃ
+                            // è®¾ç½®å½“å‰ç›®æ ‡ä½ç½®
                             battleChampion[i]->setCurrentDestination(battleChampion[i]->moveTowards(battleChampion[i]->getCurrentEnemy()));
 
-                            // ÉèÖÃµ±Ç°ÒÆ¶¯
+                            // è®¾ç½®å½“å‰ç§»åŠ¨
                             battleChampion[i]->setCurrentMove(cocos2d::MoveTo::create(1.0f / battleChampion[i]->getAttributes().movementSpeed,
                                 LocationMap::getInstance().getLocationMap().at({ BattleArea, battleChampion[i]->getCurrentDestination().x * BATTLE_MAP_COLUMNS + battleChampion[i]->getCurrentDestination().y })));
 
-                            // ÒÆ¶¯ÎäÆ÷
+                            // ç§»åŠ¨æ­¦å™¨
                             battleChampion[i]->getSword()->runAction(cocos2d::MoveTo::create(1.0f / battleChampion[i]->getAttributes().movementSpeed,
                                 Vec2(LocationMap::getInstance().getLocationMap().at({ BattleArea, battleChampion[i]->getCurrentDestination().x * BATTLE_MAP_COLUMNS + battleChampion[i]->getCurrentDestination().y }).x + INTERVAL_BETWEEN_WEAPON_AND_CHAMPION,
                                     LocationMap::getInstance().getLocationMap().at({ BattleArea, battleChampion[i]->getCurrentDestination().x * BATTLE_MAP_COLUMNS + battleChampion[i]->getCurrentDestination().y }).y)));
 
-                            // ÒÆ¶¯ÉúÃüÌõ
+                            // ç§»åŠ¨ç”Ÿå‘½æ¡
                             battleChampion[i]->getHealthBar()->runAction(cocos2d::MoveTo::create(1.0f / battleChampion[i]->getAttributes().movementSpeed,
                                 cocos2d::Vec2(LocationMap::getInstance().getLocationMap().at({ BattleArea, battleChampion[i]->getCurrentDestination().x * BATTLE_MAP_COLUMNS + battleChampion[i]->getCurrentDestination().y }).x,
                                     LocationMap::getInstance().getLocationMap().at({ BattleArea, battleChampion[i]->getCurrentDestination().x * BATTLE_MAP_COLUMNS + battleChampion[i]->getCurrentDestination().y }).y + CHAMPION_HEALTHBAR_VERTICAL_INTERVAL)));
 
-                            // ÒÆ¶¯¾­ÑéÌõ
+                            // ç§»åŠ¨ç»éªŒæ¡
                             battleChampion[i]->getManaBar()->runAction(cocos2d::MoveTo::create(1.0f / battleChampion[i]->getAttributes().movementSpeed,
                                 cocos2d::Vec2(LocationMap::getInstance().getLocationMap().at({ BattleArea, battleChampion[i]->getCurrentDestination().x * BATTLE_MAP_COLUMNS + battleChampion[i]->getCurrentDestination().y }).x,
                                     LocationMap::getInstance().getLocationMap().at({ BattleArea, battleChampion[i]->getCurrentDestination().x * BATTLE_MAP_COLUMNS + battleChampion[i]->getCurrentDestination().y }).y + CHAMPION_MANABAR_VERTICAL_INTERVAL)));
 
-                            // ÒÆ¶¯Õ½¶·Ó¢ĞÛ
+                            // ç§»åŠ¨æˆ˜æ–—è‹±é›„
                             battleChampion[i]->getSprite()->runAction(battleChampion[i]->getCurrentMove());
 
-                            // ·ÅÖÃÕ½¶·Ó¢ĞÛ
+                            // æ”¾ç½®æˆ˜æ–—è‹±é›„
                             g_offlineModeControl->getBattle()->placeChampion(battleChampion[i]->getCurrentDestination().x, battleChampion[i]->getCurrentDestination().y, battleChampion[i]);
 
-                            // ÒÆ³ıÕ½¶·Ó¢ĞÛ
+                            // ç§»é™¤æˆ˜æ–—è‹±é›„
                             g_offlineModeControl->getBattle()->setEmpty(battleChampion[i]->getCurrentLocation().x, battleChampion[i]->getCurrentLocation().y);
 
-                            // ÉèÖÃµ±Ç°Õ½¶·Ó¢ĞÛÎ»ÖÃ
+                            // è®¾ç½®å½“å‰æˆ˜æ–—è‹±é›„ä½ç½®
                             battleChampion[i]->setCurrentPosition(battleChampion[i]->getCurrentDestination().x, battleChampion[i]->getCurrentDestination().y);
                         }
                     }
                 }
             }
-            else { // ½ÇÉ«ËÀÍö
+            else { // è§’è‰²æ­»äº¡
                 battleChampion[i]->setSwordVisible(false);
                 battleChampion[i]->die();
                 battleChampion[i] = nullptr;
