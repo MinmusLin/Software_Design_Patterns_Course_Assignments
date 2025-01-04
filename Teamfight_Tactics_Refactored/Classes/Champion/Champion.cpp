@@ -12,9 +12,42 @@
 #include "proj.win32/AudioPlayer.h"
 
 // 构造函数
-Champion::Champion(const ChampionCategory championCategory) :
-    currentBattle(nullptr),
-    attributes(CHAMPION_ATTR_MAP.at(championCategory)),
+
+/********************************************************************************
+ *
+ *   使用生成器模式重构 - 重构前代码
+ *
+ ********************************************************************************/
+
+// Champion::Champion(const ChampionCategory championCategory) :
+//     currentBattle(nullptr),
+//     attributes(CHAMPION_ATTR_MAP.at(championCategory)),
+//     currentLocation({ 0, 0 }),
+//     currentDestination({ 0, 0 }),
+//     currentEnemy(nullptr),
+//     sword(nullptr),
+//     healthBar(nullptr),
+//     manaBar(nullptr),
+//     currentMove(nullptr),
+//     isMyFlag(false),
+//     isMoving(false),
+//     isAttaking(false),
+//     attackIntervalTimer(0.0f),
+//     moveIntervalTimer(0.0f)
+// {
+//     sprite = Sprite::create(attributes.championImagePath);
+//     maxHealthPoints = attributes.healthPoints;
+//     maxMagicPoints = attributes.skillTriggerThreshold;
+// }
+
+/********************************************************************************
+ *
+ *   使用生成器模式重构 - 重构后代码
+ *
+ ********************************************************************************/
+
+Champion(const ChampionAttributes& attributes) :
+    attributes(attributes),
     currentLocation({ 0, 0 }),
     currentDestination({ 0, 0 }),
     currentEnemy(nullptr),

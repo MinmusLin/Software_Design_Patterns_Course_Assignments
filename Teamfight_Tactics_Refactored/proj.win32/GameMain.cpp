@@ -25,34 +25,65 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     GameMain.cpp
- * File Function: ÓÎÏ·³ÌĞòÈë¿Úµã
- * Author:        ÁÖ¼ÌÉê
+ * File Function: æ¸¸æˆç¨‹åºå…¥å£ç‚¹
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
 
-#define WIN32_LEAN_AND_MEAN // ÅÅ³ı Windows Í·ÎÄ¼şÖĞ²»³£ÓÃµÄ²¿·Ö
+#define WIN32_LEAN_AND_MEAN // æ’é™¤ Windows å¤´æ–‡ä»¶ä¸­ä¸å¸¸ç”¨çš„éƒ¨åˆ†
 
 #include <Windows.h>
 #include <tchar.h>
 #include "platform/CCStdC.h"
 #include "AppDelegate/AppDelegate.h"
 
+/********************************************************************************
+ *
+ *   ä½¿ç”¨ç”Ÿæˆå™¨æ¨¡å¼é‡æ„ - é‡æ„åä»£ç 
+ *
+ ********************************************************************************/
+
+#include "Champion/ChampionBuilder.h"
+#include "Champion/ChampionConfig.h"
+
 /*
  * Function Name:    _tWinMain
- * Function:         ÓÎÏ·³ÌĞòÈë¿Úµã
- * Input Parameters: HINSTANCE hInstance: µ±Ç°ÊµÀıµÄ¾ä±ú
- *                   HINSTANCE hPrevInstance: Ç°Ò»¸öÊµÀıµÄ¾ä±ú
- *                   LPTSTR lpCmdLine: ÃüÁîĞĞ²ÎÊıµÄ×Ö·û´®
- *                   int nCmdShow: ¿ØÖÆ´°¿ÚµÄÏÔÊ¾×´Ì¬
- * Return Value:     ³ÌĞòÍË³ö×´Ì¬
+ * Function:         æ¸¸æˆç¨‹åºå…¥å£ç‚¹
+ * Input Parameters: HINSTANCE hInstance: å½“å‰å®ä¾‹çš„å¥æŸ„
+ *                   HINSTANCE hPrevInstance: å‰ä¸€ä¸ªå®ä¾‹çš„å¥æŸ„
+ *                   LPTSTR lpCmdLine: å‘½ä»¤è¡Œå‚æ•°çš„å­—ç¬¦ä¸²
+ *                   int nCmdShow: æ§åˆ¶çª—å£çš„æ˜¾ç¤ºçŠ¶æ€
+ * Return Value:     ç¨‹åºé€€å‡ºçŠ¶æ€
  */
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
-    // ³õÊ¼»¯Ëæ»úÊıÉú³ÉÆ÷
+    // åˆå§‹åŒ–éšæœºæ•°ç”Ÿæˆå™¨
     srand(static_cast<unsigned int>(time(0)));
 
-    // ³õÊ¼»¯ Cocos2d-x Ó¦ÓÃ³ÌĞòÊµÀı
+    /********************************************************************************
+    *
+    *   ä½¿ç”¨ç”Ÿæˆå™¨æ¨¡å¼é‡æ„ - é‡æ„åä»£ç 
+    *
+    ********************************************************************************/
+
+    json config = ChampionConfig::loadConfig("Config/ChampionConfig.json");
+    for (const auto& championConfig : config["champions"]) {
+        Champion champion = ChampionBuilder()
+            .setHealthPoints(championConfig["healthPoints"])
+            .setAttackDamage(championConfig["attackDamage"])
+            .setAttackSpeed(championConfig["attackSpeed"])
+            .setAttackRange(championConfig["attackRange"])
+            .setDefenseCoefficient(championConfig["defenseCoefficient"])
+            .setMovementSpeed(championConfig["movementSpeed"])
+            .setSkillTriggerThreshold(championConfig["skillTriggerThreshold"])
+            .setPrice(championConfig["price"])
+            .setBond(championConfig["bond"])
+            .setImagePath(championConfig["imagePath"])
+            .build();
+    }
+
+    // åˆå§‹åŒ– Cocos2d-x åº”ç”¨ç¨‹åºå®ä¾‹
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
     AppDelegate app;

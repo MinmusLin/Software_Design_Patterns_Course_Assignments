@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     AudioPlayer.h
- * File Function: ÒôÆµÒıÇæ·½·¨µÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: éŸ³é¢‘å¼•æ“æ–¹æ³•çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -13,13 +13,13 @@
 
 #include "AudioEngine.h"
 
-// ÒôÆµÒıÇæÉèÖÃ
+// éŸ³é¢‘å¼•æ“è®¾ç½®
 extern int g_backgroundMusicSign;
 extern int g_soundEffectSign;
 extern float g_backgroundMusicVolumn;
 extern float g_soundEffectVolumn;
 
-// ÒôÆµÒıÇæ·½·¨
+// éŸ³é¢‘å¼•æ“æ–¹æ³•
 void audioPlayer(const std::string& audioPath, bool isLoop);
 
 #endif // !_AUDIO_PLAYER_H_
