@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OnlineModeMenuScene.h
- * File Function: OnlineModeMenuSceneÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: OnlineModeMenuSceneç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -15,24 +15,24 @@
 
 /*
  * Class Name:     OnlineModeMenuScene
- * Class Function: Áª»úÄ£Ê½²Ëµ¥³¡¾°Àà
+ * Class Function: è”æœºæ¨¡å¼èœå•åœºæ™¯ç±»
  */
 class OnlineModeMenuScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // ÊµÏÖ OnlineModeMenuScene ÀàµÄ create ·½·¨
+    // å®ç° OnlineModeMenuScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(OnlineModeMenuScene);
 
 private:
-    // ·şÎñÆ÷ IPv4 µØÖ·ºÏ·¨ĞÔ¼ìÑé
+    // æœåŠ¡å™¨ IPv4 åœ°å€åˆæ³•æ€§æ£€éªŒ
     bool isValidIPv4(const std::string& str);
 
-    // ·şÎñÆ÷¶Ë¿ÚºÏ·¨ĞÔ¼ìÑé
+    // æœåŠ¡å™¨ç«¯å£åˆæ³•æ€§æ£€éªŒ
     bool isValidPort(const std::string& str);
 };
 

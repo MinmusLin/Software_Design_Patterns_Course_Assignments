@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Player.h
- * File Function: PlayerÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê¡¢ÑîÕ×Õò
+ * File Function: Playerç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³ã€æ¨å…†é•‡
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -15,45 +15,45 @@
 
 /*
  * Class Name:     Player
- * Class Function: Íæ¼ÒÀà
+ * Class Function: ç©å®¶ç±»
  */
 class Player {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Player(const std::string nickname);
 
-    // »ñÈ¡Õ½¶·ÇøµØÍ¼
+    // è·å–æˆ˜æ–—åŒºåœ°å›¾
     void getBattleMap(ChampionCategory(*&battleMap)[BATTLE_MAP_COLUMNS]);
 
-    // ¼õÉÙÍæ¼ÒÉúÃüÖµ
+    // å‡å°‘ç©å®¶ç”Ÿå‘½å€¼
     void decreaseHealthPoints(const int num);
 
-    // »ñÈ¡Íæ¼ÒÉúÃüÖµ
+    // è·å–ç©å®¶ç”Ÿå‘½å€¼
     int getHealthPoints() const;
 
-    // »ñÈ¡Íæ¼ÒêÇ³Æ
+    // è·å–ç©å®¶æ˜µç§°
     std::string getPlayerName() const;
 
 protected:
-    std::string name;                                               // Íæ¼ÒêÇ³Æ
-    ChampionCategory battleMap[PLACE_MAP_ROWS][BATTLE_MAP_COLUMNS]; // Õ½¶·ÇøµØÍ¼
-    ChampionCategory waitingMap[WAITING_MAP_COUNT];                 // ºòÕ½ÇøµØÍ¼
-    std::map<ChampionCategory, int> champions;                      // Õ½¶·Ó¢ĞÛÖÖÀàÓëÊıÁ¿¼üÖµ¶Ô
-    int healthPoints;                                               // Íæ¼ÒÉúÃüÖµ
+    std::string name;                                               // ç©å®¶æ˜µç§°
+    ChampionCategory battleMap[PLACE_MAP_ROWS][BATTLE_MAP_COLUMNS]; // æˆ˜æ–—åŒºåœ°å›¾
+    ChampionCategory waitingMap[WAITING_MAP_COUNT];                 // å€™æˆ˜åŒºåœ°å›¾
+    std::map<ChampionCategory, int> champions;                      // æˆ˜æ–—è‹±é›„ç§ç±»ä¸æ•°é‡é”®å€¼å¯¹
+    int healthPoints;                                               // ç©å®¶ç”Ÿå‘½å€¼
 
-    // »ñÈ¡Ëæ»úÊı
+    // è·å–éšæœºæ•°
     int getRandom(const int n) const;
 
-    // »ñÈ¡µ±Ç°¾ÖÊÆ·ÖÊı
+    // è·å–å½“å‰å±€åŠ¿åˆ†æ•°
     int getStageScore() const;
 
-    // ÆÀ¹Àµ±Ç°¾ÖÊÆ
+    // è¯„ä¼°å½“å‰å±€åŠ¿
     BattleStage evaluateStage(int stageScore) const;
 
-    // Í³¼Æ¸÷ÀàÕ½¶·Ó¢ĞÛÊıÁ¿
+    // ç»Ÿè®¡å„ç±»æˆ˜æ–—è‹±é›„æ•°é‡
     std::map<ChampionCategory, int> countChampionCategories() const;
 
-    // ÎªÌØ¶¨Õ½¶·½×¶ÎËæ»úÑ¡ÔñÕ½¶·Ó¢ĞÛ
+    // ä¸ºç‰¹å®šæˆ˜æ–—é˜¶æ®µéšæœºé€‰æ‹©æˆ˜æ–—è‹±é›„
     ChampionCategory selectRandomChampion(const BattleStage stage) const;
 };
 

@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     ChampionAttributesLayer.h
- * File Function: ChampionAttributesLayerÀàµÄ¶¨Òå
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: ChampionAttributesLayerç±»çš„å®šä¹‰
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -16,24 +16,24 @@
 
 /*
  * Class Name:     ChampionAttributesLayer
- * Class Function: Õ½¶·Ó¢ĞÛÊôĞÔ²ãÀà
+ * Class Function: æˆ˜æ–—è‹±é›„å±æ€§å±‚ç±»
  */
 class ChampionAttributesLayer : public cocos2d::Layer {
 public:
-    // ³õÊ¼»¯Õ½¶·Ó¢ĞÛÊôĞÔ²ã
+    // åˆå§‹åŒ–æˆ˜æ–—è‹±é›„å±æ€§å±‚
     virtual bool init();
 
-    // ÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ
+    // æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§
     void showAttributes(const ChampionCategory championCategory);
 
-    // ÊµÏÖ ChampionAttributesLayer ÀàµÄ create ·½·¨
+    // å®ç° ChampionAttributesLayer ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(ChampionAttributesLayer);
 
 private:
-    // ´´½¨ÊôĞÔ±êÇ©
+    // åˆ›å»ºå±æ€§æ ‡ç­¾
     void createLabel(const std::string& text, const float x, const float y, const int fontSize = CHAMPION_ATTRIBUTES_FONT_SIZE, cocos2d::Color4B const color = cocos2d::Color4B::WHITE);
 
-    // ¸¡µãÊı¸ñÊ½»¯Êä³ö
+    // æµ®ç‚¹æ•°æ ¼å¼åŒ–è¾“å‡º
     std::string formatFloat(const float value, const int precision = 2);
 };
 

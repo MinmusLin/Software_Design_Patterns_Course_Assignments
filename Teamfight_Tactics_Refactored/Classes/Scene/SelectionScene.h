@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     SelectionScene.h
- * File Function: SelectionSceneÀàµÄ¶¨Òå
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: SelectionSceneç±»çš„å®šä¹‰
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  ****************************************************************/
 
@@ -14,17 +14,17 @@
 
 /*
  * Class Name:     SelectionScene
- * Class Function: Ñ¡Ôñ³¡¾°Àà
+ * Class Function: é€‰æ‹©åœºæ™¯ç±»
  */
 class SelectionScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // ÊµÏÖ SelectionScene ÀàµÄ create ·½·¨
+    // å®ç° SelectionScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(SelectionScene);
 };
 

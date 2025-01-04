@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Control.h
- * File Function: ControlÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: Controlç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -17,26 +17,26 @@
 
 /*
  * Class Name:     Control
- * Class Function: ÓÎÏ·¿ØÖÆÀà
+ * Class Function: æ¸¸æˆæ§åˆ¶ç±»
  */
 class Control {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Control(const int maxPlayersNum);
 
-    // »ñÈ¡ÈËÀàÍæ¼ÒÖ¸Õë
+    // è·å–äººç±»ç©å®¶æŒ‡é’ˆ
     HumanPlayer* getHumanPlayer() const;
 
-    // »ñÈ¡¶ÔÕ½ÀàÖ¸Õë
+    // è·å–å¯¹æˆ˜ç±»æŒ‡é’ˆ
     Battle* getBattle() const;
 
-    // ÊÍ·Å¶ÔÕ½Àà
+    // é‡Šæ”¾å¯¹æˆ˜ç±»
     void releaseBattle();
 
 protected:
-    int maxPlayers;           // ×î´óÍæ¼ÒÊıÁ¿
-    HumanPlayer* humanPlayer; // ÈËÀàÍæ¼Ò
-    Battle* battle;           // ¶ÔÕ½Àà
+    int maxPlayers;           // æœ€å¤§ç©å®¶æ•°é‡
+    HumanPlayer* humanPlayer; // äººç±»ç©å®¶
+    Battle* battle;           // å¯¹æˆ˜ç±»
 };
 
 #endif // !_CONTROL_H_

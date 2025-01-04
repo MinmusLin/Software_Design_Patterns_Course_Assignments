@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     AIPlayer.h
- * File Function: AIPlayerÀàµÄ¶¨Òå
- * Author:        ÑîÕ×Õò¡¢ÁÖ¼ÌÉê
+ * File Function: AIPlayerç±»çš„å®šä¹‰
+ * Author:        æ¨å…†é•‡ã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -16,53 +16,53 @@
 
 /*
  * Class Name:     AIPlayer
- * Class Function: AI Íæ¼ÒÀà
+ * Class Function: AI ç©å®¶ç±»
  */
 class AIPlayer : public Player {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     AIPlayer(const std::string nickname, const Difficulty difficulty_);
 
-    // AI ÂäÆåËã·¨
+    // AI è½æ£‹ç®—æ³•
     void makeMoves();
 
 private:
-    Difficulty difficulty; // ÓÎÏ·ÄÑ¶È
+    Difficulty difficulty; // æ¸¸æˆéš¾åº¦
 
-    // È·¶¨µ±Ç°Õ½¶·½×¶Î×´Ì¬
+    // ç¡®å®šå½“å‰æˆ˜æ–—é˜¶æ®µçŠ¶æ€
     BattleStage determineCurrentBattleStage() const;
 
-    // ¼ÆËãÓ¢ĞÛµÄ×ÛºÏÄÜÁ¦
+    // è®¡ç®—è‹±é›„çš„ç»¼åˆèƒ½åŠ›
     ProfessionPreference calculateChampionProficiency(const ChampionAttributes& attributes) const;
 
-    // ¼ÆËãÕ½¶·Ó¢ĞÛ·ÖÊı
+    // è®¡ç®—æˆ˜æ–—è‹±é›„åˆ†æ•°
     double calculateChampionScore(const ChampionAttributes& attributes) const;
 
-    // ¼ÆËãÕ½¶·Ó¢ĞÛ·ÖÊı
+    // è®¡ç®—æˆ˜æ–—è‹±é›„åˆ†æ•°
     double calculateChampionScore(const ChampionCategory championCategory) const;
 
-    // ¼ì²éÊÇ·ñÓĞ¿ÉÉı¼¶Ó¢ĞÛ
+    // æ£€æŸ¥æ˜¯å¦æœ‰å¯å‡çº§è‹±é›„
     bool isUplevelAvailable() const;
 
-    // Ñ¡Ôñ×îÊÊºÏÉı¼¶µÄÓ¢ĞÛ
+    // é€‰æ‹©æœ€é€‚åˆå‡çº§çš„è‹±é›„
     ChampionCategory selectBestChampionForUplevel() const;
 
-    // Éı¼¶ºó¸üĞÂÓ¢ĞÛ×´Ì¬
+    // å‡çº§åæ›´æ–°è‹±é›„çŠ¶æ€
     void updateChampionAfterUplevel(const ChampionCategory championCategory);
 
-    // ÓÅ»¯Õ½¶·Ó¢ĞÛ¶ÓÎéÅäÖÃ
+    // ä¼˜åŒ–æˆ˜æ–—è‹±é›„é˜Ÿä¼é…ç½®
     void optimizeChampionCollection();
 
-    // ²¿ÊğÕ½¶·Ó¢ĞÛ£¨¼òµ¥Ä£Ê½ÓëÀ§ÄÑÄ£Ê½£©
+    // éƒ¨ç½²æˆ˜æ–—è‹±é›„ï¼ˆç®€å•æ¨¡å¼ä¸å›°éš¾æ¨¡å¼ï¼‰
     std::vector<ChampionCategory> deployChampionsByOrder(const int maxChampions);
 
-    // ²¿ÊğÕ½¶·Ó¢ĞÛ£¨Õı³£Ä£Ê½£©
+    // éƒ¨ç½²æˆ˜æ–—è‹±é›„ï¼ˆæ­£å¸¸æ¨¡å¼ï¼‰
     std::vector<ChampionCategory> deployChampionsByRandom(const int maxChampions);
 
-    // ²¿ÊğÕ½¶·Ó¢ĞÛÎ»ÖÃ
+    // éƒ¨ç½²æˆ˜æ–—è‹±é›„ä½ç½®
     void deployChampionPositions(const std::vector<ChampionCategory>& battleChampions);
 
-    // ²¿ÊğÕ½¶·Ó¢ĞÛ
+    // éƒ¨ç½²æˆ˜æ–—è‹±é›„
     void deployChampions();
 };
 

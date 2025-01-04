@@ -1,28 +1,28 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     LocationMap.cpp
- * File Function: LocationMapÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê
+ * File Function: LocationMapç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
 
 #include "LocationMap.h"
 
-// »ñÈ¡µ¥Àı
+// è·å–å•ä¾‹
 LocationMap& LocationMap::getInstance()
 {
     static LocationMap instance;
     return instance;
 }
 
-// »ñÈ¡Î»ÖÃÊôĞÔÓëÆÁÄ»×ø±ê¼üÖµ¶Ô
+// è·å–ä½ç½®å±æ€§ä¸å±å¹•åæ ‡é”®å€¼å¯¹
 const std::map<Location, cocos2d::Vec2>& LocationMap::getLocationMap() const
 {
     return locationMap;
 }
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 LocationMap::LocationMap()
 {
     for (int i = 0; i < WAITING_MAP_COUNT; i++) {

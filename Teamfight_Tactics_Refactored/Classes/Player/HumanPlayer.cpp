@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     HumanPlayer.cpp
- * File Function: HumanPlayerÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê¡¢ÑîÓîçû
+ * File Function: HumanPlayerç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³ã€æ¨å®‡ç¨
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -13,7 +13,7 @@
 #include "LocationMap/LocationMap.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
@@ -21,7 +21,7 @@ using cocos2d::Event;
 using cocos2d::EventMouse;
 using cocos2d::Vec2;
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 HumanPlayer::HumanPlayer(const std::string nickname) :
     Player(nickname),
     currentScene(nullptr),
@@ -44,7 +44,7 @@ HumanPlayer::HumanPlayer(const std::string nickname) :
     std::fill_n(waitingChampion, WAITING_MAP_COUNT, nullptr);
 }
 
-// Îö¹¹º¯Êı
+// ææ„å‡½æ•°
 HumanPlayer::~HumanPlayer()
 {
     for (int i = 0; i < WAITING_MAP_COUNT; i++) {
@@ -61,63 +61,63 @@ HumanPlayer::~HumanPlayer()
     }
 }
 
-// ÉèÖÃµ±Ç°³¡¾°Ö¸Õë
+// è®¾ç½®å½“å‰åœºæ™¯æŒ‡é’ˆ
 void HumanPlayer::setCurrentScene(cocos2d::Scene* currentScene)
 {
     this->currentScene = currentScene;
 }
 
-// Ë¢ĞÂÉÌµê
+// åˆ·æ–°å•†åº—
 void HumanPlayer::refreshShop()
 {
-    // ¼ì²é½ğ±ÒÊıÁ¿
+    // æ£€æŸ¥é‡‘å¸æ•°é‡
     if (goldCoin < REFRESH_SHOP_PRICE) {
         return;
     }
 
-    // ¼ÓÔØµã»÷ÒôĞ§
+    // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
     audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
-    // Ïú»ÙÒÑ´æÔÚ°´Å¥
+    // é”€æ¯å·²å­˜åœ¨æŒ‰é’®
     for (int i = 0; i < MAX_SELECTABLE_CHAMPION_COUNT; i++) {
         if (shopChampionButton[i] != nullptr) {
             removeChampionFromShop(i);
         }
     }
 
-    // Ë¢ĞÂÉÌµêÕ½¶·Ó¢ĞÛÖÖÀà
+    // åˆ·æ–°å•†åº—æˆ˜æ–—è‹±é›„ç§ç±»
     refreshShopChampionCategory();
     refreshCoinLabel(-REFRESH_SHOP_PRICE);
 
-    // ¸üĞÂÉÌµêÕ½¶·Ó¢ĞÛ°´Å¥
+    // æ›´æ–°å•†åº—æˆ˜æ–—è‹±é›„æŒ‰é’®
     for (int i = 0; i < MAX_SELECTABLE_CHAMPION_COUNT; i++) {
-        // ´´½¨°´Å¥
+        // åˆ›å»ºæŒ‰é’®
         shopChampionButton[i] = HoverButton::create(static_cast<std::string>("../Resources/Buttons/OfflineModePreparationSceneButtons/Champion") + std::to_string(shopChampionCategory[i]) + static_cast<std::string>("DefaultButton.png"),
             static_cast<std::string>("../Resources/Buttons/OfflineModePreparationSceneButtons/Champion") + std::to_string(shopChampionCategory[i]) + static_cast<std::string>("HoverButton.png"),
             static_cast<std::string>("../Resources/Buttons/OfflineModePreparationSceneButtons/Champion") + std::to_string(shopChampionCategory[i]) + static_cast<std::string>("ActiveButton.png"));
 
-        // ÉèÖÃ°´Å¥Î»ÖÃ
+        // è®¾ç½®æŒ‰é’®ä½ç½®
         shopChampionButton[i]->setPosition(Vec2(SHOP_CHAMPION_START_X + i * (SHOP_CHAMPION_INTERVAL + SHOP_CHAMPION_WIDTH), SHOP_CHAMPION_START_Y));
 
-        // Îª°´Å¥Ìí¼ÓÊÂ¼ş´¦ÀíÆ÷
+        // ä¸ºæŒ‰é’®æ·»åŠ äº‹ä»¶å¤„ç†å™¨
         shopChampionButton[i]->addTouchEventListener([this, i](cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
             if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
                 addChampion(i);
             }
             });
 
-        // ½«°´Å¥Ìí¼Óµ½³¡¾°ÖĞ
+        // å°†æŒ‰é’®æ·»åŠ åˆ°åœºæ™¯ä¸­
         currentScene->addChild(shopChampionButton[i]);
     }
 }
 
-// »ñÈ¡Õ½¶·Çø×î´óÓ¢ĞÛÊıÁ¿
+// è·å–æˆ˜æ–—åŒºæœ€å¤§è‹±é›„æ•°é‡
 int HumanPlayer::getMaxBattleChampionCount() const
 {
     return maxBattleChampionCount;
 }
 
-// »ñÈ¡Õ½¶·Çøµ±Ç°Ó¢ĞÛÊıÁ¿
+// è·å–æˆ˜æ–—åŒºå½“å‰è‹±é›„æ•°é‡
 int HumanPlayer::getCurrentBattleChampionCount() const
 {
     int count = 0;
@@ -131,33 +131,33 @@ int HumanPlayer::getCurrentBattleChampionCount() const
     return count;
 }
 
-// Ôö¼ÓÕ½¶·ÇøÓ¢ĞÛÊıÁ¿
+// å¢åŠ æˆ˜æ–—åŒºè‹±é›„æ•°é‡
 void HumanPlayer::addBattleChampionCount(const int num)
 {
     TalentRune talentRune = static_cast<TalentRune>(cocos2d::UserDefault::getInstance()->getIntegerForKey("TalentRune"));
     if (maxBattleChampionCount < (talentRune == General ? BATTLE_AREA_MAX_CHAMPION_COUNT : BATTLE_AREA_MAX_CHAMPION_COUNT - 1) && goldCoin >= UPLEVEL_PRICE.at(maxBattleChampionCount)) {
-        // ¼ÓÔØµã»÷ÒôĞ§
+        // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
         audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
         refreshCoinLabel(-UPLEVEL_PRICE.at(maxBattleChampionCount));
         maxBattleChampionCount += num;
         auto levelLabel = dynamic_cast<Label*>(currentScene->getChildByName("LevelLabel"));
         if (maxBattleChampionCount >= (talentRune == General ? BATTLE_AREA_MAX_CHAMPION_COUNT : BATTLE_AREA_MAX_CHAMPION_COUNT - 1)) {
-            levelLabel->setString(u8"×î¸ßµÈ¼¶");
+            levelLabel->setString(u8"æœ€é«˜ç­‰çº§");
         }
         else {
-            levelLabel->setString(u8"µÈ¼¶£º" + std::to_string(maxBattleChampionCount - BATTLE_AREA_MIN_CHAMPION_COUNT + 1));
+            levelLabel->setString(u8"ç­‰çº§ï¼š" + std::to_string(maxBattleChampionCount - BATTLE_AREA_MIN_CHAMPION_COUNT + 1));
         }
     }
 }
 
-// »ñÈ¡½ğ±ÒÊıÁ¿
+// è·å–é‡‘å¸æ•°é‡
 int HumanPlayer::getGoldCoin() const
 {
     return goldCoin;
 }
 
-// Ôö¼Ó½ğ±ÒÊıÁ¿
+// å¢åŠ é‡‘å¸æ•°é‡
 void HumanPlayer::addGoldCoin(const int num)
 {
     goldCoin += num;
@@ -165,7 +165,7 @@ void HumanPlayer::addGoldCoin(const int num)
         goldCoin += RUNE_PIRATE_GOLD_COINS_BUFF;
 }
 
-// ³õÊ¼»¯Õ½¶·Ó¢ĞÛÉ¾³ı°´Å¥
+// åˆå§‹åŒ–æˆ˜æ–—è‹±é›„åˆ é™¤æŒ‰é’®
 void HumanPlayer::initializeDeleteChampionButton()
 {
     deleteChampionButton = HoverButton::create("../Resources/Buttons/OfflineModePreparationSceneButtons/DeleteChampionDefaultButton.png",
@@ -177,7 +177,7 @@ void HumanPlayer::initializeDeleteChampionButton()
     currentScene->addChild(deleteChampionButton);
 }
 
-// ÉèÖÃÕ½¶·ÇøµØÍ¼
+// è®¾ç½®æˆ˜æ–—åŒºåœ°å›¾
 void HumanPlayer::setBattleMap(const ChampionCategory battleMap[][BATTLE_MAP_COLUMNS])
 {
     for (int i = 0; i < PLACE_MAP_ROWS; i++) {
@@ -187,24 +187,24 @@ void HumanPlayer::setBattleMap(const ChampionCategory battleMap[][BATTLE_MAP_COL
     }
 }
 
-// Ìí¼ÓÕ½¶·Ó¢ĞÛ
+// æ·»åŠ æˆ˜æ–—è‹±é›„
 void HumanPlayer::addChampion(const int index)
 {
     for (int pos = 0; pos < WAITING_MAP_COUNT; pos++) {
         if (waitingMap[pos] == NoChampion) {
-            // ¼ì²é½ğ±ÒÊıÁ¿
+            // æ£€æŸ¥é‡‘å¸æ•°é‡
             if (goldCoin < CHAMPION_ATTR_MAP.at(shopChampionCategory[index]).price) {
                 return;
             }
 
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
-            // ´ÓÉÌµêÖĞÒÆ³ıÕ½¶·Ó¢ĞÛ
+            // ä»å•†åº—ä¸­ç§»é™¤æˆ˜æ–—è‹±é›„
             refreshCoinLabel(-CHAMPION_ATTR_MAP.at(shopChampionCategory[index]).price);
             removeChampionFromShop(index);
 
-            // Éı¼¶Õ½¶·Ó¢ĞÛ²¢ĞŞ¸ÄºòÕ½ÇøÆåÅÌĞÅÏ¢
+            // å‡çº§æˆ˜æ–—è‹±é›„å¹¶ä¿®æ”¹å€™æˆ˜åŒºæ£‹ç›˜ä¿¡æ¯
             if (countSpecificChampion(shopChampionCategory[index]) >= CHAMPION_UPLEVEL_COUNT - 1) {
                 ChampionCategory newChampion = static_cast<ChampionCategory>(shopChampionCategory[index] + 1);
                 waitingMap[pos] = newChampion;
@@ -228,13 +228,13 @@ void HumanPlayer::addChampion(const int index)
                 }
             }
 
-            // ½«¾«ÁéÌí¼Óµ½µ±Ç°³¡¾°
+            // å°†ç²¾çµæ·»åŠ åˆ°å½“å‰åœºæ™¯
             auto champion = waitingChampion[pos];
             auto championSprite = champion->getSprite();
             championSprite->setPosition(LocationMap::getInstance().getLocationMap().at({ WaitingArea, pos }));
             currentScene->addChild(championSprite, 1);
 
-            // Êó±êÊÂ¼ş¼àÌıÆ÷
+            // é¼ æ ‡äº‹ä»¶ç›‘å¬å™¨
             auto mouseListener = cocos2d::EventListenerMouse::create();
             mouseListener->onMouseDown = CC_CALLBACK_1(HumanPlayer::onMouseDown, this, championSprite);
             mouseListener->onMouseMove = CC_CALLBACK_1(HumanPlayer::onMouseMove, this, championSprite);
@@ -246,19 +246,19 @@ void HumanPlayer::addChampion(const int index)
     }
 }
 
-// °´ÏÂÊó±êÊÂ¼ş´¥·¢º¯Êı
+// æŒ‰ä¸‹é¼ æ ‡äº‹ä»¶è§¦å‘å‡½æ•°
 void HumanPlayer::onMouseDown(Event* event, Sprite* championSprite)
 {
     EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
     Vec2 location = mouseEvent->getLocationInView();
     if (championSprite->getBoundingBox().containsPoint(location) && mouseEvent->getMouseButton() == EventMouse::MouseButton::BUTTON_LEFT) {
-        // ±ê¼ÇÑ¡ÖĞ×´Ì¬
+        // æ ‡è®°é€‰ä¸­çŠ¶æ€
         championSprite->setUserData(reinterpret_cast<void*>(1));
         nearestPlacementMarker = Sprite::create("../Resources/ImageElements/NearestPlacementMarker.png");
         nearestPlacementMarker->setVisible(false);
         currentScene->addChild(nearestPlacementMarker);
 
-        // È·¶¨Õ½¶·Ó¢ĞÛÒÆ¶¯ÆğÊ¼Î»ÖÃÊôĞÔ
+        // ç¡®å®šæˆ˜æ–—è‹±é›„ç§»åŠ¨èµ·å§‹ä½ç½®å±æ€§
         for (const auto& pair : LocationMap::getInstance().getLocationMap()) {
             if (pair.second.equals(championSprite->getPosition())) {
                 startLocation = pair.first;
@@ -266,7 +266,7 @@ void HumanPlayer::onMouseDown(Event* event, Sprite* championSprite)
             }
         }
 
-        // ¸üĞÂµØÍ¼ĞÅÏ¢²¢¿ªÆôÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ²ãºÍ·ÅÖÃ±ê¼Ç²ã
+        // æ›´æ–°åœ°å›¾ä¿¡æ¯å¹¶å¼€å¯æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§å±‚å’Œæ”¾ç½®æ ‡è®°å±‚
         if (startLocation.status == WaitingArea) {
             ChampionCategory currentChampionCategory = waitingMap[startLocation.position];
             waitingMap[startLocation.position] = NoChampion;
@@ -280,15 +280,15 @@ void HumanPlayer::onMouseDown(Event* event, Sprite* championSprite)
     }
 }
 
-// ÒÆ¶¯Êó±êÊÂ¼ş´¥·¢º¯Êı
+// ç§»åŠ¨é¼ æ ‡äº‹ä»¶è§¦å‘å‡½æ•°
 void HumanPlayer::onMouseMove(Event* event, Sprite* championSprite)
 {
     if (championSprite->getUserData() != nullptr) {
-        // ±éÀúËùÓĞ¿É·ÅÖÃÎ»ÖÃ
+        // éå†æ‰€æœ‰å¯æ”¾ç½®ä½ç½®
         nearestPlacementMarker->setPosition(findNearestPoint(championSprite));
         nearestPlacementMarker->setVisible(true);
 
-        // ÒÆ¶¯Õ½¶·Ó¢ĞÛ
+        // ç§»åŠ¨æˆ˜æ–—è‹±é›„
         EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
         Vec2 location = mouseEvent->getLocationInView();
         if (location.x >= BATTLE_SCENE_DELETE_CHAMPION_BUTTON_LEFT_BOUNDARY
@@ -301,16 +301,16 @@ void HumanPlayer::onMouseMove(Event* event, Sprite* championSprite)
     }
 }
 
-// ÊÍ·ÅÊó±êÊÂ¼ş´¥·¢º¯Êı
+// é‡Šæ”¾é¼ æ ‡äº‹ä»¶è§¦å‘å‡½æ•°
 void HumanPlayer::onMouseUp(Event* event, Sprite* championSprite)
 {
     if (championSprite->getUserData() != nullptr) {
-        // È¡ÏûÑ¡ÖĞ×´Ì¬
+        // å–æ¶ˆé€‰ä¸­çŠ¶æ€
         championSprite->setUserData(nullptr);
         nearestPlacementMarker->removeFromParent();
         nearestPlacementMarker = nullptr;
 
-        // É¾³ıµ±Ç°Õ½¶·Ó¢ĞÛ
+        // åˆ é™¤å½“å‰æˆ˜æ–—è‹±é›„
         bool isDelete = false;
         const Vec2 currentPos = championSprite->getPosition();
         if (currentPos.x >= BATTLE_SCENE_DELETE_CHAMPION_BUTTON_LEFT_BOUNDARY
@@ -322,10 +322,10 @@ void HumanPlayer::onMouseUp(Event* event, Sprite* championSprite)
         }
 
         if (!isDelete) {
-            // ±éÀúËùÓĞ¿É·ÅÖÃÎ»ÖÃ
+            // éå†æ‰€æœ‰å¯æ”¾ç½®ä½ç½®
             Vec2 nearestPoint = findNearestPoint(championSprite);
 
-            // È·¶¨Õ½¶·Ó¢ĞÛÒÆ¶¯Ä¿±êÎ»ÖÃÊôĞÔ
+            // ç¡®å®šæˆ˜æ–—è‹±é›„ç§»åŠ¨ç›®æ ‡ä½ç½®å±æ€§
             Location targetLocation;
             for (const auto& pair : LocationMap::getInstance().getLocationMap()) {
                 if (pair.second.equals(nearestPoint)) {
@@ -334,7 +334,7 @@ void HumanPlayer::onMouseUp(Event* event, Sprite* championSprite)
                 }
             }
 
-            // ¸üĞÂµØÍ¼ĞÅÏ¢
+            // æ›´æ–°åœ°å›¾ä¿¡æ¯
             Champion* currentChampion;
             if (startLocation.status == WaitingArea) {
                 currentChampion = waitingChampion[startLocation.position];
@@ -353,16 +353,16 @@ void HumanPlayer::onMouseUp(Event* event, Sprite* championSprite)
                 battleMap[targetLocation.position / BATTLE_MAP_COLUMNS][targetLocation.position % BATTLE_MAP_COLUMNS] = currentChampion->getAttributes().championCategory;
             }
 
-            // ÒÆ¶¯Õ½¶·Ó¢ĞÛ
+            // ç§»åŠ¨æˆ˜æ–—è‹±é›„
             championSprite->setPosition(nearestPoint);
         }
 
-        // ¹Ø±ÕÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ²ãºÍ·ÅÖÃ±ê¼Ç²ã
+        // å…³é—­æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§å±‚å’Œæ”¾ç½®æ ‡è®°å±‚
         hideChampionAttributesLayerAndPlacementMarkerLayer();
     }
 }
 
-// ´ÓÉÌµêÖĞÒÆ³ıÕ½¶·Ó¢ĞÛ
+// ä»å•†åº—ä¸­ç§»é™¤æˆ˜æ–—è‹±é›„
 void HumanPlayer::removeChampionFromShop(const int index)
 {
     shopChampionButton[index]->setEnabled(false);
@@ -370,27 +370,27 @@ void HumanPlayer::removeChampionFromShop(const int index)
     shopChampionButton[index] = nullptr;
 }
 
-// ¿ªÆôÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ²ãºÍ·ÅÖÃ±ê¼Ç²ã
+// å¼€å¯æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§å±‚å’Œæ”¾ç½®æ ‡è®°å±‚
 void HumanPlayer::showChampionAttributesLayerAndPlacementMarkerLayer(const ChampionCategory championCategory)
 {
     if (championAttributesLayer == nullptr) {
-        // ´´½¨Õ½¶·Ó¢ĞÛÊôĞÔ²ã
+        // åˆ›å»ºæˆ˜æ–—è‹±é›„å±æ€§å±‚
         championAttributesLayer = ChampionAttributesLayer::create();
         championAttributesLayer->showAttributes(championCategory);
         currentScene->addChild(championAttributesLayer);
 
-        // ´´½¨·ÅÖÃ±ê¼Ç²ã
+        // åˆ›å»ºæ”¾ç½®æ ‡è®°å±‚
         placementMarkerLayer = PlacementMarkerLayer::create();
         placementMarkerLayer->showPlacementMarker(battleMap, waitingMap);
         currentScene->addChild(placementMarkerLayer);
 
-        // ¿ªÆôÕ½¶·Ó¢ĞÛÉ¾³ı°´Å¥
+        // å¼€å¯æˆ˜æ–—è‹±é›„åˆ é™¤æŒ‰é’®
         deleteChampionButton->setEnabled(true);
         deleteChampionButton->setVisible(true);
     }
 }
 
-// ¹Ø±ÕÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ²ãºÍ·ÅÖÃ±ê¼Ç²ã
+// å…³é—­æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§å±‚å’Œæ”¾ç½®æ ‡è®°å±‚
 void HumanPlayer::hideChampionAttributesLayerAndPlacementMarkerLayer()
 {
     currentScene->removeChild(championAttributesLayer);
@@ -401,7 +401,7 @@ void HumanPlayer::hideChampionAttributesLayerAndPlacementMarkerLayer()
     deleteChampionButton->setEnabled(false);
 }
 
-// É¾³ıµ±Ç°Õ½¶·Ó¢ĞÛ
+// åˆ é™¤å½“å‰æˆ˜æ–—è‹±é›„
 void HumanPlayer::deleteCurrentChampion()
 {
     if (startLocation.status == WaitingArea) {
@@ -416,7 +416,7 @@ void HumanPlayer::deleteCurrentChampion()
     }
 }
 
-// Ë¢ĞÂ½ğ±ÒÊıÁ¿±êÇ©
+// åˆ·æ–°é‡‘å¸æ•°é‡æ ‡ç­¾
 void HumanPlayer::refreshCoinLabel(int num)
 {
     goldCoin += num;
@@ -424,7 +424,7 @@ void HumanPlayer::refreshCoinLabel(int num)
     coinLabel->setString(std::to_string(goldCoin));
 }
 
-// Í³¼ÆÌØ¶¨ÖÖÀàÕ½¶·Ó¢ĞÛµÄÊıÁ¿
+// ç»Ÿè®¡ç‰¹å®šç§ç±»æˆ˜æ–—è‹±é›„çš„æ•°é‡
 int HumanPlayer::countSpecificChampion(const ChampionCategory championCategory)
 {
     int count = 0;
@@ -443,7 +443,7 @@ int HumanPlayer::countSpecificChampion(const ChampionCategory championCategory)
     return count;
 }
 
-// Éı¼¶Õ½¶·Ó¢ĞÛ
+// å‡çº§æˆ˜æ–—è‹±é›„
 void HumanPlayer::uplevelChampion(const ChampionCategory championCategory)
 {
     for (int i = 0; i < WAITING_MAP_COUNT; i++) {
@@ -464,12 +464,12 @@ void HumanPlayer::uplevelChampion(const ChampionCategory championCategory)
     }
 }
 
-// Ñ°ÕÒ×î½ü¿É·ÅÖÃ×ø±ê
+// å¯»æ‰¾æœ€è¿‘å¯æ”¾ç½®åæ ‡
 Vec2 HumanPlayer::findNearestPoint(Sprite* championSprite)
 {
     float minDistance = FLT_MAX;
     Vec2 nearestPoint;
-    if (getCurrentBattleChampionCount() < maxBattleChampionCount) { // Î´´ïµ½Õ½¶·Çø×î´óÓ¢ĞÛÊıÁ¿
+    if (getCurrentBattleChampionCount() < maxBattleChampionCount) { // æœªè¾¾åˆ°æˆ˜æ–—åŒºæœ€å¤§è‹±é›„æ•°é‡
         const Vec2 currentPos = championSprite->getPosition();
         for (const auto& entry : LocationMap::getInstance().getLocationMap()) {
             const Location currentLocation = entry.first;
@@ -495,7 +495,7 @@ Vec2 HumanPlayer::findNearestPoint(Sprite* championSprite)
             }
         }
     }
-    else { // ÒÑ´ïµ½Õ½¶·Çø×î´óÓ¢ĞÛÊıÁ¿
+    else { // å·²è¾¾åˆ°æˆ˜æ–—åŒºæœ€å¤§è‹±é›„æ•°é‡
         Vec2 currentPos = championSprite->getPosition();
         for (const auto& entry : LocationMap::getInstance().getLocationMap()) {
             Location currentLocation = entry.first;
@@ -516,7 +516,7 @@ Vec2 HumanPlayer::findNearestPoint(Sprite* championSprite)
     return nearestPoint;
 }
 
-// Ë¢ĞÂÉÌµêÕ½¶·Ó¢ĞÛÖÖÀà
+// åˆ·æ–°å•†åº—æˆ˜æ–—è‹±é›„ç§ç±»
 void HumanPlayer::refreshShopChampionCategory()
 {
     champions = countChampionCategories();

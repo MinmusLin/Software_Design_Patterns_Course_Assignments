@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     SettingsScene.cpp
- * File Function: SettingsSceneÀàµÄÊµÏÖ
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: SettingsSceneç±»çš„å®žçŽ°
+ * Author:        åˆ˜æ·‘ä»ªã€æž—ç»§ç”³
  * Update Date:   2023/12/31
  ****************************************************************/
 
@@ -12,22 +12,22 @@
 #include "AudioEngine.h"
 #include "proj.win32/Constant.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// ÒôÆµÒýÇæÉèÖÃ
+// éŸ³é¢‘å¼•æ“Žè®¾ç½®
 int g_backgroundMusicSign = DEFAULT_MUSIC_SIGN;
 int g_soundEffectSign = DEFAULT_MUSIC_SIGN;
 float g_backgroundMusicVolumn = DEFAULT_MUSIC_VOLUMN;
 float g_soundEffectVolumn = DEFAULT_MUSIC_VOLUMN;
 
-// ÓÎÏ·ÄÑ¶È
+// æ¸¸æˆéš¾åº¦
 Difficulty g_difficulty = Normal;
 
-// ÒôÆµÒýÇæ·½·¨
+// éŸ³é¢‘å¼•æ“Žæ–¹æ³•
 void audioPlayer(const std::string& audioPath, bool isLoop)
 {
     if (isLoop) {
@@ -43,7 +43,7 @@ void audioPlayer(const std::string& audioPath, bool isLoop)
     }
 }
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* SettingsScene::createScene()
 {
     auto scene = Scene::create();
@@ -52,24 +52,24 @@ Scene* SettingsScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool SettingsScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ¼ÓÔØÒôÀÖ
+    // åŠ è½½éŸ³ä¹
     audioPlayer("../Resources/Music/SettingsScene_Starlight.mp3", true);
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/SettingsScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨»¬¶¯Ìõ
+    // åˆ›å»ºæ»‘åŠ¨æ¡
     auto backgroundMusicVolumnSlider = cocos2d::ui::Slider::create();
     backgroundMusicVolumnSlider->loadBarTexture("../Resources/ImageElements/SliderBackground.png");
     backgroundMusicVolumnSlider->loadSlidBallTextures("../Resources/ImageElements/SliderNodeNormal.png",
@@ -87,10 +87,10 @@ bool SettingsScene::init()
     effectVolumnslider->setPosition(cocos2d::Vec2(screenSize.width / 2 + SETTINGS_SCENE_SLIDER_OFFSET_X, screenSize.height / 2 + SETTINGS_SCENE_EFFSLIDER_OFFSET_Y));
     effectVolumnslider->setPercent(g_soundEffectVolumn * 100);
 
-    // Îª»¬¶¯ÌõÌí¼ÓÊÂ¼þ´¦ÀíÆ÷
+    // ä¸ºæ»‘åŠ¨æ¡æ·»åŠ äº‹ä»¶å¤„ç†å™¨
     backgroundMusicVolumnSlider->addEventListener([=](Ref* sender, cocos2d::ui::Slider::EventType type) {
         if (type == cocos2d::ui::Slider::EventType::ON_SLIDEBALL_DOWN) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
         }
         if (type == cocos2d::ui::Slider::EventType::ON_PERCENTAGE_CHANGED) {
@@ -102,7 +102,7 @@ bool SettingsScene::init()
         });
     effectVolumnslider->addEventListener([=](Ref* sender, cocos2d::ui::Slider::EventType type) {
         if (type == cocos2d::ui::Slider::EventType::ON_SLIDEBALL_DOWN) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
         }
         if (type == cocos2d::ui::Slider::EventType::ON_PERCENTAGE_CHANGED) {
@@ -113,18 +113,18 @@ bool SettingsScene::init()
         }
         });
 
-    // ½«»¬¶¯ÌõÌí¼ÓÖÁ³¡¾°
+    // å°†æ»‘åŠ¨æ¡æ·»åŠ è‡³åœºæ™¯
     this->addChild(backgroundMusicVolumnSlider);
     this->addChild(effectVolumnslider);
 
-    // ´´½¨°´Å¥
+    // åˆ›å»ºæŒ‰é’®
     auto returnMenuButton = HoverButton::create("../Resources/Buttons/SettingsSceneButtons/ReturnMenuDefaultButton.png",
         "../Resources/Buttons/SettingsSceneButtons/ReturnMenuHoverButton.png",
         "../Resources/Buttons/SettingsSceneButtons/ReturnMenuActiveButton.png");
     returnMenuButton->setPosition(Vec2(screenSize.width / 2 + SETTINGS_SCENE_RETURN_MENU_BUTTON_OFFSET_X, screenSize.height / 2 + SETTINGS_SCENE_RETURN_MENU_BUTTON_OFFSET_Y));
     returnMenuButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, MenuScene::createScene(), cocos2d::Color3B::WHITE));
@@ -132,7 +132,7 @@ bool SettingsScene::init()
         });
     this->addChild(returnMenuButton);
 
-    // ´´½¨¸´Ñ¡¿ò
+    // åˆ›å»ºå¤é€‰æ¡†
     auto easyCheckBox = cocos2d::ui::CheckBox::create("../Resources/ImageElements/CheckBoxNormal.png",
         "../Resources/ImageElements/CheckBoxNormalPress.png",
         "../Resources/ImageElements/CheckBoxActive.png",
@@ -152,10 +152,10 @@ bool SettingsScene::init()
     normalCheckBox->setPosition(cocos2d::Vec2(screenSize.width / 2 + SETTINGS_SCENE_NORMAL_CHECKBOX_OFFSET_X, screenSize.height / 2 + SETTINGS_SCENE_CHECKBOX_OFFSET_Y));
     difficultCheckBox->setPosition(cocos2d::Vec2(screenSize.width / 2 + SETTINGS_SCENE_DIFFICULT_CHECKBOX_OFFSET_X, screenSize.height / 2 + SETTINGS_SCENE_CHECKBOX_OFFSET_Y));
 
-    // Îª¸´Ñ¡¿òÌí¼ÓÊÂ¼þ´¦ÀíÆ÷
+    // ä¸ºå¤é€‰æ¡†æ·»åŠ äº‹ä»¶å¤„ç†å™¨
     easyCheckBox->addEventListener([=](Ref* sender, cocos2d::ui::CheckBox::EventType type) {
         if (type == cocos2d::ui::CheckBox::EventType::SELECTED) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             g_difficulty = Easy;
@@ -163,7 +163,7 @@ bool SettingsScene::init()
             difficultCheckBox->setSelected(false);
         }
         else if (type == cocos2d::ui::CheckBox::EventType::UNSELECTED) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             easyCheckBox->setSelected(true);
@@ -171,7 +171,7 @@ bool SettingsScene::init()
         });
     normalCheckBox->addEventListener([=](Ref* sender, cocos2d::ui::CheckBox::EventType type) {
         if (type == cocos2d::ui::CheckBox::EventType::SELECTED) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             g_difficulty = Normal;
@@ -179,7 +179,7 @@ bool SettingsScene::init()
             difficultCheckBox->setSelected(false);
         }
         else if (type == cocos2d::ui::CheckBox::EventType::UNSELECTED) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             normalCheckBox->setSelected(true);
@@ -188,7 +188,7 @@ bool SettingsScene::init()
     difficultCheckBox->addEventListener([=](Ref* sender, cocos2d::ui::CheckBox::EventType type) {
         CCLOG("%d", g_difficulty);
         if (type == cocos2d::ui::CheckBox::EventType::SELECTED) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             g_difficulty = Hard;
@@ -196,14 +196,14 @@ bool SettingsScene::init()
             easyCheckBox->setSelected(false);
         }
         else if (type == cocos2d::ui::CheckBox::EventType::UNSELECTED) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             difficultCheckBox->setSelected(true);
         }
         });
 
-    // ½«¸´Ñ¡¿òÌí¼ÓÖÁ³¡¾°
+    // å°†å¤é€‰æ¡†æ·»åŠ è‡³åœºæ™¯
     if (g_difficulty == Easy) {
         easyCheckBox->setSelected(true);
     }

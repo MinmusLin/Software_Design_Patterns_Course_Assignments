@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     InitialScene.h
- * File Function: InitialSceneÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: InitialSceneç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -15,24 +15,24 @@
 
 /*
  * Class Name:     InitialScene
- * Class Function: ³õÊ¼³¡¾°Àà
+ * Class Function: åˆå§‹åœºæ™¯ç±»
  */
 class InitialScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // ÊµÏÖ InitialScene ÀàµÄ create ·½·¨
+    // å®ç° InitialScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(InitialScene);
 
 private:
-    // ¼ì²é×Ö·ûºÏ·¨ĞÔ
+    // æ£€æŸ¥å­—ç¬¦åˆæ³•æ€§
     bool isValidCharacter(const char32_t ch);
 
-    // ¼ì²é×Ö·û´®ºÏ·¨ĞÔ
+    // æ£€æŸ¥å­—ç¬¦ä¸²åˆæ³•æ€§
     bool isValidString(const std::string& str);
 };
 

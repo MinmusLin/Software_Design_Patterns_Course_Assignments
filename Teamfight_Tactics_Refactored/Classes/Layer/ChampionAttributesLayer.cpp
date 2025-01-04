@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     ChampionAttributesLayer.cpp
- * File Function: ChampionAttributesLayerÀàµÄÊµÏÖ
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: ChampionAttributesLayerç±»çš„å®ç°
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -11,20 +11,20 @@
 #include <iomanip>
 #include "ChampionAttributesLayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// ³õÊ¼»¯Õ½¶·Ó¢ĞÛÊôĞÔ²ã
+// åˆå§‹åŒ–æˆ˜æ–—è‹±é›„å±æ€§å±‚
 bool ChampionAttributesLayer::init()
 {
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     if (!Layer::init()) {
         return false;
     }
 
-    // ´´½¨Õ½¶·Ó¢ĞÛÊôĞÔ²ã±³¾°Í¼
+    // åˆ›å»ºæˆ˜æ–—è‹±é›„å±æ€§å±‚èƒŒæ™¯å›¾
     Sprite* backgroundImage = Sprite::create("../Resources/ImageElements/ChampionAttributesLayerBackground.png");
     backgroundImage->setPosition(BACKGROUND_IMAGE_START_X, BACKGROUND_IMAGE_START_Y);
     backgroundImage->setOpacity(BACKGROUND_IMAGE_TRANSPARENCY);
@@ -33,20 +33,20 @@ bool ChampionAttributesLayer::init()
     return true;
 }
 
-// ÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ
+// æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§
 void ChampionAttributesLayer::showAttributes(const ChampionCategory championCategory)
 {
-    // »ñÈ¡Õ½¶·Ó¢ĞÛÊôĞÔ
+    // è·å–æˆ˜æ–—è‹±é›„å±æ€§
     auto championAttributes = CHAMPION_ATTR_MAP.at(championCategory);
 
-    // ´´½¨Õ½¶·Ó¢ĞÛÍ¼Æ¬
+    // åˆ›å»ºæˆ˜æ–—è‹±é›„å›¾ç‰‡
     int championNumber = championAttributes.championCategory % 2 == 1 ? championAttributes.championCategory : championAttributes.championCategory - 1;
     std::string championImagePath = "../Resources/Champions/Champion" + std::to_string(championNumber) + "&" + std::to_string(championNumber + 1) + ".png";
     Sprite* championImage = Sprite::create(championImagePath);
     championImage->setPosition(CHAMPION_IMAGE_START_X, CHAMPION_IMAGE_START_Y);
     this->addChild(championImage);
 
-    // ´´½¨Õ½¶·Ó¢ĞÛ±êÇ©
+    // åˆ›å»ºæˆ˜æ–—è‹±é›„æ ‡ç­¾
     createLabel(championAttributes.championName, CHAMPION_NAME_LABEL_START_X, CHAMPION_NAME_LABEL_START_Y, CHAMPION_NAME_LABEL_FONT_SIZE, championAttributes.championCategory % 2 == 1 ? cocos2d::Color4B::WHITE : cocos2d::Color4B({ GOLDEN_R, GOLDEN_G, GOLDEN_B }));
     createLabel(std::to_string(championAttributes.level), LEVEL_LABEL_START_X, LEVEL_LABEL_START_Y);
     createLabel(std::to_string(championAttributes.healthPoints), FIRST_COLUMN_START_X, HEALTH_POINTS_LEBEL_START_Y);
@@ -59,7 +59,7 @@ void ChampionAttributesLayer::showAttributes(const ChampionCategory championCate
     createLabel(std::to_string(championAttributes.skillTriggerThreshold), SECOND_COLUMN_START_X, SKILL_TRIGGER_THRESHOLD_START_Y);
 }
 
-// ´´½¨ÊôĞÔ±êÇ©
+// åˆ›å»ºå±æ€§æ ‡ç­¾
 void ChampionAttributesLayer::createLabel(const std::string& text, const float x, const float y, const int fontSize, const cocos2d::Color4B color)
 {
     auto label = Label::createWithTTF(text, "../Resources/Fonts/DingDingJinBuTi.ttf", fontSize);
@@ -69,7 +69,7 @@ void ChampionAttributesLayer::createLabel(const std::string& text, const float x
     this->addChild(label);
 }
 
-// ¸¡µãÊı¸ñÊ½»¯Êä³ö
+// æµ®ç‚¹æ•°æ ¼å¼åŒ–è¾“å‡º
 std::string ChampionAttributesLayer::formatFloat(const float value, const int precision)
 {
     std::ostringstream oss;

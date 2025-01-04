@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     InitialScene.cpp
- * File Function: InitialSceneÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê¡¢ÁõÊçÒÇ
+ * File Function: InitialSceneç±»çš„å®žçŽ°
+ * Author:        æž—ç»§ç”³ã€åˆ˜æ·‘ä»ª
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -15,16 +15,16 @@
 #include "proj.win32/Constant.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// Íæ¼ÒêÇ³Æ
+// çŽ©å®¶æ˜µç§°
 std::string g_PlayerName = "";
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* InitialScene::createScene()
 {
     auto scene = Scene::create();
@@ -33,94 +33,94 @@ Scene* InitialScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool InitialScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/InitialScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨ÎÄ±¾¿ò
-    auto textField = cocos2d::ui::TextField::create(u8"ÇëÊäÈëÄúµÄÓÎÏ·êÇ³Æ", "../Resources/Fonts/DingDingJinBuTi.ttf", INITIAL_SCENE_FONT_SIZE);
+    // åˆ›å»ºæ–‡æœ¬æ¡†
+    auto textField = cocos2d::ui::TextField::create(u8"è¯·è¾“å…¥æ‚¨çš„æ¸¸æˆæ˜µç§°", "../Resources/Fonts/DingDingJinBuTi.ttf", INITIAL_SCENE_FONT_SIZE);
     textField->setPosition(Vec2(screenSize.width / 2 + INITIAL_SCENE_LABELS_OFFSET_X, screenSize.height / 2 + INITIAL_SCENE_TEXTFIELD_OFFSET_Y));
     textField->setMaxLength(NICKNAME_MAX_LENGTH);
     textField->setMaxLengthEnabled(true);
     textField->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     this->addChild(textField);
 
-    // ´´½¨±êÇ©
+    // åˆ›å»ºæ ‡ç­¾
     auto promptLabel = Label::createWithTTF("", "../Resources/Fonts/DingDingJinBuTi.ttf", INITIAL_SCENE_FONT_SIZE);
     promptLabel->setPosition(Vec2(screenSize.width / 2 + INITIAL_SCENE_LABELS_OFFSET_X, screenSize.height / 2 + INITIAL_SCENE_PROMPT_LABEL_OFFSET_Y));
     promptLabel->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     this->addChild(promptLabel);
 
-    // ÎªÎÄ±¾¿òÌí¼ÓÊÂ¼þ¼àÌýÆ÷
+    // ä¸ºæ–‡æœ¬æ¡†æ·»åŠ äº‹ä»¶ç›‘å¬å™¨
     textField->addEventListener([promptLabel](Ref* sender, cocos2d::ui::TextField::EventType type) {
         if (type == cocos2d::ui::TextField::EventType::INSERT_TEXT || type == cocos2d::ui::TextField::EventType::DELETE_BACKWARD) {
             auto textField = dynamic_cast<cocos2d::ui::TextField*>(sender);
             std::string nickname = textField->getString();
-            std::string text = u8"»¶Ó­Äã£¡" + nickname;
+            std::string text = u8"æ¬¢è¿Žä½ ï¼" + nickname;
             promptLabel->setString(text);
         }
         });
 
-    // ´´½¨°´Å¥
+    // åˆ›å»ºæŒ‰é’®
     auto startButton = HoverButton::create("../Resources/Buttons/InitialSceneButtons/StartDefaultButton.png",
         "../Resources/Buttons/InitialSceneButtons/StartHoverButton.png",
         "../Resources/Buttons/InitialSceneButtons/StartActiveButton.png");
 
-    // ÉèÖÃ°´Å¥Î»ÖÃ
+    // è®¾ç½®æŒ‰é’®ä½ç½®
     startButton->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2 + INITIAL_SCENE_BUTTON_OFFSET_Y));
 
-    // ´´½¨Ò»¸öÌáÊ¾
+    // åˆ›å»ºä¸€ä¸ªæç¤º
     auto nameLabel = Label::createWithTTF("", "../Resources/Fonts/DingDingJinBuTi.ttf", INITIAL_SCENE_FONT_SIZE);
     nameLabel->setPosition(Vec2(screenSize.width / 2 + INITIAL_SCENE_LABELS_OFFSET_X, screenSize.height / 2 + INITIAL_SCENE_NAME_LABEL_OFFSET_Y));
     nameLabel->setVisible(false);
     nameLabel->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     this->addChild(nameLabel);
 
-    // Îª°´Å¥Ìí¼ÓÊÂ¼þ´¦ÀíÆ÷
+    // ä¸ºæŒ‰é’®æ·»åŠ äº‹ä»¶å¤„ç†å™¨
     startButton->addTouchEventListener([this, textField, nameLabel](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::ENDED) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             std::string nickname = textField->getString();
             if (nickname.empty()) {
-                nameLabel->setString(u8"ÓÎÏ·êÇ³Æ²»ÄÜÎª¿Õ");
+                nameLabel->setString(u8"æ¸¸æˆæ˜µç§°ä¸èƒ½ä¸ºç©º");
                 nameLabel->setVisible(true);
                 this->scheduleOnce([nameLabel](float dt) {
                     nameLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "HideEmptyPromptLabel");
             }
             else if (!isValidString(nickname)) {
-                nameLabel->setString(u8"ÓÎÏ·êÇ³Æ´æÔÚ·Ç·¨×Ö·û");
+                nameLabel->setString(u8"æ¸¸æˆæ˜µç§°å­˜åœ¨éžæ³•å­—ç¬¦");
                 nameLabel->setVisible(true);
                 this->scheduleOnce([nameLabel](float dt) {
                     nameLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "HideInvalidPromptLabel");
             }
             else {
-                g_PlayerName = nickname; // g_PlayerName ÄÚ²¿´æ´¢±àÂëÎª UTF-8
+                g_PlayerName = nickname; // g_PlayerName å†…éƒ¨å­˜å‚¨ç¼–ç ä¸º UTF-8
                 cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, SelectionScene::createScene(), cocos2d::Color3B::WHITE));
             }
         }
         });
 
-    // ½«°´Å¥Ìí¼Óµ½³¡¾°ÖÐ
+    // å°†æŒ‰é’®æ·»åŠ åˆ°åœºæ™¯ä¸­
     this->addChild(startButton);
 
     return true;
 }
 
-// ¼ì²é×Ö·ûºÏ·¨ÐÔ
+// æ£€æŸ¥å­—ç¬¦åˆæ³•æ€§
 bool InitialScene::isValidCharacter(const char32_t ch)
 {
     if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
@@ -135,7 +135,7 @@ bool InitialScene::isValidCharacter(const char32_t ch)
     return false;
 }
 
-// ¼ì²é×Ö·û´®ºÏ·¨ÐÔ
+// æ£€æŸ¥å­—ç¬¦ä¸²åˆæ³•æ€§
 bool InitialScene::isValidString(const std::string& str)
 {
     std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;

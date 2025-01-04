@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     AppDelegate.h
- * File Function: AppDelegateÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: AppDelegateç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -15,23 +15,23 @@
 
 /*
  * Class Name:     AppDelegate
- * Class Function: Cocos2d-x Ó¦ÓÃ³ÌĞòÀà
+ * Class Function: Cocos2d-x åº”ç”¨ç¨‹åºç±»
  */
 class AppDelegate : private cocos2d::Application {
 public:
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     virtual ~AppDelegate();
 
-    // ³õÊ¼»¯ OpenGL ÉÏÏÂÎÄÊôĞÔ
+    // åˆå§‹åŒ– OpenGL ä¸Šä¸‹æ–‡å±æ€§
     virtual void initGLContextAttrs();
 
-    // µ±Ó¦ÓÃ³ÌĞòÍê³ÉÆô¶¯²¢×¼±¸½øÈëÖ÷Ñ­»·Ê±µ÷ÓÃ´Ëº¯Êı
+    // å½“åº”ç”¨ç¨‹åºå®Œæˆå¯åŠ¨å¹¶å‡†å¤‡è¿›å…¥ä¸»å¾ªç¯æ—¶è°ƒç”¨æ­¤å‡½æ•°
     virtual bool applicationDidFinishLaunching();
 
-    // µ±Ó¦ÓÃ³ÌĞò½øÈëºóÌ¨Ê±µ÷ÓÃ´Ëº¯Êı
+    // å½“åº”ç”¨ç¨‹åºè¿›å…¥åå°æ—¶è°ƒç”¨æ­¤å‡½æ•°
     virtual void applicationDidEnterBackground();
 
-    // µ±Ó¦ÓÃ³ÌĞò´ÓºóÌ¨·µ»Øµ½Ç°Ì¨Ê±µ÷ÓÃ´Ëº¯Êı
+    // å½“åº”ç”¨ç¨‹åºä»åå°è¿”å›åˆ°å‰å°æ—¶è°ƒç”¨æ­¤å‡½æ•°
     virtual void applicationWillEnterForeground();
 };
 

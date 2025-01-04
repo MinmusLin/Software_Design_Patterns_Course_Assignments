@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     StartupScene.h
- * File Function: StartupSceneÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: StartupSceneç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -15,17 +15,17 @@
 
 /*
  * Class Name:     StartupScene
- * Class Function: Æô¶¯³¡¾°Àà
+ * Class Function: å¯åŠ¨åœºæ™¯ç±»
  */
 class StartupScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // ÊµÏÖ StartupScene ÀàµÄ create ·½·¨
+    // å®ç° StartupScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(StartupScene);
 };
 

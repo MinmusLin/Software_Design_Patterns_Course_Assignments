@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OnlineModeControl.h
- * File Function: OnlineModeControlÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: OnlineModeControlç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -19,82 +19,82 @@
 
 /*
  * Class Name:     OnlineModeControl
- * Class Function: Áª»úÄ£Ê½ÓÎÏ·¿ØÖÆÀà
+ * Class Function: è”æœºæ¨¡å¼æ¸¸æˆæ§åˆ¶ç±»
  */
 class OnlineModeControl : public Control {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     OnlineModeControl(std::string ipv4, std::string portStr);
 
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     ~OnlineModeControl();
 
-    // ´´½¨¿Í»§¶Ë
+    // åˆ›å»ºå®¢æˆ·ç«¯
     ConnectionStatus initializeClient();
 
-    // »ñÈ¡¿Í»§¶ËµÄ socket
+    // è·å–å®¢æˆ·ç«¯çš„ socket
     SOCKET getSocket() const;
 
-    // ¿Í»§¶ËÔÚ·şÎñÆ÷µÄ socket
+    // å®¢æˆ·ç«¯åœ¨æœåŠ¡å™¨çš„ socket
     SOCKET getMySocket() const;
 
-    // Ïò·şÎñÆ÷·¢ËÍĞÅÏ¢
+    // å‘æœåŠ¡å™¨å‘é€ä¿¡æ¯
     int sendMessage(const char* str, const int len);
 
-    // ÉèÖÃ·şÎñÆ÷µ±Ç°Á¬½ÓÊıÁ¿
+    // è®¾ç½®æœåŠ¡å™¨å½“å‰è¿æ¥æ•°é‡
     void setCurrentConnections(const int currentConnections);
 
-    // »ñÈ¡·şÎñÆ÷µ±Ç°Á¬½ÓÊıÁ¿
+    // è·å–æœåŠ¡å™¨å½“å‰è¿æ¥æ•°é‡
     int getCurrentConnections() const;
 
-    // »ñÈ¡µĞÈËÍæ¼ÒÖ¸Õë
+    // è·å–æ•Œäººç©å®¶æŒ‡é’ˆ
     HumanPlayer* getEnemyPlayer() const;
 
-    // ÉèÖÃµĞÈËÍæ¼ÒÕ½¶·ÇøµØÍ¼
+    // è®¾ç½®æ•Œäººç©å®¶æˆ˜æ–—åŒºåœ°å›¾
     void setEnemyBattleMap(const ChampionCategory battleMap[][BATTLE_MAP_COLUMNS]);
 
-    // ³õÊ¼»¯¶ÔÕ½Àà
+    // åˆå§‹åŒ–å¯¹æˆ˜ç±»
     void initializeBattle();
 
-    // ·´ĞòÁĞ»¯ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼ÒêÇ³Æ
+    // ååºåˆ—åŒ–æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶æ˜µç§°
     void deserializePlayerNames(const std::string& data);
 
-    // »ñÈ¡ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼ÒêÇ³Æ
+    // è·å–æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶æ˜µç§°
     std::vector<std::map<SOCKET, std::string>> getPlayerNames() const;
 
-    // »ñÈ¡ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼Ò·ÖÊı
+    // è·å–æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶åˆ†æ•°
     std::vector<std::map<SOCKET, int>> getPlayerHealthPoints() const;
 
-    // ĞòÁĞ»¯Íæ¼ÒÕ½¶·ÇøµØÍ¼
+    // åºåˆ—åŒ–ç©å®¶æˆ˜æ–—åŒºåœ°å›¾
     std::string serializePlayerMap();
 
-    // ·´ĞòÁĞ»¯Íæ¼ÒÕ½¶·ÇøµØÍ¼
+    // ååºåˆ—åŒ–ç©å®¶æˆ˜æ–—åŒºåœ°å›¾
     void deserializeBattleMap(const std::string battleMapData, ChampionCategory battleMap[][BATTLE_MAP_COLUMNS]);
 
-    // »ñÈ¡¿Í»§¶Ë socket ÔÚ·şÎñÆ÷µÄË÷Òı
+    // è·å–å®¢æˆ·ç«¯ socket åœ¨æœåŠ¡å™¨çš„ç´¢å¼•
     int getSocketIndex();
 
 private:
-    char ipv4[IPV4_ADDRESS_MAX_LENGTH + 1];                 // IPv4 µØÖ·
-    int port;                                               // ¶Ë¿Ú
+    char ipv4[IPV4_ADDRESS_MAX_LENGTH + 1];                 // IPv4 åœ°å€
+    int port;                                               // ç«¯å£
     WSADATA wsaData;                                        // Windows Sockets API
-    SOCKET s;                                               // ¿Í»§¶ËµÄ socket
-    SOCKET mySocket;                                        // ¿Í»§¶ËÔÚ·şÎñÆ÷µÄ socket
-    struct sockaddr_in server;                              // ·şÎñÆ÷µØÖ·ĞÅÏ¢
-    char message[BUFFER_SIZE];                              // Êı¾İ»º³åÇø
-    int recvSize;                                           // ½ÓÊÕÊı¾İ´óĞ¡
-    int currentConnections;                                 // ·şÎñÆ÷µ±Ç°Á¬½ÓÊıÁ¿
-    HumanPlayer* enemyPlayer;                               // µĞÈËÍæ¼Ò
-    std::vector<std::map<SOCKET, std::string>> playerNames; // ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼ÒêÇ³Æ
-    std::vector<std::map<SOCKET, int>> playerHealthPoints;  // ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼ÒÉúÃüÖµ
-    std::thread listeningThread;                            // ¼àÌı·şÎñÆ÷ÏûÏ¢Ïß³Ì
-    std::atomic<bool> keepListening;                        // ¼àÌı·şÎñÆ÷ÏûÏ¢Ïß³Ì¿ØÖÆ±êÖ¾
-    mutable std::mutex healthPointsMutex;                   // ÓÃÓÚ±£»¤ playerHealthPoints µÄ»¥³âÁ¿£¨È·±£Ïß³Ì°²È«ĞÔ£©
+    SOCKET s;                                               // å®¢æˆ·ç«¯çš„ socket
+    SOCKET mySocket;                                        // å®¢æˆ·ç«¯åœ¨æœåŠ¡å™¨çš„ socket
+    struct sockaddr_in server;                              // æœåŠ¡å™¨åœ°å€ä¿¡æ¯
+    char message[BUFFER_SIZE];                              // æ•°æ®ç¼“å†²åŒº
+    int recvSize;                                           // æ¥æ”¶æ•°æ®å¤§å°
+    int currentConnections;                                 // æœåŠ¡å™¨å½“å‰è¿æ¥æ•°é‡
+    HumanPlayer* enemyPlayer;                               // æ•Œäººç©å®¶
+    std::vector<std::map<SOCKET, std::string>> playerNames; // æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶æ˜µç§°
+    std::vector<std::map<SOCKET, int>> playerHealthPoints;  // æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶ç”Ÿå‘½å€¼
+    std::thread listeningThread;                            // ç›‘å¬æœåŠ¡å™¨æ¶ˆæ¯çº¿ç¨‹
+    std::atomic<bool> keepListening;                        // ç›‘å¬æœåŠ¡å™¨æ¶ˆæ¯çº¿ç¨‹æ§åˆ¶æ ‡å¿—
+    mutable std::mutex healthPointsMutex;                   // ç”¨äºä¿æŠ¤ playerHealthPoints çš„äº’æ–¥é‡ï¼ˆç¡®ä¿çº¿ç¨‹å®‰å…¨æ€§ï¼‰
 
-    // ¼àÌı·şÎñÆ÷ÏûÏ¢Ïß³Ì
+    // ç›‘å¬æœåŠ¡å™¨æ¶ˆæ¯çº¿ç¨‹
     void listenForServerMessages();
 
-    // ¸üĞÂÍæ¼ÒÉúÃüÖµ
+    // æ›´æ–°ç©å®¶ç”Ÿå‘½å€¼
     void updatePlayerHealthPoints(const int healthPoint, const SOCKET socket);
 };
 

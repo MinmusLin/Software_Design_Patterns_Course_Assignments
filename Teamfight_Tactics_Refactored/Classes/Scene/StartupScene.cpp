@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     StartupScene.cpp
- * File Function: StartupSceneÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê
+ * File Function: StartupSceneç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -13,13 +13,13 @@
 #include "proj.win32/Constant.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* StartupScene::createScene()
 {
     auto scene = Scene::create();
@@ -28,37 +28,37 @@ Scene* StartupScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool StartupScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
     
-    // ¼ÓÔØÒôÀÖ
+    // åŠ è½½éŸ³ä¹
     audioPlayer("../Resources/Music/StartupScene_BreathAndLife.mp3", true);
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/StartupScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨½ø¶ÈÌõ
+    // åˆ›å»ºè¿›åº¦æ¡
     auto progressBar = cocos2d::ui::LoadingBar::create("../Resources/ImageElements/StartupLoadingBar.png");
     progressBar->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2 + STARTUP_SCENE_LOADINGBAR_OFFSET_Y));
     progressBar->setPercent(0);
     this->addChild(progressBar);
 
-    // ´´½¨±êÇ©ÒÔÏÔÊ¾½ø¶È
+    // åˆ›å»ºæ ‡ç­¾ä»¥æ˜¾ç¤ºè¿›åº¦
     auto progressLabel = Label::createWithTTF("0%", "../Resources/Fonts/FangZhengZhaoGeYuan.ttf", STARTUP_SCENE_FONT_SIZE);
     progressLabel->setPosition(Vec2(progressBar->getPosition().x - progressBar->getContentSize().width / 2 + STARTUP_SCENE_LOADING_LABEL_OFFSET_X, progressBar->getPosition().y));
     progressLabel->setVisible(false);
     this->addChild(progressLabel);
 
-    // ¸üĞÂ½ø¶ÈÌõºÍ±êÇ©
-    constexpr float interval = STARTUP_SCENE_DURATION / 100.0f; // Ã¿ 1% ËùĞèÊ±¼ä
+    // æ›´æ–°è¿›åº¦æ¡å’Œæ ‡ç­¾
+    constexpr float interval = STARTUP_SCENE_DURATION / 100.0f; // æ¯ 1% æ‰€éœ€æ—¶é—´
     for (int i = 0; i <= 100; i++) {
         this->scheduleOnce([progressBar, progressLabel, i](float dt) {
             progressLabel->setVisible(i >= 10);
@@ -70,7 +70,7 @@ bool StartupScene::init()
             }, interval * i, "UpdateStartupLoadingBar" + std::to_string(i));
     }
 
-    // ÉèÖÃ¼ÆÊ±Æ÷
+    // è®¾ç½®è®¡æ—¶å™¨
     this->scheduleOnce([](float dt) {
         auto transition = cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, InitialScene::createScene(), cocos2d::Color3B::WHITE);
         cocos2d::Director::getInstance()->replaceScene(transition);

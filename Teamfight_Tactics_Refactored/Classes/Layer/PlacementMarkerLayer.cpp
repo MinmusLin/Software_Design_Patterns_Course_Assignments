@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     PlacementMarkerLayer.cpp
- * File Function: PlacementMarkerLayer类的实现
- * Author:        刘淑仪、林继申
+ * File Function: PlacementMarkerLayer绫荤殑瀹炵幇
+ * Author:        鍒樻窇浠�佹灄缁х敵
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -10,11 +10,11 @@
 #include "PlacementMarkerLayer.h"
 #include "LocationMap/LocationMap.h"
 
-// 命名空间
+// 鍛藉悕绌洪棿
 using cocos2d::Sprite;
 using cocos2d::Vec2;
 
-// 初始化放置标记层
+// 鍒濆鍖栨斁缃爣璁板眰
 bool PlacementMarkerLayer::init()
 {
     if (!Layer::init()) {
@@ -23,7 +23,7 @@ bool PlacementMarkerLayer::init()
     return true;
 }
 
-// 显示放置标记
+// 鏄剧ず鏀剧疆鏍囪
 void PlacementMarkerLayer::showPlacementMarker(const ChampionCategory battleMap[][BATTLE_MAP_COLUMNS], const ChampionCategory waitingMap[])
 {
     for (int i = 0; i < WAITING_MAP_COUNT; i++) {
@@ -40,7 +40,7 @@ void PlacementMarkerLayer::showPlacementMarker(const ChampionCategory battleMap[
     }
 }
 
-// 创建放置标记
+// 鍒涘缓鏀剧疆鏍囪
 void PlacementMarkerLayer::createPlacementMarker(const Location& location)
 {
     Sprite* placementMarker = Sprite::create("../Resources/ImageElements/AvailablePlacementMarker.png");

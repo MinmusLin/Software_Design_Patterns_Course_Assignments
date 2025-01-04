@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModeControl.cpp
- * File Function: OfflineModeControlÀàµÄÊµÏÖ
- * Author:        ÑîÓîçû¡¢ÁÖ¼ÌÉê
+ * File Function: OfflineModeControlç±»çš„å®ç°
+ * Author:        æ¨å®‡ç¨ã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -10,19 +10,19 @@
 #include <iostream>
 #include "OfflineModeControl.h"
 
-// Íæ¼ÒêÇ³Æ
+// ç©å®¶æ˜µç§°
 extern std::string g_PlayerName;
 
-// ÓÎÏ·ÄÑ¶È
+// æ¸¸æˆéš¾åº¦
 extern Difficulty g_difficulty;
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 OfflineModeControl::OfflineModeControl() :
     Control(2)
 {
     try {
         humanPlayer = new HumanPlayer(g_PlayerName);
-        enemyPlayer = new AIPlayer(u8"AIÍæ¼Ò", g_difficulty);
+        enemyPlayer = new AIPlayer(u8"AIç©å®¶", g_difficulty);
     }
     catch (const std::bad_alloc& e) {
         std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -36,7 +36,7 @@ OfflineModeControl::OfflineModeControl() :
     }
 }
 
-// Îö¹¹º¯Êı
+// ææ„å‡½æ•°
 OfflineModeControl::~OfflineModeControl()
 {
     delete humanPlayer;
@@ -46,25 +46,25 @@ OfflineModeControl::~OfflineModeControl()
     }
 }
 
-// »ñÈ¡ AI Íæ¼ÒÖ¸Õë
+// è·å– AI ç©å®¶æŒ‡é’ˆ
 AIPlayer* OfflineModeControl::getAIPlayer() const
 {
     return enemyPlayer;
 }
 
-// ³õÊ¼»¯¶ÔÕ½Àà
+// åˆå§‹åŒ–å¯¹æˆ˜ç±»
 void OfflineModeControl::initializeBattle()
 {
-    // AI ÂäÆåËã·¨
+    // AI è½æ£‹ç®—æ³•
     enemyPlayer->makeMoves();
 
-    // »ñÈ¡Õ½¶·Ó¢ĞÛµØÍ¼
+    // è·å–æˆ˜æ–—è‹±é›„åœ°å›¾
     ChampionCategory(*myFlagMap)[BATTLE_MAP_COLUMNS];
     ChampionCategory(*enemyFlagMap)[BATTLE_MAP_COLUMNS];
     humanPlayer->getBattleMap(myFlagMap);
     enemyPlayer->getBattleMap(enemyFlagMap);
 
-    // ´´½¨¶ÔÕ½Àà
+    // åˆ›å»ºå¯¹æˆ˜ç±»
     try {
         battle = new Battle(myFlagMap, enemyFlagMap);
     }

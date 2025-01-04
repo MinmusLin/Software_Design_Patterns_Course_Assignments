@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     ScoreBoardLayer.cpp
- * File Function: ScoreBoardLayerÀàµÄÊµÏÖ
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: ScoreBoardLayerç±»çš„å®ç°
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -13,18 +13,18 @@
 #include <iostream>
 #include "ScoreBoardLayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Sprite;
 using cocos2d::Label;
 
-// Îö¹¹º¯Êı
+// ææ„å‡½æ•°
 ScoreBoardLayer::~ScoreBoardLayer()
 {
     delete[] playerNames;
     delete[] healthPoints;
 }
 
-// ³õÊ¼»¯·ÅÖÃ±ê¼Ç²ã
+// åˆå§‹åŒ–æ”¾ç½®æ ‡è®°å±‚
 bool ScoreBoardLayer::init()
 {
     if (!Layer::init()) {
@@ -33,10 +33,10 @@ bool ScoreBoardLayer::init()
     return true;
 }
 
-// ³õÊ¼»¯·ÖÊı±í±³¾°
+// åˆå§‹åŒ–åˆ†æ•°è¡¨èƒŒæ™¯
 void ScoreBoardLayer::initialize(const int playerNum)
 {
-    // ³õÊ¼»¯±êÇ©
+    // åˆå§‹åŒ–æ ‡ç­¾
     try {
         playerNames = new Label * [playerNum];
         healthPoints = new Label * [playerNum];
@@ -52,26 +52,26 @@ void ScoreBoardLayer::initialize(const int playerNum)
         throw;
     }
 
-    // ³õÊ¼»¯·ÖÊı±í
+    // åˆå§‹åŒ–åˆ†æ•°è¡¨
     for (int i = 0; i < playerNum; i++) {
-        // ´´½¨·ÖÊı±í±³¾°
+        // åˆ›å»ºåˆ†æ•°è¡¨èƒŒæ™¯
         auto scoreBoardBackground = Sprite::create("../Resources/ImageElements/ScoreBoardLayerBackground.png");
         scoreBoardBackground->setPosition(SCORE_BOARD_LAYER_START_X, SCORE_BOARD_LAYER_START_Y - i * SCORE_BOARD_LAYER_VERTICAL_INTERVAL);
         this->addChild(scoreBoardBackground);
 
-        // ´´½¨ÅÅÃû±êÇ©
+        // åˆ›å»ºæ’åæ ‡ç­¾
         auto rankLabel = Label::createWithTTF(std::to_string(i + 1), "../Resources/Fonts/DingDingJinBuTi.ttf", SCORE_BOARD_LABEL_FONT_SIZE);
         rankLabel->setPosition(SCORE_BOARD_LAYER_START_X + SCORE_BOARD_LAYER_RANK_LABEL_OFFSET_X, SCORE_BOARD_LAYER_START_Y - i * SCORE_BOARD_LAYER_VERTICAL_INTERVAL);
         rankLabel->setTextColor(cocos2d::Color4B(GOLDEN_R, GOLDEN_G, GOLDEN_B, 255));
         this->addChild(rankLabel);
 
-        // ´´½¨Íæ¼ÒêÇ³Æ±êÇ©
+        // åˆ›å»ºç©å®¶æ˜µç§°æ ‡ç­¾
         playerNames[i] = Label::createWithTTF("", "../Resources/Fonts/DingDingJinBuTi.ttf", SCORE_BOARD_LABEL_FONT_SIZE);
         playerNames[i]->setPosition(SCORE_BOARD_LAYER_START_X + SCORE_BOARD_LAYER_NAME_LABEL_OFFSET_X, SCORE_BOARD_LAYER_START_Y - i * SCORE_BOARD_LAYER_VERTICAL_INTERVAL);
         playerNames[i]->setAnchorPoint({ 0, 0.5 });
         this->addChild(playerNames[i]);
 
-        // ´´½¨ÉúÃüÖµ±êÇ©
+        // åˆ›å»ºç”Ÿå‘½å€¼æ ‡ç­¾
         healthPoints[i] = Label::createWithTTF("", "../Resources/Fonts/DingDingJinBuTi.ttf", SCORE_BOARD_LABEL_FONT_SIZE);
         healthPoints[i]->setPosition(SCORE_BOARD_LAYER_START_X + SCORE_BOARD_LAYER_SCORE_LABEL_OFFSET_X, SCORE_BOARD_LAYER_START_Y - i * SCORE_BOARD_LAYER_VERTICAL_INTERVAL);
         healthPoints[i]->setAnchorPoint({ 1, 0.5 });
@@ -79,7 +79,7 @@ void ScoreBoardLayer::initialize(const int playerNum)
     }
 }
 
-// ÏÔÊ¾·ÖÊı±í£¨Á·Ï°Ä£Ê½£©
+// æ˜¾ç¤ºåˆ†æ•°è¡¨ï¼ˆç»ƒä¹ æ¨¡å¼ï¼‰
 void ScoreBoardLayer::showScoreBoard(HumanPlayer* humanPlayer, AIPlayer* enemyPlayer)
 {
     bool isHumanFirst = humanPlayer->getHealthPoints() >= enemyPlayer->getHealthPoints();
@@ -93,7 +93,7 @@ void ScoreBoardLayer::showScoreBoard(HumanPlayer* humanPlayer, AIPlayer* enemyPl
     healthPoints[1]->setString(std::to_string(isHumanFirst ? enemyPlayerHealthPoints : humanPlayerHealthPoints));
 }
 
-// ÏÔÊ¾·ÖÊı±í£¨Áª»úÄ£Ê½£©
+// æ˜¾ç¤ºåˆ†æ•°è¡¨ï¼ˆè”æœºæ¨¡å¼ï¼‰
 void ScoreBoardLayer::showScoreBoard(const int playerNum, const std::vector<std::map<SOCKET, std::string>>& playerNamesMap, const std::vector<std::map<SOCKET, int>>& playerHealthPointsMap)
 {
     std::vector<std::pair<SOCKET, int>> healthPointsVec;

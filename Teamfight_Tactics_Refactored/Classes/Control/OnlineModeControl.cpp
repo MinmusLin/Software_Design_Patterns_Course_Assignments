@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OnlineModeControl.cpp
- * File Function: OnlineModeControlÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê
+ * File Function: OnlineModeControlç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -13,10 +13,10 @@
 #include <cstring>
 #include "OnlineModeControl.h"
 
-// Íæ¼ÒêÇ³Æ
+// ç©å®¶æ˜µç§°
 extern std::string g_PlayerName;
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 OnlineModeControl::OnlineModeControl(std::string ipv4, std::string portStr) :
     port(std::stoi(portStr)),
     recvSize(0),
@@ -43,7 +43,7 @@ OnlineModeControl::OnlineModeControl(std::string ipv4, std::string portStr) :
     listeningThread = std::thread(&OnlineModeControl::listenForServerMessages, this);
 }
 
-// Îö¹¹º¯Êı
+// ææ„å‡½æ•°
 OnlineModeControl::~OnlineModeControl()
 {
     keepListening = false;
@@ -59,164 +59,164 @@ OnlineModeControl::~OnlineModeControl()
     }
 }
 
-// ´´½¨¿Í»§¶Ë
+// åˆ›å»ºå®¢æˆ·ç«¯
 ConnectionStatus OnlineModeControl::initializeClient()
 {
-    // ³õÊ¼»¯ Winsock
+    // åˆå§‹åŒ– Winsock
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
         std::cerr << "Function WSAStartup failed with error: " << WSAGetLastError() << std::endl;
         return ConnectionError;
     }
 
-    // ´´½¨Ì×½Ó×Ö
+    // åˆ›å»ºå¥—æ¥å­—
     if ((s = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
         std::cerr << "Function socket failed with error: " << WSAGetLastError() << std::endl;
         return ConnectionError;
     }
 
-    // ½«Ì×½Ó×ÖÉèÖÃÎª·Ç×èÈû
+    // å°†å¥—æ¥å­—è®¾ç½®ä¸ºéé˜»å¡
     u_long mode = 1;
     if (ioctlsocket(s, FIONBIO, &mode) != NO_ERROR) {
         std::cerr << "Function ioctlsocket failed with error: " << WSAGetLastError() << std::endl;
         return ConnectionError;
     }
 
-    // ×¼±¸ sockaddr_in ½á¹¹
+    // å‡†å¤‡ sockaddr_in ç»“æ„
     server.sin_addr.s_addr = inet_addr(ipv4);
     server.sin_family = AF_INET;
     server.sin_port = htons(port);
 
-    // Á¬½Óµ½Ô¶³Ì·şÎñÆ÷
+    // è¿æ¥åˆ°è¿œç¨‹æœåŠ¡å™¨
     if (connect(s, (struct sockaddr*)&server, sizeof(server)) < 0) {
-        // ¼ì²éÁ¬½ÓÊÇ·ñ³É¹¦
+        // æ£€æŸ¥è¿æ¥æ˜¯å¦æˆåŠŸ
         if (WSAGetLastError() != WSAEWOULDBLOCK) {
             std::cerr << "Function connect failed with error: " << WSAGetLastError() << std::endl;
             return ConnectionError;
         }
 
-        // Ê¹ÓÃ select ¼ì²âÁ¬½ÓÊÇ·ñ³É¹¦
+        // ä½¿ç”¨ select æ£€æµ‹è¿æ¥æ˜¯å¦æˆåŠŸ
         fd_set writefds;
         FD_ZERO(&writefds);
         FD_SET(s, &writefds);
 
-        // ÉèÖÃ·şÎñÆ÷Á¬½Ó³¬Ê±Ê±¼ä
+        // è®¾ç½®æœåŠ¡å™¨è¿æ¥è¶…æ—¶æ—¶é—´
         struct timeval timeout;
         timeout.tv_sec = CONNECTION_TIMEOUT_DURATION;
         timeout.tv_usec = 0;
 
-        // ¼ì²âÌ×½Ó×ÖÊÇ·ñ¿ÉĞ´£¨¼´ÊÇ·ñÒÑÁ¬½Ó£©
+        // æ£€æµ‹å¥—æ¥å­—æ˜¯å¦å¯å†™ï¼ˆå³æ˜¯å¦å·²è¿æ¥ï¼‰
         int selectResult = select(0, NULL, &writefds, NULL, &timeout);
         if (selectResult > 0) {
             if (FD_ISSET(s, &writefds)) {
                 int optVal, optLen = sizeof(optVal);
                 if (getsockopt(s, SOL_SOCKET, SO_ERROR, (char*)&optVal, &optLen) == 0 && optVal == 0) {
-                    // Ê¹ÓÃ select µÈ´ıÊı¾İµ½´ï
+                    // ä½¿ç”¨ select ç­‰å¾…æ•°æ®åˆ°è¾¾
                     fd_set readfds;
                     FD_ZERO(&readfds);
                     FD_SET(s, &readfds);
 
-                    // ÉèÖÃ·şÎñÆ÷Á¬½Ó³¬Ê±Ê±¼ä
+                    // è®¾ç½®æœåŠ¡å™¨è¿æ¥è¶…æ—¶æ—¶é—´
                     timeout.tv_sec = CONNECTION_TIMEOUT_DURATION;
                     timeout.tv_usec = 0;
 
-                    // µÈ´ıÌ×½Ó×Ö±äÎª¿É¶Á
+                    // ç­‰å¾…å¥—æ¥å­—å˜ä¸ºå¯è¯»
                     selectResult = select(0, &readfds, NULL, NULL, &timeout);
                     if (selectResult > 0) {
                         if (FD_ISSET(s, &readfds)) {
                             memset(message, 0, sizeof(message));
                             recvSize = recv(s, message, BUFFER_SIZE, 0);
-                            if (recvSize > 0) { // ´¦Àí·şÎñÆ÷ÏìÓ¦ÏûÏ¢
+                            if (recvSize > 0) { // å¤„ç†æœåŠ¡å™¨å“åº”æ¶ˆæ¯
                                 message[recvSize] = '\0';
-                                if (!strcmp(message, CONNECTION_ACCEPTED_MSG)) { // Á¬½Ó½ÓÊÜ
+                                if (!strcmp(message, CONNECTION_ACCEPTED_MSG)) { // è¿æ¥æ¥å—
                                     return ConnectionAccepted;
                                 }
-                                if (!strcmp(message, CONNECTION_REFUSED_MSG)) { // Á¬½Ó¾Ü¾ø
+                                if (!strcmp(message, CONNECTION_REFUSED_MSG)) { // è¿æ¥æ‹’ç»
                                     return ConnectionRefused;
                                 }
-                                return ConnectionError; // Á¬½Ó´íÎó
+                                return ConnectionError; // è¿æ¥é”™è¯¯
                             }
-                            else if (recvSize == 0) { // Á¬½Ó¹Ø±Õ
+                            else if (recvSize == 0) { // è¿æ¥å…³é—­
                                 return ConnectionError;
                             }
-                            else { // º¯Êı recv ³ö´í
+                            else { // å‡½æ•° recv å‡ºé”™
                                 std::cerr << "Function recv failed with error: " << WSAGetLastError() << std::endl;
                                 return ConnectionError;
                             }
                         }
                     }
-                    else if (selectResult == 0) { // Á¬½Ó³¬Ê±
+                    else if (selectResult == 0) { // è¿æ¥è¶…æ—¶
                         return ConnectionTimeout;
                     }
-                    else { // º¯Êı select ³ö´í
+                    else { // å‡½æ•° select å‡ºé”™
                         std::cerr << "Function select failed with error: " << WSAGetLastError() << std::endl;
                         return ConnectionError;
                     }
                 }
             }
         }
-        else if (selectResult == 0) { // Á¬½Ó³¬Ê±
+        else if (selectResult == 0) { // è¿æ¥è¶…æ—¶
             return ConnectionTimeout;
         }
-        else { // º¯Êı select ³ö´í
+        else { // å‡½æ•° select å‡ºé”™
             std::cerr << "Function select failed with error: " << WSAGetLastError() << std::endl;
             return ConnectionError;
         }
     }
-    return ConnectionError; // Á¬½Ó´íÎó
+    return ConnectionError; // è¿æ¥é”™è¯¯
 }
 
-// »ñÈ¡¿Í»§¶ËµÄ socket
+// è·å–å®¢æˆ·ç«¯çš„ socket
 SOCKET OnlineModeControl::getSocket() const
 {
     return s;
 }
 
-// ¿Í»§¶ËÔÚ·şÎñÆ÷µÄ socket
+// å®¢æˆ·ç«¯åœ¨æœåŠ¡å™¨çš„ socket
 SOCKET OnlineModeControl::getMySocket() const
 {
     return mySocket;
 }
 
-// Ïò·şÎñÆ÷·¢ËÍĞÅÏ¢
+// å‘æœåŠ¡å™¨å‘é€ä¿¡æ¯
 int OnlineModeControl::sendMessage(const char* str, const int len)
 {
     return send(s, str, len, 0);
 }
 
-// ÉèÖÃ·şÎñÆ÷µ±Ç°Á¬½ÓÊıÁ¿
+// è®¾ç½®æœåŠ¡å™¨å½“å‰è¿æ¥æ•°é‡
 void OnlineModeControl::setCurrentConnections(const int currentConnections)
 {
     this->currentConnections = currentConnections;
 }
 
-// »ñÈ¡·şÎñÆ÷µ±Ç°Á¬½ÓÊıÁ¿
+// è·å–æœåŠ¡å™¨å½“å‰è¿æ¥æ•°é‡
 int OnlineModeControl::getCurrentConnections() const
 {
     return currentConnections;
 }
 
-// »ñÈ¡µĞÈËÍæ¼ÒÖ¸Õë
+// è·å–æ•Œäººç©å®¶æŒ‡é’ˆ
 HumanPlayer* OnlineModeControl::getEnemyPlayer() const
 {
     return enemyPlayer;
 }
 
-// ÉèÖÃµĞÈËÍæ¼ÒÕ½¶·ÇøµØÍ¼
+// è®¾ç½®æ•Œäººç©å®¶æˆ˜æ–—åŒºåœ°å›¾
 void OnlineModeControl::setEnemyBattleMap(const ChampionCategory battleMap[][BATTLE_MAP_COLUMNS])
 {
     enemyPlayer->setBattleMap(battleMap);
 }
 
-// ³õÊ¼»¯¶ÔÕ½Àà
+// åˆå§‹åŒ–å¯¹æˆ˜ç±»
 void OnlineModeControl::initializeBattle()
 {
-    // »ñÈ¡Õ½¶·Ó¢ĞÛµØÍ¼
+    // è·å–æˆ˜æ–—è‹±é›„åœ°å›¾
     ChampionCategory(*myFlagMap)[BATTLE_MAP_COLUMNS];
     ChampionCategory(*enemyFlagMap)[BATTLE_MAP_COLUMNS];
     humanPlayer->getBattleMap(myFlagMap);
     enemyPlayer->getBattleMap(enemyFlagMap);
 
-    // ´´½¨¶ÔÕ½Àà
+    // åˆ›å»ºå¯¹æˆ˜ç±»
     try {
         battle = new Battle(myFlagMap, enemyFlagMap);
     }
@@ -226,7 +226,7 @@ void OnlineModeControl::initializeBattle()
     }
 }
 
-// ·´ĞòÁĞ»¯ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼ÒêÇ³Æ
+// ååºåˆ—åŒ–æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶æ˜µç§°
 void OnlineModeControl::deserializePlayerNames(const std::string& data)
 {
     if (data.substr(0, strlen(START_GAME_MSG)) == static_cast<std::string>(START_GAME_MSG)) {
@@ -259,19 +259,19 @@ void OnlineModeControl::deserializePlayerNames(const std::string& data)
     }
 }
 
-// »ñÈ¡ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼ÒêÇ³Æ
+// è·å–æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶æ˜µç§°
 std::vector<std::map<SOCKET, std::string>> OnlineModeControl::getPlayerNames() const
 {
     return playerNames;
 }
 
-// »ñÈ¡ËùÓĞÁ¬½Óµ½·şÎñÆ÷µÄ¿Í»§¶ËÍæ¼Ò·ÖÊı
+// è·å–æ‰€æœ‰è¿æ¥åˆ°æœåŠ¡å™¨çš„å®¢æˆ·ç«¯ç©å®¶åˆ†æ•°
 std::vector<std::map<SOCKET, int>> OnlineModeControl::getPlayerHealthPoints() const
 {
     return playerHealthPoints;
 }
 
-// ĞòÁĞ»¯Íæ¼ÒÕ½¶·ÇøµØÍ¼
+// åºåˆ—åŒ–ç©å®¶æˆ˜æ–—åŒºåœ°å›¾
 std::string OnlineModeControl::serializePlayerMap()
 {
     std::string serializedMap = "";
@@ -290,7 +290,7 @@ std::string OnlineModeControl::serializePlayerMap()
     return serializedMap;
 }
 
-// ·´ĞòÁĞ»¯Íæ¼ÒÕ½¶·ÇøµØÍ¼
+// ååºåˆ—åŒ–ç©å®¶æˆ˜æ–—åŒºåœ°å›¾
 void OnlineModeControl::deserializeBattleMap(const std::string battleMapData, ChampionCategory battleMap[][BATTLE_MAP_COLUMNS])
 {
     int index = 0;
@@ -307,7 +307,7 @@ void OnlineModeControl::deserializeBattleMap(const std::string battleMapData, Ch
     }
 }
 
-// »ñÈ¡¿Í»§¶Ë socket ÔÚ·şÎñÆ÷µÄË÷Òı
+// è·å–å®¢æˆ·ç«¯ socket åœ¨æœåŠ¡å™¨çš„ç´¢å¼•
 int OnlineModeControl::getSocketIndex()
 {
     for (size_t i = 0; i < playerNames.size(); ++i) {
@@ -318,7 +318,7 @@ int OnlineModeControl::getSocketIndex()
     return -1;
 }
 
-// ¼àÌı·şÎñÆ÷ÏûÏ¢Ïß³Ì
+// ç›‘å¬æœåŠ¡å™¨æ¶ˆæ¯çº¿ç¨‹
 void OnlineModeControl::listenForServerMessages()
 {
     while (keepListening) {
@@ -334,10 +334,10 @@ void OnlineModeControl::listenForServerMessages()
     }
 }
 
-// ¸üĞÂÍæ¼ÒÉúÃüÖµ
+// æ›´æ–°ç©å®¶ç”Ÿå‘½å€¼
 void OnlineModeControl::updatePlayerHealthPoints(const int healthPoint, const SOCKET socket)
 {
-    std::lock_guard<std::mutex> lock(healthPointsMutex); // Ëø¶¨»¥³âÁ¿È·±£Ïß³Ì°²È«ĞÔ
+    std::lock_guard<std::mutex> lock(healthPointsMutex); // é”å®šäº’æ–¥é‡ç¡®ä¿çº¿ç¨‹å®‰å…¨æ€§
     for (auto& playerMap : playerHealthPoints) {
         for (auto& pair : playerMap) {
             if (pair.first == socket) {

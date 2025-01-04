@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Player.cpp
- * File Function: PlayerÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê¡¢ÑîÕ×Õò
+ * File Function: Playerç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³ã€æ¨å…†é•‡
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -10,7 +10,7 @@
 #include <algorithm>
 #include "Player.h"
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 Player::Player(const std::string nickname) :
     name(nickname)
 {
@@ -20,13 +20,13 @@ Player::Player(const std::string nickname) :
     std::fill_n(waitingMap, WAITING_MAP_COUNT, NoChampion);
 }
 
-// »ñÈ¡Õ½¶·ÇøµØÍ¼
+// è·å–æˆ˜æ–—åŒºåœ°å›¾
 void Player::getBattleMap(ChampionCategory(*&battleMap)[BATTLE_MAP_COLUMNS])
 {
     battleMap = this->battleMap;
 }
 
-// ¼õÉÙÍæ¼ÒÉúÃüÖµ
+// å‡å°‘ç©å®¶ç”Ÿå‘½å€¼
 void Player::decreaseHealthPoints(const int num)
 {
     healthPoints -= num;
@@ -35,25 +35,25 @@ void Player::decreaseHealthPoints(const int num)
     }
 }
 
-// »ñÈ¡Íæ¼ÒÉúÃüÖµ
+// è·å–ç©å®¶ç”Ÿå‘½å€¼
 int Player::getHealthPoints() const
 {
     return healthPoints;
 }
 
-// »ñÈ¡Íæ¼ÒêÇ³Æ
+// è·å–ç©å®¶æ˜µç§°
 std::string Player::getPlayerName() const
 {
     return name;
 }
 
-// »ñÈ¡Ëæ»úÊı
+// è·å–éšæœºæ•°
 int Player::getRandom(const int n) const
 {
     return rand() % n + 1;
 }
 
-// »ñÈ¡µ±Ç°¾ÖÊÆ·ÖÊı
+// è·å–å½“å‰å±€åŠ¿åˆ†æ•°
 int Player::getStageScore() const
 {
     int score = 0;
@@ -65,7 +65,7 @@ int Player::getStageScore() const
     return score;
 }
 
-// ÆÀ¹Àµ±Ç°¾ÖÊÆ
+// è¯„ä¼°å½“å‰å±€åŠ¿
 BattleStage Player::evaluateStage(int stageScore) const
 {
     if (stageScore < EARLY_MIDDLE_STAGE_THRESHOLD) {
@@ -79,7 +79,7 @@ BattleStage Player::evaluateStage(int stageScore) const
     }
 }
 
-// Í³¼Æ¸÷ÀàÕ½¶·Ó¢ĞÛÊıÁ¿
+// ç»Ÿè®¡å„ç±»æˆ˜æ–—è‹±é›„æ•°é‡
 std::map<ChampionCategory, int> Player::countChampionCategories() const
 {
     std::map<ChampionCategory, int> championsCount;
@@ -98,7 +98,7 @@ std::map<ChampionCategory, int> Player::countChampionCategories() const
     return championsCount;
 }
 
-// ÎªÌØ¶¨Õ½¶·½×¶ÎËæ»úÑ¡ÔñÕ½¶·Ó¢ĞÛ
+// ä¸ºç‰¹å®šæˆ˜æ–—é˜¶æ®µéšæœºé€‰æ‹©æˆ˜æ–—è‹±é›„
 ChampionCategory Player::selectRandomChampion(const BattleStage stage) const
 {
     const ChampionCategory* championLevels[] = { FIRST_LEVEL, SECOND_LEVEL, THIRD_LEVEL, FOURTH_LEVEL, FIFTH_LEVEL };

@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     ReferenceScene.cpp
- * File Function: ReferenceSceneÀàµÄÊµÏÖ
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: ReferenceSceneç±»çš„å®žçŽ°
+ * Author:        åˆ˜æ·‘ä»ªã€æž—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -13,12 +13,12 @@
 #include "proj.win32/Constant.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Vec2;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* ReferenceScene::createScene()
 {
     auto scene = Scene::create();
@@ -27,28 +27,28 @@ Scene* ReferenceScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool ReferenceScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/ReferenceScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨°´Å¥
+    // åˆ›å»ºæŒ‰é’®
     auto returnMenuButton = HoverButton::create("../Resources/Buttons/ReferenceSceneButtons/ReturnMenuDefaultButton.png",
         "../Resources/Buttons/ReferenceSceneButtons/ReturnMenuHoverButton.png",
         "../Resources/Buttons/ReferenceSceneButtons/ReturnMenuActiveButton.png");
     returnMenuButton->setPosition(Vec2(screenSize.width / 2 + REFERENCE_SCENE_RETURN_MENU_BUTTON_OFFSET_X, screenSize.height / 2 + REFERENCE_SCENE_RETURN_MENU_BUTTON_OFFSET_Y));
     returnMenuButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôÐ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, MenuScene::createScene(), cocos2d::Color3B::WHITE));

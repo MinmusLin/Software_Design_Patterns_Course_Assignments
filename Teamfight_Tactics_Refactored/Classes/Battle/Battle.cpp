@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Battle.cpp
- * File Function: BattleÀàµÄÊµÏÖ
- * Author:        ÑîÓîçû¡¢ÁÖ¼ÌÉê
+ * File Function: Battleç±»çš„å®ç°
+ * Author:        æ¨å®‡ç¨ã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Battle.h"
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 Battle::Battle(const ChampionCategory myFlagMap[][BATTLE_MAP_COLUMNS], const ChampionCategory enemyFlagMap[][BATTLE_MAP_COLUMNS]) :
     enemyCount(0),
     myCount(0),
@@ -29,7 +29,7 @@ Battle::Battle(const ChampionCategory myFlagMap[][BATTLE_MAP_COLUMNS], const Cha
     for (int i = 0; i < BATTLE_MAP_ROWS; i++) {
         for (int j = 0; j < BATTLE_MAP_COLUMNS; j++) {
             if (championCategoryMap[i][j] != NoChampion) {
-                // ´´½¨Õ½¶·Ó¢ĞÛ
+                // åˆ›å»ºæˆ˜æ–—è‹±é›„
                 try {
                     championMap[i][j] = new Champion(championCategoryMap[i][j]);
                 }
@@ -39,7 +39,7 @@ Battle::Battle(const ChampionCategory myFlagMap[][BATTLE_MAP_COLUMNS], const Cha
                 }
                 championMap[i][j]->setCurrentPosition(i, j);
 
-                // ÉèÖÃÕ½¶·Ó¢ĞÛÕóÓª
+                // è®¾ç½®æˆ˜æ–—è‹±é›„é˜µè¥
                 if (i < PLACE_MAP_ROWS) {
                     myCount++;
                     championMap[i][j]->setCamp(true);
@@ -58,7 +58,7 @@ Battle::Battle(const ChampionCategory myFlagMap[][BATTLE_MAP_COLUMNS], const Cha
     }
 }
 
-// Îö¹¹º¯Êı
+// ææ„å‡½æ•°
 Battle::~Battle()
 {
     for (int i = 0; i < BATTLE_MAP_ROWS; i++) {
@@ -70,74 +70,74 @@ Battle::~Battle()
     }
 }
 
-// »ñÈ¡Õ½¶·Ó¢ĞÛÖ¸Õë
+// è·å–æˆ˜æ–—è‹±é›„æŒ‡é’ˆ
 Champion* Battle::getChampion(const int& x, const int& y)
 {
     return championMap[x][y];
 }
 
-// »ñÈ¡ÎÒ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+// è·å–æˆ‘æ–¹æˆ˜æ–—è‹±é›„æ•°é‡
 int Battle::getMyCount()
 {
     return myCount;
 }
 
-// »ñÈ¡µĞ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+// è·å–æ•Œæ–¹æˆ˜æ–—è‹±é›„æ•°é‡
 int Battle::getEnemyCount()
 {
     return enemyCount;
 }
 
-// Ôö¼ÓÎÒ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+// å¢åŠ æˆ‘æ–¹æˆ˜æ–—è‹±é›„æ•°é‡
 void Battle::addMyCount()
 {
     myCount++;
 }
 
-// Ôö¼ÓµĞ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+// å¢åŠ æ•Œæ–¹æˆ˜æ–—è‹±é›„æ•°é‡
 void Battle::addEnemyCount()
 {
     enemyCount++;
 }
 
-// ÖØÖÃÕ½¶·Ó¢ĞÛÊıÁ¿
+// é‡ç½®æˆ˜æ–—è‹±é›„æ•°é‡
 void Battle::resetCount()
 {
     myCount = 0;
     enemyCount = 0;
 }
 
-// ÒÆ³ıÕ½¶·Ó¢ĞÛ
+// ç§»é™¤æˆ˜æ–—è‹±é›„
 void Battle::setEmpty(const int& x, const int& y)
 {
     championMap[x][y] = nullptr;
 }
 
-// ·ÅÖÃÕ½¶·Ó¢ĞÛ
+// æ”¾ç½®æˆ˜æ–—è‹±é›„
 void Battle::placeChampion(const int& x, const int& y, Champion* champion)
 {
     championMap[x][y] = champion;
 }
 
-// ÉèÖÃÕ½¶·Ê¤¸º×´Ì¬
+// è®¾ç½®æˆ˜æ–—èƒœè´ŸçŠ¶æ€
 void Battle::setBattleSituation(const BattleSituation battleSituation)
 {
     this->battleSituation = battleSituation;
 }
 
-// »ñÈ¡ÎÒ·½î¿°íĞ§¹û
+// è·å–æˆ‘æ–¹ç¾ç»Šæ•ˆæœ
 std::vector<int> Battle::getMyBond() const
 {
     return myBond;
 }
 
-// »ñÈ¡µĞ·½î¿°íĞ§¹û
+// è·å–æ•Œæ–¹ç¾ç»Šæ•ˆæœ
 std::vector<int> Battle::getEnemyBond() const
 {
     return enemyBond;
 }
 
-// î¿°íĞ§¹û
+// ç¾ç»Šæ•ˆæœ
 void Battle::bondEffect(const Bond bond, const bool isMyFlag)
 {
     if (bond == NoBond) {

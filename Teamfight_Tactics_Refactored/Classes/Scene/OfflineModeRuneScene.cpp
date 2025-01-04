@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModeRuneScene.h
- * File Function: OfflineModeRuneSceneÀàµÄÊµÏÖ
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: OfflineModeRuneSceneç±»çš„å®žçŽ°
+ * Author:        åˆ˜æ·‘ä»ªã€æž—ç»§ç”³
  * Update Date:   2023/12/30
  ****************************************************************/
 
@@ -13,15 +13,15 @@
 #include "Button/HoverButton.h"
 #include "proj.win32/Constant.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Vec2;
 
-// Á·Ï°Ä£Ê½ÓÎÏ·¿ØÖÆÀà
+// ç»ƒä¹ æ¨¡å¼æ¸¸æˆæŽ§åˆ¶ç±»
 OfflineModeControl* g_offlineModeControl = nullptr;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* OfflineModeRuneScene::createScene()
 {
     auto scene = Scene::create();
@@ -30,21 +30,21 @@ Scene* OfflineModeRuneScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool OfflineModeRuneScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/OfflineModeRuneScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨Ìì¸³·ûÎÄ°´Å¥
+    // åˆ›å»ºå¤©èµ‹ç¬¦æ–‡æŒ‰é’®
     const std::string talentRune[] = { "Pirate", "General", "Warriors" };
     const int offsetX[] = { -TALENT_RUNE_BUTTON_OFFSET_X, 0, TALENT_RUNE_BUTTON_OFFSET_X };
     HoverButton* talentRuneButton[TALENT_RUNE_COUNT] = { nullptr };

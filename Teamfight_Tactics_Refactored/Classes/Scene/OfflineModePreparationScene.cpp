@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModePreparationScene.cpp
- * File Function: OfflineModePreparationSceneÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê¡¢ÁõÊçÒÇ
+ * File Function: OfflineModePreparationSceneç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³ã€åˆ˜æ·‘ä»ª
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -15,16 +15,16 @@
 #include "MenuScene.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// Á·Ï°Ä£Ê½ÓÎÏ·¿ØÖÆÀà
+// ç»ƒä¹ æ¨¡å¼æ¸¸æˆæ§åˆ¶ç±»
 extern OfflineModeControl* g_offlineModeControl;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* OfflineModePreparationScene::createScene()
 {
     auto scene = Scene::create();
@@ -33,65 +33,65 @@ Scene* OfflineModePreparationScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool OfflineModePreparationScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
 
-    // ÉèÖÃ HumanPlayer ÀàµÄµ±Ç°³¡¾°Ö¸Õë
+    // è®¾ç½® HumanPlayer ç±»çš„å½“å‰åœºæ™¯æŒ‡é’ˆ
     g_offlineModeControl->getHumanPlayer()->setCurrentScene(this);
 
-    // ¼ÓÔØÒôÀÖ
+    // åŠ è½½éŸ³ä¹
     audioPlayer("../Resources/Music/PreparationScene_RagsToRings.mp3", true);
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/OfflineModePreparationScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨µÈ¼¶±êÇ©
+    // åˆ›å»ºç­‰çº§æ ‡ç­¾
     Label* levelLabel;
     const int currentBattleChampionCount = g_offlineModeControl->getHumanPlayer()->getMaxBattleChampionCount();
     if (currentBattleChampionCount >= (static_cast<TalentRune>(cocos2d::UserDefault::getInstance()->getIntegerForKey("TalentRune") == General ? BATTLE_AREA_MAX_CHAMPION_COUNT : BATTLE_AREA_MAX_CHAMPION_COUNT - 1))) {
-        levelLabel = Label::createWithTTF(u8"×î¸ßµÈ¼¶", "../Resources/Fonts/DingDingJinBuTi.ttf", SHOP_LEVEL_LABEL_FONT_SIZE);
+        levelLabel = Label::createWithTTF(u8"æœ€é«˜ç­‰çº§", "../Resources/Fonts/DingDingJinBuTi.ttf", SHOP_LEVEL_LABEL_FONT_SIZE);
     }
     else {
-        levelLabel = Label::createWithTTF(u8"µÈ¼¶£º" + std::to_string(currentBattleChampionCount - BATTLE_AREA_MIN_CHAMPION_COUNT + 1), "../Resources/Fonts/DingDingJinBuTi.ttf", SHOP_LEVEL_LABEL_FONT_SIZE);
+        levelLabel = Label::createWithTTF(u8"ç­‰çº§ï¼š" + std::to_string(currentBattleChampionCount - BATTLE_AREA_MIN_CHAMPION_COUNT + 1), "../Resources/Fonts/DingDingJinBuTi.ttf", SHOP_LEVEL_LABEL_FONT_SIZE);
     }
     levelLabel->setAnchorPoint(Vec2(0, 0.5));
     levelLabel->setPosition(Vec2(screenSize.width / 2 + SHOP_LEVEL_LABEL_OFFSET_X, screenSize.height / 2 + SHOP_LEVEL_LABEL_OFFSET_Y));
     levelLabel->setName("LevelLabel");
     this->addChild(levelLabel);
 
-    // ´´½¨½ğ±ÒÊıÁ¿±êÇ©
+    // åˆ›å»ºé‡‘å¸æ•°é‡æ ‡ç­¾
     Label* coinLabel = Label::createWithTTF(std::to_string(g_offlineModeControl->getHumanPlayer()->getGoldCoin()), "../Resources/Fonts/DingDingJinBuTi.ttf", SHOP_COIN_LABEL_FONT_SIZE);
     coinLabel->setAnchorPoint(Vec2(1, 0.5));
     coinLabel->setPosition(Vec2(screenSize.width / 2 + SHOP_COIN_LABEL_OFFSET_X, screenSize.height / 2 + SHOP_COIN_LABEL_OFFSET_Y));
     coinLabel->setName("CoinLabel");
     this->addChild(coinLabel);
 
-    // ´´½¨½ø¶ÈÌõ
+    // åˆ›å»ºè¿›åº¦æ¡
     auto progressBar = cocos2d::ui::LoadingBar::create("../Resources/ImageElements/CountdownLoadingBar.png");
     progressBar->setPosition(Vec2(BATTLE_SCENE_LOADINGBAR_X, BATTLE_SCENE_LOADINGBAR_Y));
     progressBar->setPercent(0);
     progressBar->setName("CountdownLoadingBar");
     this->addChild(progressBar);
 
-    // ´´½¨±êÇ©ÒÔÏÔÊ¾½ø¶È
+    // åˆ›å»ºæ ‡ç­¾ä»¥æ˜¾ç¤ºè¿›åº¦
     auto progressLabel = Label::createWithTTF("", "../Resources/Fonts/FangZhengZhaoGeYuan.ttf", BATTLE_SCENE_LOADINGBAR_LABEL_FONT_SIZE);
     progressLabel->setPosition(Vec2(progressBar->getPosition().x - progressBar->getContentSize().width / 2 + BATTLE_SCENE_LOADINGBAR_LABEL_OFFSET_X, progressBar->getPosition().y));
     progressLabel->setVisible(false);
     progressLabel->setName("CountdownLoadingBarLabel");
     this->addChild(progressLabel);
 
-    // ÉèÖÃ½ø¶ÈÌõ¸üĞÂÂß¼­Óë¼ÆÊ±Æ÷
+    // è®¾ç½®è¿›åº¦æ¡æ›´æ–°é€»è¾‘ä¸è®¡æ—¶å™¨
     setScheduleOnce(progressBar, progressLabel);
 
-    // ´´½¨°´Å¥
+    // åˆ›å»ºæŒ‰é’®
     auto uplevelButton = HoverButton::create("../Resources/Buttons/OfflineModePreparationSceneButtons/UplevelDefaultButton.png",
         "../Resources/Buttons/OfflineModePreparationSceneButtons/UplevelHoverButton.png",
         "../Resources/Buttons/OfflineModePreparationSceneButtons/UplevelActiveButton.png");
@@ -102,12 +102,12 @@ bool OfflineModePreparationScene::init()
         "../Resources/Buttons/OfflineModePreparationSceneButtons/ReturnMenuHoverButton.png",
         "../Resources/Buttons/OfflineModePreparationSceneButtons/ReturnMenuActiveButton.png");
 
-    // ÉèÖÃ°´Å¥Î»ÖÃ
+    // è®¾ç½®æŒ‰é’®ä½ç½®
     uplevelButton->setPosition(Vec2(screenSize.width / 2 + SHOP_UPLEVEL_BUTTON_OFFSET_X, screenSize.height / 2 + SHOP_UPLEVEL_BUTTON_OFFSET_Y));
     refreshButton->setPosition(Vec2(screenSize.width / 2 + SHOP_REFRESH_BUTTON_OFFSET_X, screenSize.height / 2 + SHOP_REFRESH_BUTTON_OFFSET_Y));
     returnMenuButton->setPosition(Vec2(screenSize.width / 2 + BATTLE_SCENE_RETURN_MENU_BUTTON_OFFSET_X, screenSize.height / 2 + BATTLE_SCENE_RETURN_MENU_BUTTON_OFFSET_Y));
 
-    // ´´½¨½ğ±ÒÊıÁ¿±êÇ©
+    // åˆ›å»ºé‡‘å¸æ•°é‡æ ‡ç­¾
     auto refreshCoinLabel = Label::createWithTTF(std::to_string(REFRESH_SHOP_PRICE), "../Resources/Fonts/DingDingJinBuTi.ttf", SHOP_COIN_LABEL_FONT_SIZE);
     refreshCoinLabel->setAnchorPoint(Vec2(1, 0.5));
     refreshCoinLabel->setPosition(SHOP_COIN_LABEL_START_X, SHOP_REFRESH_COIN_LABEL_START_Y);
@@ -117,7 +117,7 @@ bool OfflineModePreparationScene::init()
     uplevelCoinLabel->setPosition(SHOP_COIN_LABEL_START_X, SHOP_UPLEVEL_COIN_LABEL_START_Y);
     this->addChild(uplevelCoinLabel, 2);
 
-    // Îª°´Å¥Ìí¼ÓÊÂ¼ş´¦ÀíÆ÷
+    // ä¸ºæŒ‰é’®æ·»åŠ äº‹ä»¶å¤„ç†å™¨
     uplevelButton->addTouchEventListener([this, uplevelCoinLabel](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::ENDED) {
             g_offlineModeControl->getHumanPlayer()->addBattleChampionCount();
@@ -132,7 +132,7 @@ bool OfflineModePreparationScene::init()
         });
     returnMenuButton->addTouchEventListener([](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             delete g_offlineModeControl;
@@ -141,15 +141,15 @@ bool OfflineModePreparationScene::init()
         }
         });
 
-    // ½«°´Å¥Ìí¼Óµ½³¡¾°ÖĞ
+    // å°†æŒ‰é’®æ·»åŠ åˆ°åœºæ™¯ä¸­
     this->addChild(uplevelButton, 1);
     this->addChild(refreshButton, 1);
     this->addChild(returnMenuButton);
 
-    // ³õÊ¼»¯Õ½¶·Ó¢ĞÛÉ¾³ı°´Å¥
+    // åˆå§‹åŒ–æˆ˜æ–—è‹±é›„åˆ é™¤æŒ‰é’®
     g_offlineModeControl->getHumanPlayer()->initializeDeleteChampionButton();
 
-    // ´´½¨·ÖÊı±í²ã
+    // åˆ›å»ºåˆ†æ•°è¡¨å±‚
     auto scoreBoardLayer = ScoreBoardLayer::create();
     scoreBoardLayer->initialize(2);
     scoreBoardLayer->showScoreBoard(g_offlineModeControl->getHumanPlayer(), g_offlineModeControl->getAIPlayer());
@@ -159,40 +159,40 @@ bool OfflineModePreparationScene::init()
     return true;
 }
 
-// µ±³¡¾°ÖØĞÂ½øÈëÊ±µ÷ÓÃ
+// å½“åœºæ™¯é‡æ–°è¿›å…¥æ—¶è°ƒç”¨
 void OfflineModePreparationScene::onEnter()
 {
-    // µ÷ÓÃ»ùÀàµÄ onEnter ·½·¨
+    // è°ƒç”¨åŸºç±»çš„ onEnter æ–¹æ³•
     Scene::onEnter();
 
-    // ÖØÖÃ·ÖÊı±í²ã
+    // é‡ç½®åˆ†æ•°è¡¨å±‚
     auto scoreBoardLayer = dynamic_cast<ScoreBoardLayer*>(this->getChildByName("ScoreBoardLayer"));
     scoreBoardLayer->showScoreBoard(g_offlineModeControl->getHumanPlayer(), g_offlineModeControl->getAIPlayer());
 
-    // ÖØÖÃ½ø¶ÈÌõºÍ±êÇ©
+    // é‡ç½®è¿›åº¦æ¡å’Œæ ‡ç­¾
     auto progressBar = dynamic_cast<cocos2d::ui::LoadingBar*>(this->getChildByName("CountdownLoadingBar"));
     auto progressLabel = dynamic_cast<Label*>(this->getChildByName("CountdownLoadingBarLabel"));
     if (progressBar && progressLabel) {
-        // ÉèÖÃ½ø¶ÈÌõ°Ù·Ö±È
+        // è®¾ç½®è¿›åº¦æ¡ç™¾åˆ†æ¯”
         progressBar->setPercent(0);
         progressLabel->setVisible(false);
 
-        // È¡ÏûÖ®Ç°µÄËùÓĞ¶¨Ê±Æ÷
+        // å–æ¶ˆä¹‹å‰çš„æ‰€æœ‰å®šæ—¶å™¨
         this->unscheduleAllCallbacks();
 
-        // ÖØĞÂÉèÖÃ½ø¶ÈÌõ¸üĞÂÂß¼­Óë¼ÆÊ±Æ÷
+        // é‡æ–°è®¾ç½®è¿›åº¦æ¡æ›´æ–°é€»è¾‘ä¸è®¡æ—¶å™¨
         setScheduleOnce(progressBar, progressLabel);
     }
 }
 
-// ÉèÖÃ½ø¶ÈÌõ¸üĞÂÂß¼­Óë¼ÆÊ±Æ÷
+// è®¾ç½®è¿›åº¦æ¡æ›´æ–°é€»è¾‘ä¸è®¡æ—¶å™¨
 void OfflineModePreparationScene::setScheduleOnce(cocos2d::ui::LoadingBar* progressBar, Label* progressLabel)
 {
-    // Ë¢ĞÂÉÌµê
+    // åˆ·æ–°å•†åº—
     g_offlineModeControl->getHumanPlayer()->refreshShop();
 
-    // ¸üĞÂ½ø¶ÈÌõºÍ±êÇ©
-    constexpr float interval = BATTLE_SCENE_LOADINGBAR_DURATION / 1000.0f; // Ã¿ 0.1% ËùĞèÊ±¼ä
+    // æ›´æ–°è¿›åº¦æ¡å’Œæ ‡ç­¾
+    constexpr float interval = BATTLE_SCENE_LOADINGBAR_DURATION / 1000.0f; // æ¯ 0.1% æ‰€éœ€æ—¶é—´
     for (int i = 0; i <= 1000; i++) {
         this->scheduleOnce([progressBar, progressLabel, i](float dt) {
             int sceond = static_cast<int>(BATTLE_SCENE_LOADINGBAR_DURATION - i * BATTLE_SCENE_LOADINGBAR_DURATION / 1000 + 0.999);
@@ -205,14 +205,14 @@ void OfflineModePreparationScene::setScheduleOnce(cocos2d::ui::LoadingBar* progr
             }, interval * i, "CountdownLoadingBar" + std::to_string(i));
     }
 
-    // ÉèÖÃ¼ÆÊ±Æ÷
+    // è®¾ç½®è®¡æ—¶å™¨
     this->scheduleOnce([this](float dt) {
-        // ´´½¨ºÍ·ÖÅÉÒ»¸öÊó±ê×ó¼üÊÍ·ÅÊÂ¼ş£¨Ç¿ÖÆ·ÅÏÂµ±Ç°Õ½¶·Ó¢ĞÛ£©
+        // åˆ›å»ºå’Œåˆ†æ´¾ä¸€ä¸ªé¼ æ ‡å·¦é”®é‡Šæ”¾äº‹ä»¶ï¼ˆå¼ºåˆ¶æ”¾ä¸‹å½“å‰æˆ˜æ–—è‹±é›„ï¼‰
         cocos2d::EventMouse event(cocos2d::EventMouse::MouseEventType::MOUSE_UP);
         event.setMouseButton(cocos2d::EventMouse::MouseButton::BUTTON_LEFT);
         _eventDispatcher->dispatchEvent(&event);
 
-        // ÔËĞĞÁ·Ï°Ä£Ê½¶ÔÕ½³¡¾°
+        // è¿è¡Œç»ƒä¹ æ¨¡å¼å¯¹æˆ˜åœºæ™¯
         cocos2d::Director::getInstance()->pushScene(OfflineModeBattleScene::create());
         }, BATTLE_SCENE_LOADINGBAR_DURATION + SCENE_TRANSITION_DURATION, "IsAlreadyPrepared");
 }

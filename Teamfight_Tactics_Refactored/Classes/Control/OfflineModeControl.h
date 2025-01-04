@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModeControl.h
- * File Function: OfflineModeControlÀàµÄ¶¨Òå
- * Author:        ÑîÓîçû¡¢ÁÖ¼ÌÉê
+ * File Function: OfflineModeControlç±»çš„å®šä¹‰
+ * Author:        æ¨å®‡ç¨ã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -16,24 +16,24 @@
 
 /*
  * Class Name:     OfflineModeControl
- * Class Function: Á·Ï°Ä£Ê½ÓÎÏ·¿ØÖÆÀà
+ * Class Function: ç»ƒä¹ æ¨¡å¼æ¸¸æˆæ§åˆ¶ç±»
  */
 class OfflineModeControl : public Control {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     OfflineModeControl();
 
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     ~OfflineModeControl();
 
-    // »ñÈ¡ AI Íæ¼ÒÖ¸Õë
+    // è·å– AI ç©å®¶æŒ‡é’ˆ
     AIPlayer* getAIPlayer() const;
 
-    // ³õÊ¼»¯¶ÔÕ½Àà
+    // åˆå§‹åŒ–å¯¹æˆ˜ç±»
     void initializeBattle();
 
 private:
-    AIPlayer* enemyPlayer; // AI Íæ¼Ò
+    AIPlayer* enemyPlayer; // AI ç©å®¶
 };
 
 #endif // !_OFFLINE_MODE_CONTROL_H_

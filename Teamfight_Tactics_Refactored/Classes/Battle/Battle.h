@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Battle.h
- * File Function: BattleÀàµÄ¶¨Òå
- * Author:        ÑîÓîçû¡¢ÁÖ¼ÌÉê
+ * File Function: Battleç±»çš„å®šä¹‰
+ * Author:        æ¨å®‡ç¨ã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -15,68 +15,68 @@
 #include "Champion/Champion.h"
 #include "proj.win32/Constant.h"
 
-// Champion ÀàÇ°ÉùÃ÷£¨ÓÃÓÚ½â¾öÑ­»·ÒÀÀµ£©
+// Champion ç±»å‰å£°æ˜ï¼ˆç”¨äºè§£å†³å¾ªç¯ä¾èµ–ï¼‰
 class Champion;
 
 /*
  * Class Name:     Battle
- * Class Function: ¶ÔÕ½Àà
+ * Class Function: å¯¹æˆ˜ç±»
  */
 class Battle {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Battle(const ChampionCategory myFlagMap[][BATTLE_MAP_COLUMNS], const ChampionCategory enemyFlagMap[][BATTLE_MAP_COLUMNS]);
 
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     ~Battle();
 
-    // »ñÈ¡Õ½¶·Ó¢ĞÛÖ¸Õë
+    // è·å–æˆ˜æ–—è‹±é›„æŒ‡é’ˆ
     Champion* getChampion(const int& x, const int& y);
 
-    // »ñÈ¡ÎÒ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+    // è·å–æˆ‘æ–¹æˆ˜æ–—è‹±é›„æ•°é‡
     int getMyCount();
 
-    // »ñÈ¡µĞ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+    // è·å–æ•Œæ–¹æˆ˜æ–—è‹±é›„æ•°é‡
     int getEnemyCount();
 
-    // Ôö¼ÓÎÒ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+    // å¢åŠ æˆ‘æ–¹æˆ˜æ–—è‹±é›„æ•°é‡
     void addMyCount();
 
-    // Ôö¼ÓµĞ·½Õ½¶·Ó¢ĞÛÊıÁ¿
+    // å¢åŠ æ•Œæ–¹æˆ˜æ–—è‹±é›„æ•°é‡
     void addEnemyCount();
 
-    // ÖØÖÃÕ½¶·Ó¢ĞÛÊıÁ¿
+    // é‡ç½®æˆ˜æ–—è‹±é›„æ•°é‡
     void resetCount();
 
-    // ÒÆ³ıÕ½¶·Ó¢ĞÛ
+    // ç§»é™¤æˆ˜æ–—è‹±é›„
     void setEmpty(const int& x, const int& y);
 
-    // ·ÅÖÃÕ½¶·Ó¢ĞÛ
+    // æ”¾ç½®æˆ˜æ–—è‹±é›„
     void placeChampion(const int& x, const int& y, Champion* champion);
 
-    // ÉèÖÃÕ½¶·Ê¤¸º×´Ì¬
+    // è®¾ç½®æˆ˜æ–—èƒœè´ŸçŠ¶æ€
     void setBattleSituation(const BattleSituation battleSituation);
 
-    // »ñÈ¡ÎÒ·½î¿°íĞ§¹û
+    // è·å–æˆ‘æ–¹ç¾ç»Šæ•ˆæœ
     std::vector<int> getMyBond() const;
 
-    // »ñÈ¡µĞ·½î¿°íĞ§¹û
+    // è·å–æ•Œæ–¹ç¾ç»Šæ•ˆæœ
     std::vector<int> getEnemyBond() const;
 
-    // î¿°íĞ§¹û
+    // ç¾ç»Šæ•ˆæœ
     void bondEffect(const Bond bond, const bool isMyFlag);
 
-    // ÉùÃ÷ÓÑÔªÀà
+    // å£°æ˜å‹å…ƒç±»
     friend class Champion;
 
 private:
-    ChampionCategory championCategoryMap[BATTLE_MAP_ROWS][BATTLE_MAP_COLUMNS]; // Õ½¶·ÇøµØÍ¼
-    Champion* championMap[BATTLE_MAP_ROWS][BATTLE_MAP_COLUMNS];                // Õ½¶·ÇøÕ½¶·Ó¢ĞÛÖ¸Õë
-    int myCount;                                                               // ÎÒ·½Õ½¶·Ó¢ĞÛÊıÁ¿
-    int enemyCount;                                                            // µĞ·½Õ½¶·Ó¢ĞÛÊıÁ¿
-    BattleSituation battleSituation;                                           // Õ½¶·Ê¤¸º×´Ì¬
-    std::vector<int> myBond;                                                   // ÎÒ·½î¿°íĞ§¹û
-    std::vector<int> enemyBond;                                                // µĞ·½î¿°íĞ§¹û
+    ChampionCategory championCategoryMap[BATTLE_MAP_ROWS][BATTLE_MAP_COLUMNS]; // æˆ˜æ–—åŒºåœ°å›¾
+    Champion* championMap[BATTLE_MAP_ROWS][BATTLE_MAP_COLUMNS];                // æˆ˜æ–—åŒºæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
+    int myCount;                                                               // æˆ‘æ–¹æˆ˜æ–—è‹±é›„æ•°é‡
+    int enemyCount;                                                            // æ•Œæ–¹æˆ˜æ–—è‹±é›„æ•°é‡
+    BattleSituation battleSituation;                                           // æˆ˜æ–—èƒœè´ŸçŠ¶æ€
+    std::vector<int> myBond;                                                   // æˆ‘æ–¹ç¾ç»Šæ•ˆæœ
+    std::vector<int> enemyBond;                                                // æ•Œæ–¹ç¾ç»Šæ•ˆæœ
 };
 
 #endif // !_BATTLE_H_

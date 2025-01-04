@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     HoverButton.h
- * File Function: HoverButtonÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: HoverButtonç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -17,25 +17,25 @@
 
 /*
  * Class Name:     HoverButton
- * Class Function: ĞüÍ£°´Å¥Àà
+ * Class Function: æ‚¬åœæŒ‰é’®ç±»
  */
 class HoverButton : public cocos2d::ui::Button {
 public:
-    // ´´½¨Ò»¸öĞÂµÄ HoverButton ÊµÀı
+    // åˆ›å»ºä¸€ä¸ªæ–°çš„ HoverButton å®ä¾‹
     static HoverButton* create(const std::string& defaultButtonImage, const std::string& hoverButtonImage, const std::string& activeButtonImage);
 
-    // ³õÊ¼»¯ HoverButton ÊµÀı
+    // åˆå§‹åŒ– HoverButton å®ä¾‹
     bool init(const std::string& defaultButtonImage, const std::string& hoverButtonImage, const std::string& activeButtonImage);
 
 private:
-    std::string defaultButtonImage; // Ä¬ÈÏ×´Ì¬°´Å¥Í¼Æ¬Â·¾¶
-    std::string hoverButtonImage;   // ĞüÍ£×´Ì¬°´Å¥Í¼Æ¬Â·¾¶
-    std::string activeButtonImage;  // ¼¤»î×´Ì¬°´Å¥Í¼Æ¬Â·¾¶
+    std::string defaultButtonImage; // é»˜è®¤çŠ¶æ€æŒ‰é’®å›¾ç‰‡è·¯å¾„
+    std::string hoverButtonImage;   // æ‚¬åœçŠ¶æ€æŒ‰é’®å›¾ç‰‡è·¯å¾„
+    std::string activeButtonImage;  // æ¿€æ´»çŠ¶æ€æŒ‰é’®å›¾ç‰‡è·¯å¾„
 
-    // Êó±êÒÆ¶¯ÊÂ¼şµÄ´¦Àíº¯Êı
+    // é¼ æ ‡ç§»åŠ¨äº‹ä»¶çš„å¤„ç†å‡½æ•°
     void onMouseMove(cocos2d::Event* event);
 
-    // Êó±êÊÍ·ÅÊÂ¼şµÄ´¦Àíº¯Êı
+    // é¼ æ ‡é‡Šæ”¾äº‹ä»¶çš„å¤„ç†å‡½æ•°
     void onMouseUp(cocos2d::Event* event);
 };
 

@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     HumanPlayer.h
- * File Function: HumanPlayerÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê¡¢ÑîÓîçû
+ * File Function: HumanPlayerç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³ã€æ¨å®‡ç¨
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -19,94 +19,94 @@
 
 /*
  * Class Name:     HumanPlayer
- * Class Function: ÈËÀàÍæ¼ÒÀà
+ * Class Function: äººç±»ç©å®¶ç±»
  */
 class HumanPlayer : public Player {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     HumanPlayer(const std::string nickname);
 
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     ~HumanPlayer();
 
-    // ÉèÖÃµ±Ç°³¡¾°Ö¸Õë
+    // è®¾ç½®å½“å‰åœºæ™¯æŒ‡é’ˆ
     void setCurrentScene(cocos2d::Scene* currentScene);
 
-    // Ë¢ĞÂÉÌµê
+    // åˆ·æ–°å•†åº—
     void refreshShop();
 
-    // »ñÈ¡Õ½¶·Çø×î´óÓ¢ĞÛÊıÁ¿
+    // è·å–æˆ˜æ–—åŒºæœ€å¤§è‹±é›„æ•°é‡
     int getMaxBattleChampionCount() const;
 
-    // »ñÈ¡Õ½¶·Çøµ±Ç°Ó¢ĞÛÊıÁ¿
+    // è·å–æˆ˜æ–—åŒºå½“å‰è‹±é›„æ•°é‡
     int getCurrentBattleChampionCount() const;
 
-    // Ôö¼ÓÕ½¶·ÇøÓ¢ĞÛÊıÁ¿
+    // å¢åŠ æˆ˜æ–—åŒºè‹±é›„æ•°é‡
     void addBattleChampionCount(const int num = 1);
 
-    // »ñÈ¡½ğ±ÒÊıÁ¿
+    // è·å–é‡‘å¸æ•°é‡
     int getGoldCoin() const;
 
-    // Ôö¼Ó½ğ±ÒÊıÁ¿
+    // å¢åŠ é‡‘å¸æ•°é‡
     void addGoldCoin(const int num);
 
-    // ³õÊ¼»¯Õ½¶·Ó¢ĞÛÉ¾³ı°´Å¥
+    // åˆå§‹åŒ–æˆ˜æ–—è‹±é›„åˆ é™¤æŒ‰é’®
     void initializeDeleteChampionButton();
 
-    // ÉèÖÃÕ½¶·ÇøµØÍ¼
+    // è®¾ç½®æˆ˜æ–—åŒºåœ°å›¾
     void setBattleMap(const ChampionCategory battleMap[][BATTLE_MAP_COLUMNS]);
 
 private:
-    cocos2d::Scene* currentScene;                                         // µ±Ç°³¡¾°Ö¸Õë
-    ChampionCategory shopChampionCategory[MAX_SELECTABLE_CHAMPION_COUNT]; // ÉÌµêÕ½¶·Ó¢ĞÛÖÖÀà
-    HoverButton* shopChampionButton[MAX_SELECTABLE_CHAMPION_COUNT];       // ÉÌµêÕ½¶·Ó¢ĞÛ°´Å¥Ö¸Õë
-    HoverButton* deleteChampionButton;                                    // Õ½¶·Ó¢ĞÛÉ¾³ı°´Å¥Ö¸Õë
-    Champion* battleChampion[BATTLE_MAP_ROWS][BATTLE_MAP_COLUMNS];        // Õ½¶·ÇøÕ½¶·Ó¢ĞÛÖ¸Õë
-    Champion* waitingChampion[WAITING_MAP_COUNT];                         // ºòÕ½ÇøÕ½¶·Ó¢ĞÛÖ¸Õë
-    ChampionAttributesLayer* championAttributesLayer;                     // Õ½¶·Ó¢ĞÛÊôĞÔ²ãÀàÖ¸Õë
-    PlacementMarkerLayer* placementMarkerLayer;                           // ·ÅÖÃ±ê¼Ç²ãÀàÖ¸Õë
-    cocos2d::Sprite* nearestPlacementMarker;                              // ×î½ü·ÅÖÃ±ê¼ÇÖ¸Õë
-    Location startLocation;                                               // Õ½¶·Ó¢ĞÛÒÆ¶¯ÆğÊ¼Î»ÖÃÊôĞÔ
-    int maxBattleChampionCount;                                           // Õ½¶·Çø×î´óÓ¢ĞÛÊıÁ¿
-    int goldCoin;                                                         // ½ğ±ÒÊıÁ¿
+    cocos2d::Scene* currentScene;                                         // å½“å‰åœºæ™¯æŒ‡é’ˆ
+    ChampionCategory shopChampionCategory[MAX_SELECTABLE_CHAMPION_COUNT]; // å•†åº—æˆ˜æ–—è‹±é›„ç§ç±»
+    HoverButton* shopChampionButton[MAX_SELECTABLE_CHAMPION_COUNT];       // å•†åº—æˆ˜æ–—è‹±é›„æŒ‰é’®æŒ‡é’ˆ
+    HoverButton* deleteChampionButton;                                    // æˆ˜æ–—è‹±é›„åˆ é™¤æŒ‰é’®æŒ‡é’ˆ
+    Champion* battleChampion[BATTLE_MAP_ROWS][BATTLE_MAP_COLUMNS];        // æˆ˜æ–—åŒºæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
+    Champion* waitingChampion[WAITING_MAP_COUNT];                         // å€™æˆ˜åŒºæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
+    ChampionAttributesLayer* championAttributesLayer;                     // æˆ˜æ–—è‹±é›„å±æ€§å±‚ç±»æŒ‡é’ˆ
+    PlacementMarkerLayer* placementMarkerLayer;                           // æ”¾ç½®æ ‡è®°å±‚ç±»æŒ‡é’ˆ
+    cocos2d::Sprite* nearestPlacementMarker;                              // æœ€è¿‘æ”¾ç½®æ ‡è®°æŒ‡é’ˆ
+    Location startLocation;                                               // æˆ˜æ–—è‹±é›„ç§»åŠ¨èµ·å§‹ä½ç½®å±æ€§
+    int maxBattleChampionCount;                                           // æˆ˜æ–—åŒºæœ€å¤§è‹±é›„æ•°é‡
+    int goldCoin;                                                         // é‡‘å¸æ•°é‡
 
-    // Ìí¼ÓÕ½¶·Ó¢ĞÛ
+    // æ·»åŠ æˆ˜æ–—è‹±é›„
     void addChampion(const int index);
 
-    // °´ÏÂÊó±êÊÂ¼ş´¥·¢º¯Êı
+    // æŒ‰ä¸‹é¼ æ ‡äº‹ä»¶è§¦å‘å‡½æ•°
     void onMouseDown(cocos2d::Event* event, cocos2d::Sprite* championSprite);
 
-    // ÒÆ¶¯Êó±êÊÂ¼ş´¥·¢º¯Êı
+    // ç§»åŠ¨é¼ æ ‡äº‹ä»¶è§¦å‘å‡½æ•°
     void onMouseMove(cocos2d::Event* event, cocos2d::Sprite* championSprite);
 
-    // ÊÍ·ÅÊó±êÊÂ¼ş´¥·¢º¯Êı
+    // é‡Šæ”¾é¼ æ ‡äº‹ä»¶è§¦å‘å‡½æ•°
     void onMouseUp(cocos2d::Event* event, cocos2d::Sprite* championSprite);
 
-    // ´ÓÉÌµêÖĞÒÆ³ıÕ½¶·Ó¢ĞÛ
+    // ä»å•†åº—ä¸­ç§»é™¤æˆ˜æ–—è‹±é›„
     void removeChampionFromShop(const int index);
 
-    // ¿ªÆôÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ²ãºÍ·ÅÖÃ±ê¼Ç²ã
+    // å¼€å¯æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§å±‚å’Œæ”¾ç½®æ ‡è®°å±‚
     void showChampionAttributesLayerAndPlacementMarkerLayer(const ChampionCategory championCategory);
 
-    // ¹Ø±ÕÏÔÊ¾Õ½¶·Ó¢ĞÛÊôĞÔ²ãºÍ·ÅÖÃ±ê¼Ç²ã
+    // å…³é—­æ˜¾ç¤ºæˆ˜æ–—è‹±é›„å±æ€§å±‚å’Œæ”¾ç½®æ ‡è®°å±‚
     void hideChampionAttributesLayerAndPlacementMarkerLayer();
 
-    // É¾³ıµ±Ç°Õ½¶·Ó¢ĞÛ
+    // åˆ é™¤å½“å‰æˆ˜æ–—è‹±é›„
     void deleteCurrentChampion();
 
-    // Ë¢ĞÂ½ğ±ÒÊıÁ¿±êÇ©
+    // åˆ·æ–°é‡‘å¸æ•°é‡æ ‡ç­¾
     void refreshCoinLabel(int num);
 
-    // Í³¼ÆÌØ¶¨ÖÖÀàÕ½¶·Ó¢ĞÛµÄÊıÁ¿
+    // ç»Ÿè®¡ç‰¹å®šç§ç±»æˆ˜æ–—è‹±é›„çš„æ•°é‡
     int countSpecificChampion(const ChampionCategory championCategory);
 
-    // Éı¼¶Õ½¶·Ó¢ĞÛ
+    // å‡çº§æˆ˜æ–—è‹±é›„
     void uplevelChampion(const ChampionCategory championCategory);
 
-    // Ñ°ÕÒ×î½ü¿É·ÅÖÃ×ø±ê
+    // å¯»æ‰¾æœ€è¿‘å¯æ”¾ç½®åæ ‡
     cocos2d::Vec2 findNearestPoint(cocos2d::Sprite* championSprite);
 
-    // Ë¢ĞÂÉÌµêÕ½¶·Ó¢ĞÛÖÖÀà
+    // åˆ·æ–°å•†åº—æˆ˜æ–—è‹±é›„ç§ç±»
     void refreshShopChampionCategory();
 };
 

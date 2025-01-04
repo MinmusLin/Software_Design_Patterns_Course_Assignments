@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Champion.cpp
- * File Function: ChampionÀàµÄÊµÏÖ
- * Author:        ÑîÓîçû¡¢ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: Championç±»çš„å®ç°
+ * Author:        æ¨å®‡ç¨ã€åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -11,7 +11,7 @@
 #include "LocationMap/LocationMap.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 Champion::Champion(const ChampionCategory championCategory) :
     currentBattle(nullptr),
     attributes(CHAMPION_ATTR_MAP.at(championCategory)),
@@ -33,176 +33,176 @@ Champion::Champion(const ChampionCategory championCategory) :
     maxMagicPoints = attributes.skillTriggerThreshold;
 }
 
-// °ó¶¨Õ½¶·Àà
+// ç»‘å®šæˆ˜æ–—ç±»
 void Champion::setBattle(Battle* myBattle)
 {
     currentBattle = myBattle;
 }
 
-// ÉèÖÃÕ½¶·Ó¢ĞÛËùÊôÕóÓª
+// è®¾ç½®æˆ˜æ–—è‹±é›„æ‰€å±é˜µè¥
 void Champion::setCamp(const bool isMyFlag)
 {
     this->isMyFlag = isMyFlag;
 }
 
-// »ñÈ¡Õ½¶·Ó¢ĞÛËùÊôÕóÓª
+// è·å–æˆ˜æ–—è‹±é›„æ‰€å±é˜µè¥
 bool Champion::getCamp() const
 {
     return isMyFlag;
 }
 
-// ÉèÖÃµ±Ç°Õ½¶·Ó¢ĞÛÎ»ÖÃ
+// è®¾ç½®å½“å‰æˆ˜æ–—è‹±é›„ä½ç½®
 void Champion::setCurrentPosition(const int& x, const int& y)
 {
     currentLocation = { x, y };
 }
 
-// »ñÈ¡Õ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+// è·å–æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
 bool Champion::getIsMoving() const
 {
     return isMoving;
 }
 
-// ÉèÖÃÕ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+// è®¾ç½®æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
 void Champion::setIsMoving()
 {
     isMoving = true;
 }
 
-// ÖØÖÃÕ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+// é‡ç½®æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
 void Champion::resetIsMoving()
 {
     isMoving = false;
 }
 
-// »ñÈ¡Õ½¶·Ó¢ĞÛ¹¥»÷×´Ì¬
+// è·å–æˆ˜æ–—è‹±é›„æ”»å‡»çŠ¶æ€
 bool Champion::getIsAttacking() const
 {
     return isAttaking;
 }
 
-// ÉèÖÃÕ½¶·Ó¢ĞÛ¹¥»÷×´Ì¬
+// è®¾ç½®æˆ˜æ–—è‹±é›„æ”»å‡»çŠ¶æ€
 void Champion::setIsAttacking()
 {
     isAttaking = true;
 }
 
-// ÖØÖÃÕ½¶·Ó¢ĞÛ¹¥»÷×´Ì¬
+// é‡ç½®æˆ˜æ–—è‹±é›„æ”»å‡»çŠ¶æ€
 void Champion::resetIsAttacking()
 {
     isAttaking = false;
 }
 
-// »ñÈ¡µ±Ç°Ëø¶¨µĞÈËÕ½¶·Ó¢ĞÛÖ¸Õë
+// è·å–å½“å‰é”å®šæ•Œäººæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
 Champion* Champion::getCurrentEnemy() const
 {
     return currentEnemy;
 }
 
-// »ñÈ¡µ±Ç°µĞÈËÕ½¶·Î»ÖÃÊôĞÔ
+// è·å–å½“å‰æ•Œäººæˆ˜æ–—ä½ç½®å±æ€§
 BattleLocation Champion::getCurrentLocation() const
 {
     return currentLocation;
 }
 
-// »ñÈ¡¾«ÁéÀàÖ¸Õë
+// è·å–ç²¾çµç±»æŒ‡é’ˆ
 cocos2d::Sprite* Champion::getSprite() const
 {
     return sprite;
 }
 
-// »ñÈ¡Õ½¶·Ó¢ĞÛÊôĞÔ
+// è·å–æˆ˜æ–—è‹±é›„å±æ€§
 ChampionAttributes Champion::getAttributes() const
 {
     return attributes;
 }
 
-// »ñÈ¡µ±Ç°Ä¿±êÎ»ÖÃ
+// è·å–å½“å‰ç›®æ ‡ä½ç½®
 BattleLocation Champion::getCurrentDestination() const
 {
     return currentDestination;
 }
 
-// ÉèÖÃµ±Ç°Ä¿±êÎ»ÖÃ
+// è®¾ç½®å½“å‰ç›®æ ‡ä½ç½®
 void Champion::setCurrentDestination(const BattleLocation destination)
 {
     currentDestination = destination;
 }
 
-// ÖØÖÃµ±Ç°Ä¿±êÎ»ÖÃ
+// é‡ç½®å½“å‰ç›®æ ‡ä½ç½®
 void Champion::resetCurrentDestination()
 {
     currentDestination = { currentLocation.x, currentLocation.y };
 }
 
-// »ñÈ¡¹¥»÷Ê±¼ä¼ä¸ô
+// è·å–æ”»å‡»æ—¶é—´é—´éš”
 float Champion::getAttackIntervalTimer() const
 {
     return attackIntervalTimer;
 }
 
-// Ôö¼Ó¹¥»÷Ê±¼ä¼ä¸ô
+// å¢åŠ æ”»å‡»æ—¶é—´é—´éš”
 void Champion::addAttackIntervalTimer(const float delta)
 {
     attackIntervalTimer += delta;
 }
 
-// ÖØÖÃ¹¥»÷Ê±¼ä¼ä¸ô
+// é‡ç½®æ”»å‡»æ—¶é—´é—´éš”
 void Champion::resetAttackIntervalTimer()
 {
     attackIntervalTimer = 0.0f;
 }
 
-// »ñÈ¡ÒÆ¶¯Ê±¼ä¼ä¸ô
+// è·å–ç§»åŠ¨æ—¶é—´é—´éš”
 float Champion::getMoveIntervalTimer() const
 {
     return moveIntervalTimer;
 }
 
-// Ôö¼ÓÒÆ¶¯Ê±¼ä¼ä¸ô
+// å¢åŠ ç§»åŠ¨æ—¶é—´é—´éš”
 void Champion::addMoveIntervalTimer(const float delta)
 {
     moveIntervalTimer += delta;
 }
 
-// ÖØÖÃÒÆ¶¯Ê±¼ä¼ä¸ô
+// é‡ç½®ç§»åŠ¨æ—¶é—´é—´éš”
 void Champion::resetMoveIntervalTimer()
 {
     moveIntervalTimer = 0.0f;
 }
 
-// »ñÈ¡µ±Ç°ÒÆ¶¯
+// è·å–å½“å‰ç§»åŠ¨
 cocos2d::MoveTo* Champion::getCurrentMove() const
 {
     return currentMove;
 }
 
-// ÉèÖÃµ±Ç°ÒÆ¶¯
+// è®¾ç½®å½“å‰ç§»åŠ¨
 void Champion::setCurrentMove(cocos2d::MoveTo* move)
 {
     currentMove = move;
 }
 
-// ÖØÖÃµ±Ç°ÒÆ¶¯
+// é‡ç½®å½“å‰ç§»åŠ¨
 void Champion::resetCurrentMove()
 {
     currentMove = nullptr;
 }
 
-// »ñÈ¡µ±Ç°Õ½¶·ÀàÖ¸Õë
+// è·å–å½“å‰æˆ˜æ–—ç±»æŒ‡é’ˆ
 Battle* Champion::getCurrentBattle() const
 {
     return currentBattle;
 }
 
-// »ñÈ¡×î½üµĞ·½Õ½¶·Ó¢ĞÛ
+// è·å–æœ€è¿‘æ•Œæ–¹æˆ˜æ–—è‹±é›„
 void Champion::findNearestEnemy(const bool isMy)
 {
     Champion* nearestEnemy = nullptr;
     float nearestDistance = std::numeric_limits<float>::max();
 
     if (isMy) {
-        // ±éÀúµĞ·½Õ½¶·Ó¢ĞÛ
+        // éå†æ•Œæ–¹æˆ˜æ–—è‹±é›„
         for (int i = 0; i < BATTLE_MAP_ROWS; i++) {
             for (int j = 0; j < BATTLE_MAP_COLUMNS; j++) {
                 if (currentBattle->getChampion(i, j) != nullptr) {
@@ -250,7 +250,7 @@ void Champion::findNearestEnemy(const bool isMy)
     currentEnemy = nearestEnemy;
 }
 
-// ÅĞ¶Ï¹¥»÷·¶Î§ÄÚÊÇ·ñ´æÔÚµĞÈËÕ½¶·Ó¢ĞÛ
+// åˆ¤æ–­æ”»å‡»èŒƒå›´å†…æ˜¯å¦å­˜åœ¨æ•Œäººæˆ˜æ–—è‹±é›„
 bool Champion::isInAttackRange()
 {
     if (currentEnemy == nullptr) {
@@ -266,21 +266,21 @@ bool Champion::isInAttackRange()
     }
 }
 
-// ÅĞ¶Ïµ±Ç°Î»ÖÃÊÇ·ñÔÚÕ½¶·ÇøµØÍ¼ÄÚ
+// åˆ¤æ–­å½“å‰ä½ç½®æ˜¯å¦åœ¨æˆ˜æ–—åŒºåœ°å›¾å†…
 bool Champion::isInMap(const int& x, const int& y)
 {
     return x >= 0 && x < BATTLE_MAP_ROWS && y >= 0 && y < BATTLE_MAP_COLUMNS;
 }
 
-// ÒÆ¶¯
+// ç§»åŠ¨
 BattleLocation Champion::moveTowards(Champion* nearestEnemy)
 {
-    // Èç¹ûÎŞ×î½üµĞÈËÕ½¶·Ó¢ĞÛ£¬Ôò·µ»Øµ±Ç°Î»ÖÃ
+    // å¦‚æœæ— æœ€è¿‘æ•Œäººæˆ˜æ–—è‹±é›„ï¼Œåˆ™è¿”å›å½“å‰ä½ç½®
     if (nearestEnemy == nullptr) {
         return currentLocation;
     }
 
-    // »ñÈ¡×î½üµĞÈËÕ½¶·Ó¢ĞÛÎ»ÖÃ
+    // è·å–æœ€è¿‘æ•Œäººæˆ˜æ–—è‹±é›„ä½ç½®
     BattleLocation enemyLocation = nearestEnemy->currentLocation;
     BattleLocation bestMove = currentLocation;
     if (nearestEnemy->currentLocation.x > currentLocation.x) {
@@ -289,32 +289,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else if (isInMap(currentLocation.x, currentLocation.y - 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÏÂ×ß
+            } // å¾€å·¦ä¸‹èµ°
             else if (isInMap(currentLocation.x, currentLocation.y + 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else {
                 return currentLocation;
             }
@@ -325,32 +325,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else if (isInMap(currentLocation.x, currentLocation.y - 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else if (isInMap(currentLocation.x, currentLocation.y + 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÏÂ×ß
+            } // å¾€å·¦ä¸‹èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else {
                 return currentLocation;
             }
@@ -361,32 +361,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else if (isInMap(currentLocation.x, currentLocation.y + 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else if (isInMap(currentLocation.x, currentLocation.y - 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÏÂ×ß
+            } // å¾€å·¦ä¸‹èµ°
             else {
                 return currentLocation;
             }
@@ -399,32 +399,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÏÂ×ß
+            } // å¾€å·¦ä¸‹èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else if (isInMap(currentLocation.x, currentLocation.y + 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else {
                 return currentLocation;
             }
@@ -435,32 +435,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else if (isInMap(currentLocation.x, currentLocation.y - 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else {
                 return currentLocation;
             }
@@ -473,32 +473,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÏÂ×ß
+            } // å¾€å·¦ä¸‹èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else if (isInMap(currentLocation.x, currentLocation.y - 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else if (isInMap(currentLocation.x, currentLocation.y + 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else {
                 return currentLocation;
             }
@@ -509,32 +509,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÏÂ×ß
+            } // å¾€å·¦ä¸‹èµ°
             else if (isInMap(currentLocation.x, currentLocation.y + 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else if (isInMap(currentLocation.x, currentLocation.y - 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else {
                 return currentLocation;
             }
@@ -545,32 +545,32 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÏÂ×ß
+            } // å¾€å³ä¸‹èµ°
             else if (isInMap(currentLocation.x, currentLocation.y + 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y + 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y + 1;
-            } // ÍùÓÒ×ß
+            } // å¾€å³èµ°
             else if (isInMap(currentLocation.x - 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x - 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x - 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÏÂ×ß
+            } // å¾€å·¦ä¸‹èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y + (currentLocation.x % 2 ? 0 : 1))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y + (currentLocation.x % 2 ? 0 : 1)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y + (currentLocation.x % 2 ? 0 : 1);
-            } // ÍùÓÒÉÏ×ß
+            } // å¾€å³ä¸Šèµ°
             else if (isInMap(currentLocation.x, currentLocation.y - 1)
                 && currentBattle->championMap[currentLocation.x][currentLocation.y - 1] == nullptr) {
                 bestMove.x = currentLocation.x;
                 bestMove.y = currentLocation.y - 1;
-            } // Íù×ó×ß
+            } // å¾€å·¦èµ°
             else if (isInMap(currentLocation.x + 1, currentLocation.y - (currentLocation.x % 2 ? 1 : 0))
                 && currentBattle->championMap[currentLocation.x + 1][currentLocation.y - (currentLocation.x % 2 ? 1 : 0)] == nullptr) {
                 bestMove.x = currentLocation.x + 1;
                 bestMove.y = currentLocation.y - (currentLocation.x % 2 ? 1 : 0);
-            } // Íù×óÉÏ×ß
+            } // å¾€å·¦ä¸Šèµ°
             else {
                 return currentLocation;
             }
@@ -579,24 +579,24 @@ BattleLocation Champion::moveTowards(Champion* nearestEnemy)
     }
 }
 
-// ¹¥»÷
+// æ”»å‡»
 void Champion::attack()
 {
     if (isInAttackRange() && currentEnemy) {
-        // ÊÜµ½¹¥»÷
+        // å—åˆ°æ”»å‡»
         currentEnemy->beingAttack(attributes.attackDamage);
         attributes.magicPoints += INCREASED_MAGIC_POINTS;
 
-        // ÎäÆ÷¶¯»­
+        // æ­¦å™¨åŠ¨ç”»
         auto rotateToAction = cocos2d::RotateTo::create(WEAPON_ANIMATION_ROTATION_DURATION, sword->getRotation() + WEAPON_ANIMATION_ROTATION_ANGLE);
         auto rotateBackToAction = cocos2d::RotateTo::create(WEAPON_ANIMATION_ROTATION_DURATION, sword->getRotation());
         auto sequenceAction = cocos2d::Sequence::create(rotateToAction, rotateBackToAction, nullptr);
-        auto repeatAction = cocos2d::Repeat::create(sequenceAction, WEAPON_ANIMATION_ROTATION_COUNT); // ¼ÙÉèÖØ¸´ 4 ´Î
+        auto repeatAction = cocos2d::Repeat::create(sequenceAction, WEAPON_ANIMATION_ROTATION_COUNT); // å‡è®¾é‡å¤ 4 æ¬¡
         sword->runAction(repeatAction);
     }
 }
 
-// ¼¼ÄÜ
+// æŠ€èƒ½
 void Champion::skill()
 {
     if (attributes.price == CHAMPION_ATTR_MAP.at(FIFTH_LEVEL[1]).price) {
@@ -638,13 +638,13 @@ void Champion::skill()
     attributes.magicPoints = 0;
 }
 
-// ËÀÍö
+// æ­»äº¡
 void Champion::die()
 {
     auto championSprite = getSprite();
     championSprite->getParent()->removeChild(sprite, true);
-    healthBar->setScaleX(0); // ÉèÖÃÉúÃüÌõ±ÈÀı
-    manaBar->setScaleX(0); // ÉèÖÃ¾­ÑéÌõ±ÈÀı
+    healthBar->setScaleX(0); // è®¾ç½®ç”Ÿå‘½æ¡æ¯”ä¾‹
+    manaBar->setScaleX(0); // è®¾ç½®ç»éªŒæ¡æ¯”ä¾‹
     healthBar->getParent()->removeChild(healthBar, true);
     manaBar->getParent()->removeChild(manaBar, true);
     sword->getParent()->removeChild(sword, true);
@@ -653,7 +653,7 @@ void Champion::die()
     delete temp;
 }
 
-// ÉèÖÃÎäÆ÷ÊÇ·ñ¿É¼û
+// è®¾ç½®æ­¦å™¨æ˜¯å¦å¯è§
 void Champion::setSwordVisible(const bool visible)
 {
     if (sword) {
@@ -661,7 +661,7 @@ void Champion::setSwordVisible(const bool visible)
     }
 }
 
-// ³õÊ¼»¯ÎäÆ÷
+// åˆå§‹åŒ–æ­¦å™¨
 void Champion::initializeSword(const cocos2d::Vec2& position)
 {
     sword = cocos2d::Sprite::create("../Resources/ImageElements/Sword.png");
@@ -671,78 +671,78 @@ void Champion::initializeSword(const cocos2d::Vec2& position)
     }
 }
 
-// ÉèÖÃÎäÆ÷Î»ÖÃ
+// è®¾ç½®æ­¦å™¨ä½ç½®
 void Champion::setSwordPosition(const cocos2d::Vec2& position)
 {
     sword->setPosition(position);
 }
 
-// »ñÈ¡ÉúÃüÌõ
+// è·å–ç”Ÿå‘½æ¡
 cocos2d::Sprite* Champion::getHealthBar() const
 {
     return healthBar;
 }
 
-// »ñÈ¡¾­ÑéÌõ
+// è·å–ç»éªŒæ¡
 cocos2d::Sprite* Champion::getManaBar() const
 {
     return manaBar;
 }
 
-// »ñÈ¡×î´óÉúÃüÖµ
+// è·å–æœ€å¤§ç”Ÿå‘½å€¼
 float Champion::getMaxHealthPoints() const
 {
     return maxHealthPoints;
 }
 
-// »ñÈ¡×î´ó¾­ÑéÖµ
+// è·å–æœ€å¤§ç»éªŒå€¼
 float Champion::getMaxMagicPoints() const
 {
     return maxMagicPoints;
 }
 
-// ÉèÖÃÉúÃüÌõ
+// è®¾ç½®ç”Ÿå‘½æ¡
 void Champion::setHealthBar(Sprite* HealthBar)
 {
     healthBar = HealthBar;
 }
 
-// ÉèÖÃ¾­ÑéÌõ
+// è®¾ç½®ç»éªŒæ¡
 void Champion::setManaBar(Sprite* ManaBar)
 {
     manaBar = ManaBar;
 }
 
-// »ñÈ¡ÎäÆ÷¾«ÁéÀàÖ¸Õë
+// è·å–æ­¦å™¨ç²¾çµç±»æŒ‡é’ˆ
 cocos2d::Sprite* Champion::getSword() const
 {
     return sword;
 }
 
-// ÊÜµ½¹¥»÷
+// å—åˆ°æ”»å‡»
 void Champion::beingAttack(const int& damage)
 {
     attributes.healthPoints -= damage / attributes.defenseCoefficient;
     attributes.magicPoints += INCREASED_MAGIC_POINTS;
 }
 
-// ¼ÆËãÁ½µã¼ä¾àÀë
+// è®¡ç®—ä¸¤ç‚¹é—´è·ç¦»
 float Champion::distanceBetweenPoints(const cocos2d::Vec2& a, const cocos2d::Vec2& b)
 {
     return a.distance(b);
 }
 
-// ´¥·¢¼¼ÄÜ
+// è§¦å‘æŠ€èƒ½
 void Champion::triggerSkill(const int magnification, bool isCondition)
 {
     for (int i = 0; i < BATTLE_MAP_ROWS; i++) {
         for (int j = 0; j < BATTLE_MAP_COLUMNS; j++) {
             if (currentBattle->getChampion(i, j) != nullptr) {
-                // ÔÚÉä³Ì + 1 ·¶Î§ÄÚËùÓĞµĞ·½Õ½¶·Ó¢ĞÛÊÜµ½Ò»´Î¹¥»÷
+                // åœ¨å°„ç¨‹ + 1 èŒƒå›´å†…æ‰€æœ‰æ•Œæ–¹æˆ˜æ–—è‹±é›„å—åˆ°ä¸€æ¬¡æ”»å‡»
                 if (currentBattle->getChampion(i, j)->isMyFlag != isMyFlag
                     && (isCondition ? (distanceBetweenPoints(LocationMap::getInstance().getLocationMap().at({ BattleArea, i * BATTLE_MAP_COLUMNS + j }),
                         LocationMap::getInstance().getLocationMap().at({ BattleArea, currentLocation.x * BATTLE_MAP_COLUMNS + currentLocation.y })) <= attributes.attackRange * CHAMPION_HORIZONTAL_INTERVAL + 1) : true)) {
-                    // ¼ÓÔØ¼¼ÄÜÒôĞ§
+                    // åŠ è½½æŠ€èƒ½éŸ³æ•ˆ
                     audioPlayer("../Resources/Music/SkillSoundEffect.mp3", false);
 
                     currentBattle->getChampion(i, j)->beingAttack(attributes.attackDamage * magnification);
@@ -758,7 +758,7 @@ void Champion::triggerSkill(const int magnification, bool isCondition)
     }
 }
 
-// î¿°íĞ§¹û
+// ç¾ç»Šæ•ˆæœ
 void Champion::bond()
 {
     switch (attributes.bond) {

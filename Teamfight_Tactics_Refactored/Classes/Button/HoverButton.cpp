@@ -1,15 +1,15 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     HoverButton.cpp
- * File Function: HoverButtonÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê
+ * File Function: HoverButtonç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
 
 #include "HoverButton.h"
 
-// ´´½¨Ò»¸öĞÂµÄ HoverButton ÊµÀı
+// åˆ›å»ºä¸€ä¸ªæ–°çš„ HoverButton å®ä¾‹
 HoverButton* HoverButton::create(const std::string& defaultButtonImage, const std::string& hoverButtonImage, const std::string& activeButtonImage)
 {
     HoverButton* button = new(std::nothrow) HoverButton();
@@ -21,10 +21,10 @@ HoverButton* HoverButton::create(const std::string& defaultButtonImage, const st
     return nullptr;
 }
 
-// ³õÊ¼»¯ HoverButton ÊµÀı
+// åˆå§‹åŒ– HoverButton å®ä¾‹
 bool HoverButton::init(const std::string& defaultButtonImage, const std::string& hoverButtonImage, const std::string& activeButtonImage)
 {
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     if (!Button::init(defaultButtonImage, activeButtonImage, "")) {
         return false;
     }
@@ -32,7 +32,7 @@ bool HoverButton::init(const std::string& defaultButtonImage, const std::string&
     this->hoverButtonImage = hoverButtonImage;
     this->activeButtonImage = activeButtonImage;
 
-    // Êó±êÊÂ¼ş¼àÌı
+    // é¼ æ ‡äº‹ä»¶ç›‘å¬
     auto listener = cocos2d::EventListenerMouse::create();
     listener->onMouseMove = CC_CALLBACK_1(HoverButton::onMouseMove, this);
     listener->onMouseUp = CC_CALLBACK_1(HoverButton::onMouseUp, this);
@@ -41,7 +41,7 @@ bool HoverButton::init(const std::string& defaultButtonImage, const std::string&
     return true;
 }
 
-// Êó±êÒÆ¶¯ÊÂ¼şµÄ´¦Àíº¯Êı
+// é¼ æ ‡ç§»åŠ¨äº‹ä»¶çš„å¤„ç†å‡½æ•°
 void HoverButton::onMouseMove(cocos2d::Event* event)
 {
     const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
@@ -53,7 +53,7 @@ void HoverButton::onMouseMove(cocos2d::Event* event)
     }
 }
 
-// Êó±êÊÍ·ÅÊÂ¼şµÄ´¦Àíº¯Êı
+// é¼ æ ‡é‡Šæ”¾äº‹ä»¶çš„å¤„ç†å‡½æ•°
 void HoverButton::onMouseUp(cocos2d::Event* event)
 {
     const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);

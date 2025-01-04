@@ -1,33 +1,33 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Control.cpp
- * File Function: ControlÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê
+ * File Function: Controlç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
 
 #include "Control.h"
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 Control::Control(const int maxPlayersNum) :
     maxPlayers(maxPlayersNum),
     humanPlayer(nullptr),
     battle(nullptr) {}
 
-// »ñÈ¡ÈËÀàÍæ¼ÒÖ¸Õë
+// è·å–äººç±»ç©å®¶æŒ‡é’ˆ
 HumanPlayer* Control::getHumanPlayer() const
 {
     return humanPlayer;
 }
 
-// »ñÈ¡¶ÔÕ½ÀàÖ¸Õë
+// è·å–å¯¹æˆ˜ç±»æŒ‡é’ˆ
 Battle* Control::getBattle() const
 {
     return battle;
 }
 
-// ÊÍ·Å¶ÔÕ½Àà
+// é‡Šæ”¾å¯¹æˆ˜ç±»
 void Control::releaseBattle()
 {
     for (int i = 0; i < BATTLE_MAP_ROWS; i++) {

@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModeRuneScene.h
- * File Function: OfflineModeRuneSceneÀàµÄ¶¨Òå
- * Author:        ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: OfflineModeRuneSceneç±»çš„å®šä¹‰
+ * Author:        åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  ****************************************************************/
 
@@ -14,17 +14,17 @@
 
 /*
  * Class Name:     OfflineModeRuneScene
- * Class Function: Á·Ï°Ä£Ê½Ç¿»¯·ûÎÄ³¡¾°Àà
+ * Class Function: ç»ƒä¹ æ¨¡å¼å¼ºåŒ–ç¬¦æ–‡åœºæ™¯ç±»
  */
 class OfflineModeRuneScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // ÊµÏÖ OfflineModeRuneScene ÀàµÄ create ·½·¨
+    // å®ç° OfflineModeRuneScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(OfflineModeRuneScene);
 };
 

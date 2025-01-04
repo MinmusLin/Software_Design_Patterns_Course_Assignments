@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModeBattleScene.h
- * File Function: OfflineModeBattleSceneÀàµÄ¶¨Òå
- * Author:        ÑîÓîçû¡¢ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: OfflineModeBattleSceneç±»çš„å®šä¹‰
+ * Author:        æ¨å®‡ç¨ã€åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -16,25 +16,25 @@
 
 /*
  * Class Name:     OfflineModeBattleScene
- * Class Function: Á·Ï°Ä£Ê½¶ÔÕ½³¡¾°Àà
+ * Class Function: ç»ƒä¹ æ¨¡å¼å¯¹æˆ˜åœºæ™¯ç±»
  */
 class OfflineModeBattleScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // Ã¿Ò»Ö¡±»×Ô¶¯µ÷ÓÃµÄ update ·½·¨
+    // æ¯ä¸€å¸§è¢«è‡ªåŠ¨è°ƒç”¨çš„ update æ–¹æ³•
     virtual void update(float delta);
 
-    // ÊµÏÖ OfflineModeBattleScene ÀàµÄ create ·½·¨
+    // å®ç° OfflineModeBattleScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(OfflineModeBattleScene);
 
 private:
-    int battleChampionCount = 0;                                                // µ±Ç°³¡¾°Õ½¶·ÇøÕ½¶·Ó¢ĞÛÊıÁ¿
-    Champion* battleChampion[BATTLE_AREA_MAX_CHAMPION_COUNT * 2] = { nullptr }; // µ±Ç°³¡¾°Õ½¶·ÇøÕ½¶·Ó¢ĞÛÖ¸Õë
+    int battleChampionCount = 0;                                                // å½“å‰åœºæ™¯æˆ˜æ–—åŒºæˆ˜æ–—è‹±é›„æ•°é‡
+    Champion* battleChampion[BATTLE_AREA_MAX_CHAMPION_COUNT * 2] = { nullptr }; // å½“å‰åœºæ™¯æˆ˜æ–—åŒºæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
 };
 
 #endif // !_OFFLINE_MODE_BATTLE_SCENE_H_

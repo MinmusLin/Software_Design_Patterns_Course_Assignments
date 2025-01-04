@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     AppDelegate.cpp
- * File Function: AppDelegateÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê
+ * File Function: AppDelegateç±»çš„å®žçŽ°
+ * Author:        æž—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -12,50 +12,50 @@
 #include "proj.win32/Constant.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ·Ö±æÂÊÉèÖÃ
+// åˆ†è¾¨çŽ‡è®¾ç½®
 static cocos2d::Size s_designResolutionSize = cocos2d::Size(DESIGN_RESOLUTION_WIDTH, DESIGN_RESOLUTION_HEIGHT);
 static cocos2d::Size s_smallResolutionSize = cocos2d::Size(SMALL_RESOLUTION_WIDTH, SMALL_RESOLUTION_HEIGHT);
 static cocos2d::Size s_mediumResolutionSize = cocos2d::Size(MEDIUM_RESOLUTION_WIDTH, MEDIUM_RESOLUTION_HEIGHT);
 static cocos2d::Size s_largeResolutionSize = cocos2d::Size(LARGE_RESOLUTION_WIDTH, LARGE_RESOLUTION_HEIGHT);
 
-// Îö¹¹º¯Êý
+// æžæž„å‡½æ•°
 AppDelegate::~AppDelegate()
 {
     cocos2d::experimental::AudioEngine::end();
 }
 
-// ³õÊ¼»¯ OpenGL ÉÏÏÂÎÄÊôÐÔ
+// åˆå§‹åŒ– OpenGL ä¸Šä¸‹æ–‡å±žæ€§
 void AppDelegate::initGLContextAttrs()
 {
     GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 24, 8, 0 };
     cocos2d::GLView::setGLContextAttrs(glContextAttrs);
 }
 
-// µ±Ó¦ÓÃ³ÌÐòÍê³ÉÆô¶¯²¢×¼±¸½øÈëÖ÷Ñ­»·Ê±µ÷ÓÃ´Ëº¯Êý
+// å½“åº”ç”¨ç¨‹åºå®Œæˆå¯åŠ¨å¹¶å‡†å¤‡è¿›å…¥ä¸»å¾ªçŽ¯æ—¶è°ƒç”¨æ­¤å‡½æ•°
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    auto director = cocos2d::Director::getInstance(); // »ñÈ¡ÓÎÏ·ÒýÇæµÄµ¼ÑÝÊµÀý
-    auto glview = director->getOpenGLView(); // »ñÈ¡ OpenGL ÊÓÍ¼
+    auto director = cocos2d::Director::getInstance(); // èŽ·å–æ¸¸æˆå¼•æ“Žçš„å¯¼æ¼”å®žä¾‹
+    auto glview = director->getOpenGLView(); // èŽ·å– OpenGL è§†å›¾
 
-    // Èç¹û OpenGL ÊÓÍ¼²»´æÔÚ£¬¸ù¾ÝÆ½Ì¨´´½¨
+    // å¦‚æžœ OpenGL è§†å›¾ä¸å­˜åœ¨ï¼Œæ ¹æ®å¹³å°åˆ›å»º
     if (!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        // ÔÚ Windows¡¢Mac¡¢Linux Æ½Ì¨ÉÏ´´½¨ OpenGL ÊÓÍ¼
+        // åœ¨ Windowsã€Macã€Linux å¹³å°ä¸Šåˆ›å»º OpenGL è§†å›¾
         glview = cocos2d::GLViewImpl::createWithRect(APPLICATION_TITLE, cocos2d::Rect(0, 0, s_designResolutionSize.width, s_designResolutionSize.height));
 #else
-        // ÔÚÆäËûÆ½Ì¨ÉÏ´´½¨ OpenGL ÊÓÍ¼
+        // åœ¨å…¶ä»–å¹³å°ä¸Šåˆ›å»º OpenGL è§†å›¾
         glview = cocos2d::GLViewImpl::create(APPLICATION_TITLE);
 #endif
-        // ÉèÖÃ OpenGL ÊÓÍ¼
+        // è®¾ç½® OpenGL è§†å›¾
         director->setOpenGLView(glview);
     }
 
-    director->setDisplayStats(false); // ¹Ø±ÕÏÔÊ¾ÐÔÄÜÍ³¼ÆÐÅÏ¢
-    director->setAnimationInterval(1 / FRAME_RATE); // ÉèÖÃÓÎÏ·Ñ­»·µÄÖ¡ÂÊ
-    glview->setDesignResolutionSize(s_designResolutionSize.width, s_designResolutionSize.height, ResolutionPolicy::NO_BORDER); // ÉèÖÃÉè¼Æ·Ö±æÂÊ
-    const auto frameSize = glview->getFrameSize(); // »ñÈ¡´°¿ÚµÄÖ¡´óÐ¡
+    director->setDisplayStats(false); // å…³é—­æ˜¾ç¤ºæ€§èƒ½ç»Ÿè®¡ä¿¡æ¯
+    director->setAnimationInterval(1 / FRAME_RATE); // è®¾ç½®æ¸¸æˆå¾ªçŽ¯çš„å¸§çŽ‡
+    glview->setDesignResolutionSize(s_designResolutionSize.width, s_designResolutionSize.height, ResolutionPolicy::NO_BORDER); // è®¾ç½®è®¾è®¡åˆ†è¾¨çŽ‡
+    const auto frameSize = glview->getFrameSize(); // èŽ·å–çª—å£çš„å¸§å¤§å°
 
-    // ¸ù¾Ý´°¿Ú´óÐ¡ÉèÖÃÄÚÈÝËõ·ÅÒò×Ó
+    // æ ¹æ®çª—å£å¤§å°è®¾ç½®å†…å®¹ç¼©æ”¾å› å­
     if (frameSize.height > s_mediumResolutionSize.height) {
         director->setContentScaleFactor(MIN(s_largeResolutionSize.height / s_designResolutionSize.height, s_largeResolutionSize.width / s_designResolutionSize.width));
     }
@@ -66,20 +66,20 @@ bool AppDelegate::applicationDidFinishLaunching()
         director->setContentScaleFactor(MIN(s_smallResolutionSize.height / s_designResolutionSize.height, s_smallResolutionSize.width / s_designResolutionSize.width));
     }
 
-    // ÔËÐÐÆô¶¯³¡¾°
+    // è¿è¡Œå¯åŠ¨åœºæ™¯
     director->runWithScene(StartupScene::createScene());
 
     return true;
 }
 
-// µ±Ó¦ÓÃ³ÌÐò½øÈëºóÌ¨Ê±µ÷ÓÃ´Ëº¯Êý
+// å½“åº”ç”¨ç¨‹åºè¿›å…¥åŽå°æ—¶è°ƒç”¨æ­¤å‡½æ•°
 void AppDelegate::applicationDidEnterBackground()
 {
     cocos2d::Director::getInstance()->stopAnimation();
     cocos2d::experimental::AudioEngine::pauseAll();
 }
 
-// µ±Ó¦ÓÃ³ÌÐò´ÓºóÌ¨·µ»Øµ½Ç°Ì¨Ê±µ÷ÓÃ´Ëº¯Êý
+// å½“åº”ç”¨ç¨‹åºä»ŽåŽå°è¿”å›žåˆ°å‰å°æ—¶è°ƒç”¨æ­¤å‡½æ•°
 void AppDelegate::applicationWillEnterForeground()
 {
     cocos2d::Director::getInstance()->startAnimation();

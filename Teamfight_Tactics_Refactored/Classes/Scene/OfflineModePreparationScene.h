@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OfflineModePreparationScene.h
- * File Function: OfflineModePreparationSceneÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: OfflineModePreparationSceneç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -16,24 +16,24 @@
 
 /*
  * Class Name:     OfflineModePreparationScene
- * Class Function: Á·Ï°Ä£Ê½×¼±¸³¡¾°Àà
+ * Class Function: ç»ƒä¹ æ¨¡å¼å‡†å¤‡åœºæ™¯ç±»
  */
 class OfflineModePreparationScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // µ±³¡¾°ÖØĞÂ½øÈëÊ±µ÷ÓÃ
+    // å½“åœºæ™¯é‡æ–°è¿›å…¥æ—¶è°ƒç”¨
     void onEnter();
 
-    // ÊµÏÖ OfflineModePreparationScene ÀàµÄ create ·½·¨
+    // å®ç° OfflineModePreparationScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(OfflineModePreparationScene);
 
 private:
-    // ÉèÖÃ½ø¶ÈÌõ¸üĞÂÂß¼­Óë¼ÆÊ±Æ÷
+    // è®¾ç½®è¿›åº¦æ¡æ›´æ–°é€»è¾‘ä¸è®¡æ—¶å™¨
     void setScheduleOnce(cocos2d::ui::LoadingBar* progressBar, cocos2d::Label* progressLabel);
 };
 

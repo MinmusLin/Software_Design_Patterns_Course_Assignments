@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OnlineModeBattleScene.h
- * File Function: OnlineModeBattleSceneÀàµÄ¶¨Òå
- * Author:        ÑîÓîçû¡¢ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: OnlineModeBattleSceneç±»çš„å®šä¹‰
+ * Author:        æ¨å®‡ç¨ã€åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -17,28 +17,28 @@
 
 /*
  * Class Name:     OnlineModeBattleScene
- * Class Function: Áª»úÄ£Ê½¶ÔÕ½³¡¾°Àà
+ * Class Function: è”æœºæ¨¡å¼å¯¹æˆ˜åœºæ™¯ç±»
  */
 class OnlineModeBattleScene : public cocos2d::Scene {
 public:
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static cocos2d::Scene* createScene();
 
-    // ³õÊ¼»¯³¡¾°
+    // åˆå§‹åŒ–åœºæ™¯
     virtual bool init();
 
-    // Ã¿Ò»Ö¡±»×Ô¶¯µ÷ÓÃµÄ update ·½·¨
+    // æ¯ä¸€å¸§è¢«è‡ªåŠ¨è°ƒç”¨çš„ update æ–¹æ³•
     virtual void update(float delta);
 
-    // ÊµÏÖ OnlineModeBattleScene ÀàµÄ create ·½·¨
+    // å®ç° OnlineModeBattleScene ç±»çš„ create æ–¹æ³•
     CREATE_FUNC(OnlineModeBattleScene);
 
 private:
-    int battleChampionCount = 0;                                                // µ±Ç°³¡¾°Õ½¶·ÇøÕ½¶·Ó¢ĞÛÊıÁ¿
-    Champion* battleChampion[BATTLE_AREA_MAX_CHAMPION_COUNT * 2] = { nullptr }; // µ±Ç°³¡¾°Õ½¶·ÇøÕ½¶·Ó¢ĞÛÖ¸Õë
-    std::atomic<bool> isServerMessageProcessed{ false };                        // µĞÈËÍæ¼ÒÕ½¶·ÇøµØÍ¼ĞÅÏ¢½ÓÊÕ±êÖ¾
+    int battleChampionCount = 0;                                                // å½“å‰åœºæ™¯æˆ˜æ–—åŒºæˆ˜æ–—è‹±é›„æ•°é‡
+    Champion* battleChampion[BATTLE_AREA_MAX_CHAMPION_COUNT * 2] = { nullptr }; // å½“å‰åœºæ™¯æˆ˜æ–—åŒºæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
+    std::atomic<bool> isServerMessageProcessed{ false };                        // æ•Œäººç©å®¶æˆ˜æ–—åŒºåœ°å›¾ä¿¡æ¯æ¥æ”¶æ ‡å¿—
 
-    // ·şÎñÆ÷ÏûÏ¢¼àÌı
+    // æœåŠ¡å™¨æ¶ˆæ¯ç›‘å¬
     void serverMessageListener();
 };
 

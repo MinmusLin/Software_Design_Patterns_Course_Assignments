@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     OnlineModeMenuScene.cpp
- * File Function: OnlineModeMenuSceneÀàµÄÊµÏÖ
- * Author:        ÁÖ¼ÌÉê¡¢ÁõÊçÒÇ
+ * File Function: OnlineModeMenuSceneç±»çš„å®ç°
+ * Author:        æ—ç»§ç”³ã€åˆ˜æ·‘ä»ª
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -17,19 +17,19 @@
 #include "proj.win32/Constant.h"
 #include "proj.win32/AudioPlayer.h"
 
-// ÃüÃû¿Õ¼ä
+// å‘½åç©ºé—´
 using cocos2d::Scene;
 using cocos2d::Sprite;
 using cocos2d::Label;
 using cocos2d::Vec2;
 
-// Íæ¼ÒêÇ³Æ
+// ç©å®¶æ˜µç§°
 extern std::string g_PlayerName;
 
-// Áª»úÄ£Ê½ÓÎÏ·¿ØÖÆÀà
+// è”æœºæ¨¡å¼æ¸¸æˆæ§åˆ¶ç±»
 OnlineModeControl* g_onlineModeControl = nullptr;
 
-// ´´½¨³¡¾°
+// åˆ›å»ºåœºæ™¯
 Scene* OnlineModeMenuScene::createScene()
 {
     auto scene = Scene::create();
@@ -38,24 +38,24 @@ Scene* OnlineModeMenuScene::createScene()
     return scene;
 }
 
-// ³õÊ¼»¯³¡¾°
+// åˆå§‹åŒ–åœºæ™¯
 bool OnlineModeMenuScene::init()
 {
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     if (!Scene::init()) {
         return false;
     }
     
-    // ¼ÓÔØÒôÀÖ
+    // åŠ è½½éŸ³ä¹
     audioPlayer("../Resources/Music/OnlineModeMenuScene_SilverScrapes.mp3", true);
 
-    // ¼ÓÔØ±³¾°
+    // åŠ è½½èƒŒæ™¯
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
     const auto background = Sprite::create("../Resources/Scenes/OnlineModeMenuScene.png");
     background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     this->addChild(background);
 
-    // ´´½¨°´Å¥
+    // åˆ›å»ºæŒ‰é’®
     auto joinRoomButton = HoverButton::create("../Resources/Buttons/OnlineModeMenuSceneButtons/JoinRoomDefaultButton.png",
         "../Resources/Buttons/OnlineModeMenuSceneButtons/JoinRoomHoverButton.png",
         "../Resources/Buttons/OnlineModeMenuSceneButtons/JoinRoomActiveButton.png");
@@ -66,96 +66,96 @@ bool OnlineModeMenuScene::init()
         "../Resources/Buttons/OnlineModeMenuSceneButtons/startGameHoverButton.png",
         "../Resources/Buttons/OnlineModeMenuSceneButtons/startGameActiveButton.png");
 
-    // ÉèÖÃ°´Å¥Î»ÖÃ
+    // è®¾ç½®æŒ‰é’®ä½ç½®
     joinRoomButton->setPosition(Vec2(screenSize.width / 2 - ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_X, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_Y));
     returnMenuButton->setPosition(Vec2(screenSize.width / 2 + ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_X, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_Y));
     startGameButton->setPosition(Vec2(screenSize.width / 2 - ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_X, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_Y));
 
-    // ´´½¨ IPv4 ÎÄ±¾¿ò
-    auto ipv4TextField = cocos2d::ui::TextField::create(u8"ÇëÊäÈë·şÎñÆ÷ IPv4 µØÖ·", "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
+    // åˆ›å»º IPv4 æ–‡æœ¬æ¡†
+    auto ipv4TextField = cocos2d::ui::TextField::create(u8"è¯·è¾“å…¥æœåŠ¡å™¨ IPv4 åœ°å€", "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
     ipv4TextField->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_IPV4_TEXTFIELD_OFFSET_Y));
     ipv4TextField->setMaxLength(IPV4_ADDRESS_MAX_LENGTH);
     ipv4TextField->setMaxLengthEnabled(true);
     ipv4TextField->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     this->addChild(ipv4TextField);
 
-    // ´´½¨¶Ë¿ÚÎÄ±¾¿ò
-    auto portTextField = cocos2d::ui::TextField::create(u8"ÇëÊäÈë·şÎñÆ÷¶Ë¿Ú", "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
+    // åˆ›å»ºç«¯å£æ–‡æœ¬æ¡†
+    auto portTextField = cocos2d::ui::TextField::create(u8"è¯·è¾“å…¥æœåŠ¡å™¨ç«¯å£", "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
     portTextField->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_PORT_TEXTFIELD_OFFSET_Y));
     portTextField->setMaxLength(PORT_MAX_LENGTH);
     portTextField->setMaxLengthEnabled(true);
     portTextField->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     this->addChild(portTextField);
 
-    // ´´½¨ÌáÊ¾±êÇ©
+    // åˆ›å»ºæç¤ºæ ‡ç­¾
     auto promptLabel = Label::createWithTTF("", "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
     promptLabel->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_PROMPT_LABEL_OFFSET_Y));
     promptLabel->setVisible(false);
     promptLabel->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
     this->addChild(promptLabel);
-    auto waitingLabel = Label::createWithTTF(u8"³É¹¦Óë·şÎñÆ÷½¨Á¢Á¬½Ó", "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
+    auto waitingLabel = Label::createWithTTF(u8"æˆåŠŸä¸æœåŠ¡å™¨å»ºç«‹è¿æ¥", "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
     waitingLabel->setPosition(Vec2(screenSize.width / 2 - ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_X, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_BUTTON_OFFSET_Y));
     waitingLabel->setVisible(false);
     this->addChild(waitingLabel);
 
-    // ´´½¨·şÎñÆ÷Á¬½ÓÊ§°ÜÌáÊ¾
+    // åˆ›å»ºæœåŠ¡å™¨è¿æ¥å¤±è´¥æç¤º
     auto connectionFailedPrompt = Sprite::create("../Resources/ImageElements/ServerConnectionFailedPrompt.png");
     connectionFailedPrompt->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
     connectionFailedPrompt->setVisible(false);
     this->addChild(connectionFailedPrompt, 1);
 
-    // Îª°´Å¥Ìí¼ÓÊÂ¼ş´¦ÀíÆ÷
+    // ä¸ºæŒ‰é’®æ·»åŠ äº‹ä»¶å¤„ç†å™¨
     joinRoomButton->addTouchEventListener([this, ipv4TextField, portTextField, promptLabel, connectionFailedPrompt, joinRoomButton, screenSize, startGameButton, waitingLabel](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             std::string ipv4 = ipv4TextField->getString();
             std::string port = portTextField->getString();
-            if (ipv4.empty() && port.empty()) { // ·şÎñÆ÷ IPv4 µØÖ·ºÍ¶Ë¿ÚÎª¿Õ
-                promptLabel->setString(u8"·şÎñÆ÷ IPv4 µØÖ·ºÍ¶Ë¿Ú²»ÄÜÎª¿Õ");
+            if (ipv4.empty() && port.empty()) { // æœåŠ¡å™¨ IPv4 åœ°å€å’Œç«¯å£ä¸ºç©º
+                promptLabel->setString(u8"æœåŠ¡å™¨ IPv4 åœ°å€å’Œç«¯å£ä¸èƒ½ä¸ºç©º");
                 promptLabel->setVisible(true);
                 this->scheduleOnce([promptLabel](float dt) {
                     promptLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "IPv4AndPortHidePromptLabel");
             }
-            else if (ipv4.empty() && !port.empty()) { // ·şÎñÆ÷ IPv4 µØÖ·Îª¿Õ
-                promptLabel->setString(u8"·şÎñÆ÷ IPv4 µØÖ·²»ÄÜÎª¿Õ");
+            else if (ipv4.empty() && !port.empty()) { // æœåŠ¡å™¨ IPv4 åœ°å€ä¸ºç©º
+                promptLabel->setString(u8"æœåŠ¡å™¨ IPv4 åœ°å€ä¸èƒ½ä¸ºç©º");
                 promptLabel->setVisible(true);
                 this->scheduleOnce([promptLabel](float dt) {
                     promptLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "IPv4HidePromptLabel");
             }
-            else if (!ipv4.empty() && port.empty()) { // ·şÎñÆ÷¶Ë¿ÚÎª¿Õ
-                promptLabel->setString(u8"·şÎñÆ÷¶Ë¿Ú²»ÄÜÎª¿Õ");
+            else if (!ipv4.empty() && port.empty()) { // æœåŠ¡å™¨ç«¯å£ä¸ºç©º
+                promptLabel->setString(u8"æœåŠ¡å™¨ç«¯å£ä¸èƒ½ä¸ºç©º");
                 promptLabel->setVisible(true);
                 this->scheduleOnce([promptLabel](float dt) {
                     promptLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "PortHidePromptLabel");
             }
-            else if (!isValidIPv4(ipv4) && !isValidPort(port)) { // ·şÎñÆ÷ IPv4 µØÖ·ºÍ¶Ë¿Ú·Ç·¨
-                promptLabel->setString(u8"·şÎñÆ÷ IPv4 µØÖ·ºÍ¶Ë¿Ú·Ç·¨");
+            else if (!isValidIPv4(ipv4) && !isValidPort(port)) { // æœåŠ¡å™¨ IPv4 åœ°å€å’Œç«¯å£éæ³•
+                promptLabel->setString(u8"æœåŠ¡å™¨ IPv4 åœ°å€å’Œç«¯å£éæ³•");
                 promptLabel->setVisible(true);
                 this->scheduleOnce([promptLabel](float dt) {
                     promptLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "IPv4AndPortInvalidPromptLabel");
             }
-            else if (!isValidIPv4(ipv4)) { // ·şÎñÆ÷ IPv4 µØÖ··Ç·¨
-                promptLabel->setString(u8"·şÎñÆ÷ IPv4 µØÖ··Ç·¨");
+            else if (!isValidIPv4(ipv4)) { // æœåŠ¡å™¨ IPv4 åœ°å€éæ³•
+                promptLabel->setString(u8"æœåŠ¡å™¨ IPv4 åœ°å€éæ³•");
                 promptLabel->setVisible(true);
                 this->scheduleOnce([promptLabel](float dt) {
                     promptLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "IPv4InvalidPromptLabel");
             }
-            else if (!isValidPort(port)) { // ·şÎñÆ÷¶Ë¿Ú·Ç·¨
-                promptLabel->setString(u8"·şÎñÆ÷¶Ë¿Ú·Ç·¨");
+            else if (!isValidPort(port)) { // æœåŠ¡å™¨ç«¯å£éæ³•
+                promptLabel->setString(u8"æœåŠ¡å™¨ç«¯å£éæ³•");
                 promptLabel->setVisible(true);
                 this->scheduleOnce([promptLabel](float dt) {
                     promptLabel->setVisible(false);
                     }, PROMPT_MESSAGE_DURATION, "PortInvalidPromptLabel");
             }
-            else { // ·şÎñÆ÷ IPv4 µØÖ·ºÍ¶Ë¿ÚºÏ·¨
-                // ³õÊ¼»¯Áª»úÄ£Ê½ÓÎÏ·¿ØÖÆÀà
+            else { // æœåŠ¡å™¨ IPv4 åœ°å€å’Œç«¯å£åˆæ³•
+                // åˆå§‹åŒ–è”æœºæ¨¡å¼æ¸¸æˆæ§åˆ¶ç±»
                 try {
                     g_onlineModeControl = new OnlineModeControl(ipv4, port);
                 }
@@ -164,9 +164,9 @@ bool OnlineModeMenuScene::init()
                     throw;
                 }
 
-                // ´´½¨¿Í»§¶Ë
+                // åˆ›å»ºå®¢æˆ·ç«¯
                 ConnectionStatus connectionStatus = g_onlineModeControl->initializeClient();
-                if (connectionStatus == ConnectionError || connectionStatus == ConnectionTimeout) { // ·şÎñÆ÷Á¬½ÓÊ§°Ü»òÁ¬½Ó³¬Ê±
+                if (connectionStatus == ConnectionError || connectionStatus == ConnectionTimeout) { // æœåŠ¡å™¨è¿æ¥å¤±è´¥æˆ–è¿æ¥è¶…æ—¶
                     connectionFailedPrompt->setVisible(true);
                     this->scheduleOnce([connectionFailedPrompt](float dt) {
                         connectionFailedPrompt->setVisible(false);
@@ -174,8 +174,8 @@ bool OnlineModeMenuScene::init()
                     delete g_onlineModeControl;
                     g_onlineModeControl = nullptr;
                 }
-                else if (connectionStatus == ConnectionRefused) { // ·şÎñÆ÷´ïµ½×î´óÁ¬½ÓÊıÁ¿
-                    promptLabel->setString(u8"·şÎñÆ÷´ïµ½×î´óÁ¬½ÓÊıÁ¿");
+                else if (connectionStatus == ConnectionRefused) { // æœåŠ¡å™¨è¾¾åˆ°æœ€å¤§è¿æ¥æ•°é‡
+                    promptLabel->setString(u8"æœåŠ¡å™¨è¾¾åˆ°æœ€å¤§è¿æ¥æ•°é‡");
                     promptLabel->setVisible(true);
                     this->scheduleOnce([promptLabel](float dt) {
                         promptLabel->setVisible(false);
@@ -183,8 +183,8 @@ bool OnlineModeMenuScene::init()
                     delete g_onlineModeControl;
                     g_onlineModeControl = nullptr;
                 }
-                else { // ·şÎñÆ÷Á¬½Ó³É¹¦
-                    // ÉèÖÃÏà¹Ø×é¼ş
+                else { // æœåŠ¡å™¨è¿æ¥æˆåŠŸ
+                    // è®¾ç½®ç›¸å…³ç»„ä»¶
                     joinRoomButton->removeFromParent();
                     ipv4TextField->removeFromParent();
                     portTextField->removeFromParent();
@@ -195,7 +195,7 @@ bool OnlineModeMenuScene::init()
                         startGameButton->setVisible(true);
                         }, START_GAME_BUTTON_APPEARANCE_DURATION, "StartGameButtonAppearance");
 
-                    // ´´½¨·şÎñÆ÷ IPv4 ºÍ¶Ë¿Ú±êÇ©
+                    // åˆ›å»ºæœåŠ¡å™¨ IPv4 å’Œç«¯å£æ ‡ç­¾
                     auto ipv4Label = Label::createWithTTF(ipv4, "../Resources/Fonts/DingDingJinBuTi.ttf", ONLINE_MODE_MENU_SCENE_FONT_SIZE);
                     ipv4Label->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2 + ONLINE_MODE_MENU_SCENE_IPV4_TEXTFIELD_OFFSET_Y));
                     ipv4Label->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
@@ -205,7 +205,7 @@ bool OnlineModeMenuScene::init()
                     portLabel->setTextColor(cocos2d::Color4B(DARK_BLUE_R, DARK_BLUE_G, DARK_BLUE_B, 255));
                     this->addChild(portLabel);
 
-                    // ·şÎñÆ÷ÏûÏ¢¼àÌı
+                    // æœåŠ¡å™¨æ¶ˆæ¯ç›‘å¬
                     this->schedule([this, promptLabel](float dt) {
                         char buffer[BUFFER_SIZE];
                         memset(buffer, 0, sizeof(buffer));
@@ -215,12 +215,12 @@ bool OnlineModeMenuScene::init()
                             if (!strncmp(buffer, CURRENT_CONNECTIONS_IDENTIFIER, MESSAGE_IDENTIFIER_LENGTH)) {
                                 int currentConnections;
                                 sscanf(buffer, CURRENT_CONNECTIONS_FORMAT, &currentConnections);
-                                promptLabel->setString(u8"ÒÑ½¨Á¢Á¬½Ó (·şÎñÆ÷µ±Ç°Á¬½ÓÊıÁ¿£º" + std::to_string(currentConnections) + u8")");
+                                promptLabel->setString(u8"å·²å»ºç«‹è¿æ¥ (æœåŠ¡å™¨å½“å‰è¿æ¥æ•°é‡ï¼š" + std::to_string(currentConnections) + u8")");
                                 promptLabel->setVisible(true);
                                 g_onlineModeControl->setCurrentConnections(currentConnections);
                             }
                             if (!strncmp(buffer, START_GAME_IDENTIFIER, MESSAGE_IDENTIFIER_LENGTH)) {
-                                this->unschedule("ServerMessageListener"); // ¹Ø±Õ·şÎñÆ÷ÏûÏ¢¼àÌı
+                                this->unschedule("ServerMessageListener"); // å…³é—­æœåŠ¡å™¨æ¶ˆæ¯ç›‘å¬
                                 std::string playerNamesBuffer = static_cast<std::string>(buffer);
                                 g_onlineModeControl->deserializePlayerNames(playerNamesBuffer);
                                 cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, OnlineModePreparationScene::createScene(), cocos2d::Color3B::WHITE));
@@ -233,10 +233,10 @@ bool OnlineModeMenuScene::init()
         });
     returnMenuButton->addTouchEventListener([this](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
-            this->unschedule("ServerMessageListener"); // ¹Ø±Õ·şÎñÆ÷ÏûÏ¢¼àÌı
+            this->unschedule("ServerMessageListener"); // å…³é—­æœåŠ¡å™¨æ¶ˆæ¯ç›‘å¬
             delete g_onlineModeControl;
             g_onlineModeControl = nullptr;
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(SCENE_TRANSITION_DURATION, MenuScene::createScene(), cocos2d::Color3B::WHITE));
@@ -244,19 +244,19 @@ bool OnlineModeMenuScene::init()
         });
     startGameButton->addTouchEventListener([startGameButton, waitingLabel](Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
         if (type == cocos2d::ui::Widget::TouchEventType::BEGAN) {
-            // ¼ÓÔØµã»÷ÒôĞ§
+            // åŠ è½½ç‚¹å‡»éŸ³æ•ˆ
             audioPlayer("../Resources/Music/ClickSoundEffect.mp3", false);
 
             char buffer[BUFFER_SIZE];
             sprintf(buffer, PLAYER_NAME_FORMAT, g_PlayerName.c_str());
             g_onlineModeControl->sendMessage(buffer, strlen(buffer));
             startGameButton->removeFromParent();
-            waitingLabel->setString(u8"ÇëµÈ´ıÆäËûÍæ¼Ò¿ªÊ¼ÓÎÏ·");
+            waitingLabel->setString(u8"è¯·ç­‰å¾…å…¶ä»–ç©å®¶å¼€å§‹æ¸¸æˆ");
             waitingLabel->setVisible(true);
         }
         });
 
-    // ½«°´Å¥Ìí¼Óµ½³¡¾°ÖĞ
+    // å°†æŒ‰é’®æ·»åŠ åˆ°åœºæ™¯ä¸­
     this->addChild(joinRoomButton);
     this->addChild(returnMenuButton);
     startGameButton->setVisible(false);
@@ -266,7 +266,7 @@ bool OnlineModeMenuScene::init()
     return true;
 }
 
-// ·şÎñÆ÷ IPv4 µØÖ·ºÏ·¨ĞÔ¼ìÑé
+// æœåŠ¡å™¨ IPv4 åœ°å€åˆæ³•æ€§æ£€éªŒ
 bool OnlineModeMenuScene::isValidIPv4(const std::string& str)
 {
     int dotCount = 0, numCount = 0;
@@ -289,7 +289,7 @@ bool OnlineModeMenuScene::isValidIPv4(const std::string& str)
                 return false;
             }
             if (numPart.size() > 1 && numPart[0] == '0') {
-                return false; // ½ûÖ¹Ç°µ¼Áã
+                return false; // ç¦æ­¢å‰å¯¼é›¶
             }
         }
         else {
@@ -308,7 +308,7 @@ bool OnlineModeMenuScene::isValidIPv4(const std::string& str)
     return dotCount == 3 && !numPart.empty();
 }
 
-// ·şÎñÆ÷¶Ë¿ÚºÏ·¨ĞÔ¼ìÑé
+// æœåŠ¡å™¨ç«¯å£åˆæ³•æ€§æ£€éªŒ
 bool OnlineModeMenuScene::isValidPort(const std::string& str)
 {
     if (str.empty() || str.size() > 5) {

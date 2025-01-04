@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     LocationMap.h
- * File Function: LocationMapÀàµÄ¶¨Òå
- * Author:        ÁÖ¼ÌÉê
+ * File Function: LocationMapç±»çš„å®šä¹‰
+ * Author:        æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -16,20 +16,20 @@
 
 /*
  * Class Name:     LocationMap
- * Class Function: Î»ÖÃÊôĞÔÓëÆÁÄ»×ø±ê¼üÖµ¶ÔÀà
+ * Class Function: ä½ç½®å±æ€§ä¸å±å¹•åæ ‡é”®å€¼å¯¹ç±»
  */
 class LocationMap {
 public:
-    // »ñÈ¡µ¥Àı
+    // è·å–å•ä¾‹
     static LocationMap& getInstance();
 
-    // »ñÈ¡Î»ÖÃÊôĞÔÓëÆÁÄ»×ø±ê¼üÖµ¶Ô
+    // è·å–ä½ç½®å±æ€§ä¸å±å¹•åæ ‡é”®å€¼å¯¹
     const std::map<Location, cocos2d::Vec2>& getLocationMap() const;
 
 private:
-    std::map<Location, cocos2d::Vec2> locationMap; // Î»ÖÃÊôĞÔÓëÆÁÄ»×ø±ê¼üÖµ¶Ô
+    std::map<Location, cocos2d::Vec2> locationMap; // ä½ç½®å±æ€§ä¸å±å¹•åæ ‡é”®å€¼å¯¹
 
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     LocationMap();
 };
 

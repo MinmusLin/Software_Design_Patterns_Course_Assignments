@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     Champion.h
- * File Function: ChampionÀàµÄ¶¨Òå
- * Author:        ÑîÓîçû¡¢ÁõÊçÒÇ¡¢ÁÖ¼ÌÉê
+ * File Function: Championç±»çš„å®šä¹‰
+ * Author:        æ¨å®‡ç¨ã€åˆ˜æ·‘ä»ªã€æ—ç»§ç”³
  * Update Date:   2023/12/31
  * License:       MIT License
  ****************************************************************/
@@ -15,179 +15,179 @@
 #include "Battle/Battle.h"
 #include "proj.win32/Constant.h"
 
-// Battle ÀàÇ°ÉùÃ÷£¨ÓÃÓÚ½â¾öÑ­»·ÒÀÀµ£©
+// Battle ç±»å‰å£°æ˜ï¼ˆç”¨äºè§£å†³å¾ªç¯ä¾èµ–ï¼‰
 class Battle;
 
 /*
  * Class Name:     Champion
- * Class Function: Õ½¶·Ó¢ĞÛÀà
+ * Class Function: æˆ˜æ–—è‹±é›„ç±»
  */
 class Champion : public cocos2d::Sprite {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Champion(const ChampionCategory championCategory);
 
-    // °ó¶¨Õ½¶·Àà
+    // ç»‘å®šæˆ˜æ–—ç±»
     void setBattle(Battle* myBattle);
 
-    // ÉèÖÃÕ½¶·Ó¢ĞÛËùÊôÕóÓª
+    // è®¾ç½®æˆ˜æ–—è‹±é›„æ‰€å±é˜µè¥
     void setCamp(const bool isMyFlag);
 
-    // »ñÈ¡Õ½¶·Ó¢ĞÛËùÊôÕóÓª
+    // è·å–æˆ˜æ–—è‹±é›„æ‰€å±é˜µè¥
     bool getCamp() const;
 
-    // ÉèÖÃµ±Ç°Õ½¶·Ó¢ĞÛÎ»ÖÃ
+    // è®¾ç½®å½“å‰æˆ˜æ–—è‹±é›„ä½ç½®
     void setCurrentPosition(const int& x, const int& y);
 
-    // »ñÈ¡Õ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+    // è·å–æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
     bool getIsMoving() const;
 
-    // ÉèÖÃÕ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+    // è®¾ç½®æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
     void setIsMoving();
 
-    // ÖØÖÃÕ½¶·Ó¢ĞÛÒÆ¶¯×´Ì¬
+    // é‡ç½®æˆ˜æ–—è‹±é›„ç§»åŠ¨çŠ¶æ€
     void resetIsMoving();
 
-    // »ñÈ¡Õ½¶·Ó¢ĞÛ¹¥»÷×´Ì¬
+    // è·å–æˆ˜æ–—è‹±é›„æ”»å‡»çŠ¶æ€
     bool getIsAttacking() const;
 
-    // ÉèÖÃÕ½¶·Ó¢ĞÛ¹¥»÷×´Ì¬
+    // è®¾ç½®æˆ˜æ–—è‹±é›„æ”»å‡»çŠ¶æ€
     void setIsAttacking();
 
-    // ÖØÖÃÕ½¶·Ó¢ĞÛ¹¥»÷×´Ì¬
+    // é‡ç½®æˆ˜æ–—è‹±é›„æ”»å‡»çŠ¶æ€
     void resetIsAttacking();
 
-    // »ñÈ¡µ±Ç°Ëø¶¨µĞÈËÕ½¶·Ó¢ĞÛÖ¸Õë
+    // è·å–å½“å‰é”å®šæ•Œäººæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
     Champion* getCurrentEnemy() const;
 
-    // »ñÈ¡µ±Ç°µĞÈËÕ½¶·Î»ÖÃÊôĞÔ
+    // è·å–å½“å‰æ•Œäººæˆ˜æ–—ä½ç½®å±æ€§
     BattleLocation getCurrentLocation() const;
 
-    // »ñÈ¡¾«ÁéÀàÖ¸Õë
+    // è·å–ç²¾çµç±»æŒ‡é’ˆ
     cocos2d::Sprite* getSprite() const;
 
-    // »ñÈ¡Õ½¶·Ó¢ĞÛÊôĞÔ
+    // è·å–æˆ˜æ–—è‹±é›„å±æ€§
     ChampionAttributes getAttributes() const;
 
-    // »ñÈ¡µ±Ç°Ä¿±êÎ»ÖÃ
+    // è·å–å½“å‰ç›®æ ‡ä½ç½®
     BattleLocation getCurrentDestination() const;
 
-    // ÉèÖÃµ±Ç°Ä¿±êÎ»ÖÃ
+    // è®¾ç½®å½“å‰ç›®æ ‡ä½ç½®
     void setCurrentDestination(const BattleLocation destination);
 
-    // ÖØÖÃµ±Ç°Ä¿±êÎ»ÖÃ
+    // é‡ç½®å½“å‰ç›®æ ‡ä½ç½®
     void resetCurrentDestination();
 
-    // »ñÈ¡¹¥»÷Ê±¼ä¼ä¸ô
+    // è·å–æ”»å‡»æ—¶é—´é—´éš”
     float getAttackIntervalTimer() const;
 
-    // Ôö¼Ó¹¥»÷Ê±¼ä¼ä¸ô
+    // å¢åŠ æ”»å‡»æ—¶é—´é—´éš”
     void addAttackIntervalTimer(const float delta);
 
-    // ÖØÖÃ¹¥»÷Ê±¼ä¼ä¸ô
+    // é‡ç½®æ”»å‡»æ—¶é—´é—´éš”
     void resetAttackIntervalTimer();
 
-    // »ñÈ¡ÒÆ¶¯Ê±¼ä¼ä¸ô
+    // è·å–ç§»åŠ¨æ—¶é—´é—´éš”
     float getMoveIntervalTimer() const;
 
-    // Ôö¼ÓÒÆ¶¯Ê±¼ä¼ä¸ô
+    // å¢åŠ ç§»åŠ¨æ—¶é—´é—´éš”
     void addMoveIntervalTimer(const float delta);
 
-    // ÖØÖÃÒÆ¶¯Ê±¼ä¼ä¸ô
+    // é‡ç½®ç§»åŠ¨æ—¶é—´é—´éš”
     void resetMoveIntervalTimer();
 
-    // »ñÈ¡µ±Ç°ÒÆ¶¯
+    // è·å–å½“å‰ç§»åŠ¨
     cocos2d::MoveTo* getCurrentMove() const;
 
-    // ÉèÖÃµ±Ç°ÒÆ¶¯
+    // è®¾ç½®å½“å‰ç§»åŠ¨
     void setCurrentMove(cocos2d::MoveTo* move);
 
-    // ÖØÖÃµ±Ç°ÒÆ¶¯
+    // é‡ç½®å½“å‰ç§»åŠ¨
     void resetCurrentMove();
 
-    // »ñÈ¡µ±Ç°Õ½¶·ÀàÖ¸Õë
+    // è·å–å½“å‰æˆ˜æ–—ç±»æŒ‡é’ˆ
     Battle* getCurrentBattle() const;
 
-    // »ñÈ¡×î½üµĞ·½Õ½¶·Ó¢ĞÛ
+    // è·å–æœ€è¿‘æ•Œæ–¹æˆ˜æ–—è‹±é›„
     void findNearestEnemy(const bool isMy);
 
-    // ÅĞ¶Ï¹¥»÷·¶Î§ÄÚÊÇ·ñ´æÔÚµĞÈËÕ½¶·Ó¢ĞÛ
+    // åˆ¤æ–­æ”»å‡»èŒƒå›´å†…æ˜¯å¦å­˜åœ¨æ•Œäººæˆ˜æ–—è‹±é›„
     bool isInAttackRange();
 
-    // ÅĞ¶Ïµ±Ç°Î»ÖÃÊÇ·ñÔÚÕ½¶·ÇøµØÍ¼ÄÚ
+    // åˆ¤æ–­å½“å‰ä½ç½®æ˜¯å¦åœ¨æˆ˜æ–—åŒºåœ°å›¾å†…
     bool isInMap(const int& x, const int& y);
 
-    // ÒÆ¶¯
+    // ç§»åŠ¨
     BattleLocation moveTowards(Champion* nearestEnemy);
 
-    // ¹¥»÷
+    // æ”»å‡»
     void attack();
 
-    // ¼¼ÄÜ
+    // æŠ€èƒ½
     void skill();
 
-    // ËÀÍö
+    // æ­»äº¡
     void die();
 
-    // ÉèÖÃÎäÆ÷ÊÇ·ñ¿É¼û
+    // è®¾ç½®æ­¦å™¨æ˜¯å¦å¯è§
     void setSwordVisible(const bool visible);
 
-    // ³õÊ¼»¯ÎäÆ÷
+    // åˆå§‹åŒ–æ­¦å™¨
     void initializeSword(const cocos2d::Vec2& position);
 
-    // ÉèÖÃÎäÆ÷Î»ÖÃ
+    // è®¾ç½®æ­¦å™¨ä½ç½®
     void setSwordPosition(const cocos2d::Vec2& position);
 
-    // »ñÈ¡ÉúÃüÌõ
+    // è·å–ç”Ÿå‘½æ¡
     Sprite* getHealthBar() const;
 
-    // »ñÈ¡¾­ÑéÌõ
+    // è·å–ç»éªŒæ¡
     Sprite* getManaBar() const;
 
-    // »ñÈ¡×î´óÉúÃüÖµ
+    // è·å–æœ€å¤§ç”Ÿå‘½å€¼
     float getMaxHealthPoints() const;
 
-    // »ñÈ¡×î´ó¾­ÑéÖµ
+    // è·å–æœ€å¤§ç»éªŒå€¼
     float getMaxMagicPoints() const;
 
-    // ÉèÖÃÉúÃüÌõ
+    // è®¾ç½®ç”Ÿå‘½æ¡
     void setHealthBar(Sprite* HealthBar);
 
-    // ÉèÖÃ¾­ÑéÌõ
+    // è®¾ç½®ç»éªŒæ¡
     void setManaBar(Sprite* ManaBar);
 
-    // »ñÈ¡ÎäÆ÷¾«ÁéÀàÖ¸Õë
+    // è·å–æ­¦å™¨ç²¾çµç±»æŒ‡é’ˆ
     Sprite* getSword() const;
 
-    // î¿°íĞ§¹û
+    // ç¾ç»Šæ•ˆæœ
     void bond();
 
 private:
-    Battle* currentBattle;             // Õ½¶·Àà
-    ChampionAttributes attributes;     // Õ½¶·Ó¢ĞÛÊôĞÔ
-    BattleLocation currentLocation;    // µ±Ç°Õ½¶·Ó¢ĞÛÎ»ÖÃ
-    BattleLocation currentDestination; // µ±Ç°Ä¿±êÎ»ÖÃ
-    Champion* currentEnemy;            // µ±Ç°Ëø¶¨µĞÈËÕ½¶·Ó¢ĞÛÖ¸Õë
-    Sprite* sprite;                    // ¾«ÁéÀàÖ¸Õë
-    Sprite* sword;                     // ÎäÆ÷¾«ÁéÀàÖ¸Õë
-    Sprite* healthBar;                 // ÉúÃüÌõÖ¸Õë
-    Sprite* manaBar;                   // ¼¼ÄÜÌõÖ¸Õë
-    cocos2d::MoveTo* currentMove;      // µ±Ç°ÒÆ¶¯
-    int maxHealthPoints;               // ×î´óÉúÃüÖµ
-    int maxMagicPoints;                // ×î´óÄ§·¨Öµ
-    bool isMyFlag;                     // Õ½¶·Ó¢ĞÛÕóÓª
-    bool isMoving;                     // ÒÆ¶¯×´Ì¬
-    bool isAttaking;                   // ¹¥»÷×´Ì¬
-    float attackIntervalTimer;         // ¹¥»÷Ê±¼ä¼ä¸ô
-    float moveIntervalTimer;           // ÒÆ¶¯Ê±¼ä¼ä¸ô
+    Battle* currentBattle;             // æˆ˜æ–—ç±»
+    ChampionAttributes attributes;     // æˆ˜æ–—è‹±é›„å±æ€§
+    BattleLocation currentLocation;    // å½“å‰æˆ˜æ–—è‹±é›„ä½ç½®
+    BattleLocation currentDestination; // å½“å‰ç›®æ ‡ä½ç½®
+    Champion* currentEnemy;            // å½“å‰é”å®šæ•Œäººæˆ˜æ–—è‹±é›„æŒ‡é’ˆ
+    Sprite* sprite;                    // ç²¾çµç±»æŒ‡é’ˆ
+    Sprite* sword;                     // æ­¦å™¨ç²¾çµç±»æŒ‡é’ˆ
+    Sprite* healthBar;                 // ç”Ÿå‘½æ¡æŒ‡é’ˆ
+    Sprite* manaBar;                   // æŠ€èƒ½æ¡æŒ‡é’ˆ
+    cocos2d::MoveTo* currentMove;      // å½“å‰ç§»åŠ¨
+    int maxHealthPoints;               // æœ€å¤§ç”Ÿå‘½å€¼
+    int maxMagicPoints;                // æœ€å¤§é­”æ³•å€¼
+    bool isMyFlag;                     // æˆ˜æ–—è‹±é›„é˜µè¥
+    bool isMoving;                     // ç§»åŠ¨çŠ¶æ€
+    bool isAttaking;                   // æ”»å‡»çŠ¶æ€
+    float attackIntervalTimer;         // æ”»å‡»æ—¶é—´é—´éš”
+    float moveIntervalTimer;           // ç§»åŠ¨æ—¶é—´é—´éš”
 
-    // ÊÜµ½¹¥»÷
+    // å—åˆ°æ”»å‡»
     void beingAttack(const int& damage);
 
-    // ¼ÆËãÁ½µã¼ä¾àÀë
+    // è®¡ç®—ä¸¤ç‚¹é—´è·ç¦»
     float distanceBetweenPoints(const cocos2d::Vec2& a, const cocos2d::Vec2& b);
 
-    // ´¥·¢¼¼ÄÜ
+    // è§¦å‘æŠ€èƒ½
     void triggerSkill(const int magnification, bool isCondition = true);
 };
 

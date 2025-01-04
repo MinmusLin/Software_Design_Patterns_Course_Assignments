@@ -1,8 +1,8 @@
 /****************************************************************
  * Project Name:  Teamfight_Tactic
  * File Name:     AIPlayer.cpp
- * File Function: AIPlayerÀàµÄÊµÏÖ
- * Author:        ÑîÕ×Õò¡¢ÁÖ¼ÌÉê
+ * File Function: AIPlayerç±»çš„å®ç°
+ * Author:        æ¨å…†é•‡ã€æ—ç»§ç”³
  * Update Date:   2023/12/30
  * License:       MIT License
  ****************************************************************/
@@ -13,7 +13,7 @@
 #include <time.h>
 #include <queue>
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 AIPlayer::AIPlayer(const std::string nickname, const Difficulty difficulty_) :
     Player(nickname),
     difficulty(difficulty_)
@@ -21,7 +21,7 @@ AIPlayer::AIPlayer(const std::string nickname, const Difficulty difficulty_) :
     healthPoints = INITIAL_HEALTH_POINTS;
 }
 
-// AI ÂäÆåËã·¨
+// AI è½æ£‹ç®—æ³•
 void AIPlayer::makeMoves()
 {
     champions = countChampionCategories();
@@ -29,13 +29,13 @@ void AIPlayer::makeMoves()
     deployChampions();
 }
 
-// È·¶¨µ±Ç°Õ½¶·½×¶Î×´Ì¬
+// ç¡®å®šå½“å‰æˆ˜æ–—é˜¶æ®µçŠ¶æ€
 BattleStage AIPlayer::determineCurrentBattleStage() const
 {
     return evaluateStage(getStageScore());
 }
 
-// ¼ÆËãÓ¢ĞÛµÄ×ÛºÏÄÜÁ¦
+// è®¡ç®—è‹±é›„çš„ç»¼åˆèƒ½åŠ›
 ProfessionPreference AIPlayer::calculateChampionProficiency(const ChampionAttributes& attributes) const
 {
     const double defenseScore = (attributes.healthPoints * attributes.defenseCoefficient) / static_cast<double>(DEFENSE_SCORE_COEFFICIENT);
@@ -44,7 +44,7 @@ ProfessionPreference AIPlayer::calculateChampionProficiency(const ChampionAttrib
     return { defenseScore, attackScore, speedScore };
 }
 
-// ¼ÆËãÕ½¶·Ó¢ĞÛ·ÖÊı
+// è®¡ç®—æˆ˜æ–—è‹±é›„åˆ†æ•°
 double AIPlayer::calculateChampionScore(const ChampionAttributes& attributes) const
 {
     const ProfessionPreference preference = calculateChampionProficiency(attributes);
@@ -53,13 +53,13 @@ double AIPlayer::calculateChampionScore(const ChampionAttributes& attributes) co
         + SPEED_SCORE_WEIGHT * preference.speedScore;
 }
 
-// ¼ÆËãÕ½¶·Ó¢ĞÛ·ÖÊı
+// è®¡ç®—æˆ˜æ–—è‹±é›„åˆ†æ•°
 double AIPlayer::calculateChampionScore(const ChampionCategory championCategory) const
 {
     return calculateChampionScore(CHAMPION_ATTR_MAP.at(championCategory));
 }
 
-// ¼ì²éÊÇ·ñÓĞ¿ÉÉı¼¶Ó¢ĞÛ
+// æ£€æŸ¥æ˜¯å¦æœ‰å¯å‡çº§è‹±é›„
 bool AIPlayer::isUplevelAvailable() const
 {
     for (const auto& champion : champions) {
@@ -70,7 +70,7 @@ bool AIPlayer::isUplevelAvailable() const
     return false;
 }
 
-// Ñ¡Ôñ×îÊÊºÏÉı¼¶µÄÓ¢ĞÛ
+// é€‰æ‹©æœ€é€‚åˆå‡çº§çš„è‹±é›„
 ChampionCategory AIPlayer::selectBestChampionForUplevel() const
 {
     ChampionCategory bestChampion = NoChampion;
@@ -87,7 +87,7 @@ ChampionCategory AIPlayer::selectBestChampionForUplevel() const
     return bestChampion;
 }
 
-// Éı¼¶ºó¸üĞÂÓ¢ĞÛ×´Ì¬
+// å‡çº§åæ›´æ–°è‹±é›„çŠ¶æ€
 void AIPlayer::updateChampionAfterUplevel(const ChampionCategory championCategory)
 {
     champions[championCategory]--;
@@ -95,7 +95,7 @@ void AIPlayer::updateChampionAfterUplevel(const ChampionCategory championCategor
     champions[static_cast<ChampionCategory>(championCategory + 1)]++;
 }
 
-// ÓÅ»¯Õ½¶·Ó¢ĞÛ¶ÓÎéÅäÖÃ
+// ä¼˜åŒ–æˆ˜æ–—è‹±é›„é˜Ÿä¼é…ç½®
 void AIPlayer::optimizeChampionCollection()
 {
     if (champions.empty()) {
@@ -114,16 +114,16 @@ void AIPlayer::optimizeChampionCollection()
     }
 }
 
-// ²¿ÊğÕ½¶·Ó¢ĞÛ£¨¼òµ¥Ä£Ê½ÓëÀ§ÄÑÄ£Ê½£©
+// éƒ¨ç½²æˆ˜æ–—è‹±é›„ï¼ˆç®€å•æ¨¡å¼ä¸å›°éš¾æ¨¡å¼ï¼‰
 std::vector<ChampionCategory> AIPlayer::deployChampionsByOrder(const int maxChampions)
 {
-    // »ùÓÚÓÅÏÈ¶ÓÁĞÅÅĞòÕ½¶·Ó¢ĞÛ
+    // åŸºäºä¼˜å…ˆé˜Ÿåˆ—æ’åºæˆ˜æ–—è‹±é›„
     auto comp = [this](ChampionCategory a, ChampionCategory b) {
         if (difficulty == Hard) {
-            return calculateChampionScore(a) > calculateChampionScore(b); // À§ÄÑÄ£Ê½
+            return calculateChampionScore(a) > calculateChampionScore(b); // å›°éš¾æ¨¡å¼
         }
         else {
-            return calculateChampionScore(a) < calculateChampionScore(b); // ¼òµ¥Ä£Ê½
+            return calculateChampionScore(a) < calculateChampionScore(b); // ç®€å•æ¨¡å¼
         }
         };
     std::priority_queue<ChampionCategory, std::vector<ChampionCategory>, decltype(comp)> orderedChampions(comp);
@@ -133,14 +133,14 @@ std::vector<ChampionCategory> AIPlayer::deployChampionsByOrder(const int maxCham
         }
     }
 
-    // Ñ¡ÔñÕ½¶·Ó¢ĞÛ
+    // é€‰æ‹©æˆ˜æ–—è‹±é›„
     std::vector<ChampionCategory> selectedChampions;
     for (int i = 0; i < maxChampions && !orderedChampions.empty(); i++) {
         selectedChampions.push_back(orderedChampions.top());
         orderedChampions.pop();
     }
 
-    // ²¿ÊğºòÕ½ÇøÕ½¶·Ó¢ĞÛ
+    // éƒ¨ç½²å€™æˆ˜åŒºæˆ˜æ–—è‹±é›„
     for (int i = 0; i < WAITING_MAP_COUNT && !orderedChampions.empty(); i++) {
         waitingMap[i] = orderedChampions.top();
         orderedChampions.pop();
@@ -148,10 +148,10 @@ std::vector<ChampionCategory> AIPlayer::deployChampionsByOrder(const int maxCham
     return selectedChampions;
 }
 
-// ²¿ÊğÕ½¶·Ó¢ĞÛ£¨Õı³£Ä£Ê½£©
+// éƒ¨ç½²æˆ˜æ–—è‹±é›„ï¼ˆæ­£å¸¸æ¨¡å¼ï¼‰
 std::vector<ChampionCategory> AIPlayer::deployChampionsByRandom(const int maxChampions)
 {
-    // »ñÈ¡µ±Ç°È«²¿Õ½¶·Ó¢ĞÛ
+    // è·å–å½“å‰å…¨éƒ¨æˆ˜æ–—è‹±é›„
     std::vector<ChampionCategory> allChampions;
     for (const auto& entry : champions) {
         for (int i = 0; i < entry.second; i++) {
@@ -159,19 +159,19 @@ std::vector<ChampionCategory> AIPlayer::deployChampionsByRandom(const int maxCha
         }
     }
 
-    // ´òÂÒµ±Ç°È«²¿Õ½¶·Ó¢ĞÛ
+    // æ‰“ä¹±å½“å‰å…¨éƒ¨æˆ˜æ–—è‹±é›„
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(allChampions.begin(), allChampions.end(), g);
 
-    // Ñ¡ÔñÕ½¶·Ó¢ĞÛ
+    // é€‰æ‹©æˆ˜æ–—è‹±é›„
     std::vector<ChampionCategory> selectedChampions;
     for (int i = 0; i < maxChampions && !allChampions.empty(); i++) {
         selectedChampions.push_back(allChampions.back());
         allChampions.pop_back();
     }
 
-    // ²¿ÊğºòÕ½ÇøÕ½¶·Ó¢ĞÛ
+    // éƒ¨ç½²å€™æˆ˜åŒºæˆ˜æ–—è‹±é›„
     for (int i = 0; i < WAITING_MAP_COUNT && !allChampions.empty(); i++) {
         waitingMap[i] = allChampions.back();
         allChampions.pop_back();
@@ -179,15 +179,15 @@ std::vector<ChampionCategory> AIPlayer::deployChampionsByRandom(const int maxCha
     return selectedChampions;
 }
 
-// ²¿ÊğÕ½¶·Ó¢ĞÛÎ»ÖÃ
+// éƒ¨ç½²æˆ˜æ–—è‹±é›„ä½ç½®
 void AIPlayer::deployChampionPositions(const std::vector<ChampionCategory>& battleChampions)
 {
-    // Ëæ»úÊıÉú³Éº¯Êı
+    // éšæœºæ•°ç”Ÿæˆå‡½æ•°
     auto getRandom = [](int n) {
         return rand() % n;
         };
 
-    // »ùÓÚ¹¥»÷·¶Î§ÅÅĞòÕ½¶·Ó¢ĞÛ
+    // åŸºäºæ”»å‡»èŒƒå›´æ’åºæˆ˜æ–—è‹±é›„
     auto comp = [this](ChampionCategory a, ChampionCategory b) {
         return CHAMPION_ATTR_MAP.at(a).attackRange * CHAMPION_ATTR_MAP.at(a).attackDamage < CHAMPION_ATTR_MAP.at(b).attackRange * CHAMPION_ATTR_MAP.at(b).attackDamage;
         };
@@ -196,12 +196,12 @@ void AIPlayer::deployChampionPositions(const std::vector<ChampionCategory>& batt
         orderedChampions.push(champion);
     }
 
-    // ¼ÆËãÕ½¶·Ó¢ĞÛÊıÁ¿
+    // è®¡ç®—æˆ˜æ–—è‹±é›„æ•°é‡
     const int championsAheadCount = static_cast<int>(battleChampions.size() / 2.0 + 0.5);
     const int championsBehindCount = battleChampions.size() - championsAheadCount;
     int row = getRandom(PLACE_MAP_ROWS), col = getRandom(BATTLE_MAP_COLUMNS);
 
-    // ²¿ÊğÇ°·½Õ½¶·Ó¢ĞÛ
+    // éƒ¨ç½²å‰æ–¹æˆ˜æ–—è‹±é›„
     for (int i = 0; i < championsAheadCount; i++) {
         while (battleMap[row][col] != NoChampion) {
             col = getRandom(BATTLE_MAP_COLUMNS);
@@ -221,7 +221,7 @@ void AIPlayer::deployChampionPositions(const std::vector<ChampionCategory>& batt
         orderedChampions.pop();
     }
 
-    // ²¿Êğºó·½Õ½¶·Ó¢ĞÛ
+    // éƒ¨ç½²åæ–¹æˆ˜æ–—è‹±é›„
     for (int i = 0; i < championsBehindCount; i++) {
         while (battleMap[row][col] != NoChampion) {
             col = getRandom(BATTLE_MAP_COLUMNS);
@@ -242,16 +242,16 @@ void AIPlayer::deployChampionPositions(const std::vector<ChampionCategory>& batt
     }
 }
 
-// ²¿ÊğÕ½¶·Ó¢ĞÛ
+// éƒ¨ç½²æˆ˜æ–—è‹±é›„
 void AIPlayer::deployChampions()
 {
-    // ³õÊ¼»¯µØÍ¼
+    // åˆå§‹åŒ–åœ°å›¾
     for (int i = 0; i < PLACE_MAP_ROWS; i++) {
         std::fill_n(battleMap[i], BATTLE_MAP_COLUMNS, NoChampion);
     }
     std::fill_n(waitingMap, WAITING_MAP_COUNT, NoChampion);
 
-    // ¼ÆËã×î´óÕ½¶·Ó¢ĞÛÊıÁ¿
+    // è®¡ç®—æœ€å¤§æˆ˜æ–—è‹±é›„æ•°é‡
     int maxChampions = DEPLOY_CHAMPIONS_MAX_COUNT;
     const int currentStageScore = getStageScore();
     for (int i = 0; i < STAGE_SCORE_THRESHOLDS_COUNT; i++) {
@@ -263,7 +263,7 @@ void AIPlayer::deployChampions()
         }
     }
 
-    // Ñ¡ÔñÕ½¶·Ó¢ĞÛ
+    // é€‰æ‹©æˆ˜æ–—è‹±é›„
     std::vector<ChampionCategory> selectedChampions;
     if (difficulty == Normal) {
         selectedChampions = deployChampionsByRandom(maxChampions);
