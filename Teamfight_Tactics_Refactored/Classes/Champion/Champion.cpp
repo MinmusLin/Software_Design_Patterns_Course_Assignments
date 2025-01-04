@@ -10,6 +10,15 @@
 #include "Champion.h"
 #include "LocationMap/LocationMap.h"
 #include "proj.win32/AudioPlayer.h"
+#include "BondState/BrotherhoodBond.h"
+#include "BondState/DarkSideBond.h"
+#include "BondState/GoodShooterBond.h"
+#include "BondState/LoutBond.h"
+#include "BondState/PopStarBond.h"
+#include "SkillStrategy/AttackSpeedAndDefenseSkill.h"
+#include "SkillStrategy/HighAttackDamageSkill.h"
+#include "SkillStrategy/LowAttackDamageSkill.h"
+#include "SkillStrategy/MiddleAttackDamageSkill.h"
 
 // 构造函数
 
@@ -629,45 +638,94 @@ void Champion::attack()
     }
 }
 
+/********************************************************************************
+ *
+ *   使用策略模式重构 - 重构前代码
+ *
+ ********************************************************************************/
+
 // 技能
-void Champion::skill()
-{
+// void Champion::skill()
+// {
+//     if (attributes.price == CHAMPION_ATTR_MAP.at(FIFTH_LEVEL[1]).price) {
+//         triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_HIGH);
+//     }
+//     else if (attributes.price == CHAMPION_ATTR_MAP.at(FOURTH_LEVEL[1]).price) {
+//         if (attributes.championCategory == Champion25 || attributes.championCategory == Champion26) {
+//             attributes.attackDamage += SKILL_ATTACK_DAMAGE_UP;
+//             attributes.defenseCoefficient += SKILL_DEFENSE_COEFFICIENT_UP;
+//         }
+//         else {
+//             triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_MIDDLE, false);
+//         }
+//     }
+//     else if (attributes.price == CHAMPION_ATTR_MAP.at(SECOND_LEVEL[1]).price || attributes.price == CHAMPION_ATTR_MAP.at(THIRD_LEVEL[1]).price) {
+//         if (attributes.attackRange > ATTACK_RANGE_THRESHOLD) {
+//             attributes.attackDamage += SKILL_ATTACK_DAMAGE_UP;
+//             attributes.attackSpeed += SKILL_ATTACK_SPEED_UP;
+//         }
+//         else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_HIGH) {
+//             attributes.defenseCoefficient += SKILL_DEFENSE_COEFFICIENT_UP;
+//         }
+//         else {
+//             triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_LOW);
+//         }
+//     }
+//     else if (attributes.price == CHAMPION_ATTR_MAP.at(FIRST_LEVEL[1]).price) {
+//         if (attributes.attackRange > ATTACK_RANGE_THRESHOLD) {
+//             attributes.attackDamage += SKILL_ATTACK_DAMAGE_UP;
+//             attributes.attackSpeed += SKILL_ATTACK_SPEED_UP;
+//         }
+//         else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_LOW) {
+//             attributes.defenseCoefficient += SKILL_DEFENSE_COEFFICIENT_UP;
+//         }
+//         else {
+//             triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_LOW);
+//         }
+//     }
+//     attributes.magicPoints = 0;
+// }
+
+/********************************************************************************
+ *
+ *   使用策略模式重构 - 重构后代码
+ *
+ ********************************************************************************/
+
+void Champion::skill() {
+    SkillStrategy* strategy = nullptr;
+
     if (attributes.price == CHAMPION_ATTR_MAP.at(FIFTH_LEVEL[1]).price) {
-        triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_HIGH);
-    }
-    else if (attributes.price == CHAMPION_ATTR_MAP.at(FOURTH_LEVEL[1]).price) {
+        strategy = new HighAttackDamageSkill();
+    } else if (attributes.price == CHAMPION_ATTR_MAP.at(FOURTH_LEVEL[1]).price) {
         if (attributes.championCategory == Champion25 || attributes.championCategory == Champion26) {
-            attributes.attackDamage += SKILL_ATTACK_DAMAGE_UP;
-            attributes.defenseCoefficient += SKILL_DEFENSE_COEFFICIENT_UP;
+            strategy = new AttackSpeedAndDefenseSkill();
+        } else {
+            strategy = new MiddleAttackDamageSkill();
         }
-        else {
-            triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_MIDDLE, false);
-        }
-    }
-    else if (attributes.price == CHAMPION_ATTR_MAP.at(SECOND_LEVEL[1]).price || attributes.price == CHAMPION_ATTR_MAP.at(THIRD_LEVEL[1]).price) {
+    } else if (attributes.price == CHAMPION_ATTR_MAP.at(SECOND_LEVEL[1]).price || attributes.price == CHAMPION_ATTR_MAP.at(THIRD_LEVEL[1]).price) {
         if (attributes.attackRange > ATTACK_RANGE_THRESHOLD) {
-            attributes.attackDamage += SKILL_ATTACK_DAMAGE_UP;
-            attributes.attackSpeed += SKILL_ATTACK_SPEED_UP;
+            strategy = new AttackSpeedAndDefenseSkill();
+        } else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_HIGH) {
+            strategy = new AttackSpeedAndDefenseSkill();
+        } else {
+            strategy = new LowAttackDamageSkill();
         }
-        else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_HIGH) {
-            attributes.defenseCoefficient += SKILL_DEFENSE_COEFFICIENT_UP;
-        }
-        else {
-            triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_LOW);
-        }
-    }
-    else if (attributes.price == CHAMPION_ATTR_MAP.at(FIRST_LEVEL[1]).price) {
+    } else if (attributes.price == CHAMPION_ATTR_MAP.at(FIRST_LEVEL[1]).price) {
         if (attributes.attackRange > ATTACK_RANGE_THRESHOLD) {
-            attributes.attackDamage += SKILL_ATTACK_DAMAGE_UP;
-            attributes.attackSpeed += SKILL_ATTACK_SPEED_UP;
-        }
-        else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_LOW) {
-            attributes.defenseCoefficient += SKILL_DEFENSE_COEFFICIENT_UP;
-        }
-        else {
-            triggerSkill(ATTACK_DAMAGE_MAGNIFICATION_LOW);
+            strategy = new AttackSpeedAndDefenseSkill();
+        } else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_LOW) {
+            strategy = new AttackSpeedAndDefenseSkill();
+        } else {
+            strategy = new LowAttackDamageSkill();
         }
     }
+
+    if (strategy) {
+        strategy->execute(attributes);
+        delete strategy;
+    }
+
     attributes.magicPoints = 0;
 }
 
@@ -791,31 +849,72 @@ void Champion::triggerSkill(const int magnification, bool isCondition)
     }
 }
 
+/********************************************************************************
+ *
+ *   使用状态模式重构 - 重构前代码
+ *
+ ********************************************************************************/
+
 // 羁绊效果
-void Champion::bond()
-{
+// void Champion::bond()
+// {
+//     switch (attributes.bond) {
+//         case Brotherhood:
+//             attributes.movementSpeed *= BROTHERHOOD_MOVEMENT_SPEED_MULTIPLIER;
+//             attributes.attackSpeed *= BROTHERHOOD_ATTACK_SPEED_MULTIPLIER;
+//             break;
+//         case Lout:
+//             attributes.healthPoints = static_cast<int>(attributes.healthPoints * LOUT_HEALTH_POINTS_MULTIPLIER);
+//             attributes.movementSpeed *= LOUT_MOVEMENT_SPEED_MULTIPLIER;
+//             attributes.attackDamage *= LOUT_ATTACK_DAMAGE_MULTIPLIER;
+//             break;
+//         case DarkSide:
+//             attributes.skillTriggerThreshold = static_cast<int>(attributes.skillTriggerThreshold * DARKSIDE_SKILL_TRIGGER_MULTIPLIER);
+//             attributes.attackDamage *= DARKSIDE_ATTACK_DAMAGE_MULTIPLIER;
+//             break;
+//         case GoodShooter:
+//             attributes.attackSpeed *= GOODSHOOTER_ATTACK_SPEED_MULTIPLIER;
+//             break;
+//         case PopStar:
+//             attributes.attackSpeed *= POPSTAR_ATTACK_SPEED_MULTIPLIER;
+//             attributes.movementSpeed *= POPSTAR_MOVEMENT_SPEED_MULTIPLIER;
+//             break;
+//         default:
+//             break;
+//     }
+// }
+
+/********************************************************************************
+ *
+ *   使用状态模式重构 - 重构后代码
+ *
+ ********************************************************************************/
+
+void Champion::bond() {
+    BondState* state = nullptr;
+
     switch (attributes.bond) {
         case Brotherhood:
-            attributes.movementSpeed *= BROTHERHOOD_MOVEMENT_SPEED_MULTIPLIER;
-            attributes.attackSpeed *= BROTHERHOOD_ATTACK_SPEED_MULTIPLIER;
+            state = new BrotherhoodBond();
             break;
         case Lout:
-            attributes.healthPoints = static_cast<int>(attributes.healthPoints * LOUT_HEALTH_POINTS_MULTIPLIER);
-            attributes.movementSpeed *= LOUT_MOVEMENT_SPEED_MULTIPLIER;
-            attributes.attackDamage *= LOUT_ATTACK_DAMAGE_MULTIPLIER;
+            state = new LoutBond();
             break;
         case DarkSide:
-            attributes.skillTriggerThreshold = static_cast<int>(attributes.skillTriggerThreshold * DARKSIDE_SKILL_TRIGGER_MULTIPLIER);
-            attributes.attackDamage *= DARKSIDE_ATTACK_DAMAGE_MULTIPLIER;
+            state = new DarkSideBond();
             break;
         case GoodShooter:
-            attributes.attackSpeed *= GOODSHOOTER_ATTACK_SPEED_MULTIPLIER;
+            state = new GoodShooterBond();
             break;
         case PopStar:
-            attributes.attackSpeed *= POPSTAR_ATTACK_SPEED_MULTIPLIER;
-            attributes.movementSpeed *= POPSTAR_MOVEMENT_SPEED_MULTIPLIER;
+            state = new PopStarBond();
             break;
         default:
             break;
+    }
+
+    if (state) {
+        state->applyEffect(attributes);
+        delete state;
     }
 }
