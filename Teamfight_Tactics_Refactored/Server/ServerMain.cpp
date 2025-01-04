@@ -33,7 +33,7 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include "Server.h"
+#include "Classes/MessageHandler/MessageHandler.h"
 
 /*
  * Function Name:    main
@@ -42,15 +42,43 @@
  *                   char* argv[]: 参数向量
  * Return Value:     程序退出状态
  */
-int main(int argc, char* argv[])
-{
+
+/********************************************************************************
+ *
+ *   使用观察者模式重构 - 重构前代码
+ *
+ ********************************************************************************/
+
+// int main(int argc, char* argv[])
+// {
+//     try {
+//         Server server;
+//         server.run();
+//     }
+//     catch (const std::exception& e) {
+//         std::cerr << "Exception caught: " << e.what() << std::endl;
+//         return EXIT_FAILURE;
+//     }
+//     return EXIT_SUCCESS;
+// }
+
+/********************************************************************************
+ *
+ *   使用观察者模式重构 - 重构后代码
+ *
+ ********************************************************************************/
+
+int main() {
     try {
         Server server;
+        auto messageHandler = std::make_shared<MessageHandler>(server);
+        server.attach(messageHandler);
         server.run();
     }
     catch (const std::exception& e) {
         std::cerr << "Exception caught: " << e.what() << std::endl;
         return EXIT_FAILURE;
     }
-    return EXIT_SUCCESS;
+
+    return 0;
 }
