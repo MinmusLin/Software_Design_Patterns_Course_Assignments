@@ -13,6 +13,10 @@
  *
  ********************************************************************************/
 
+#pragma once
+#ifndef _BUILDER_H_
+#define _BUILDER_H_
+
 #include "Constant.h"
 #include "Champion/Champion.h"
 
@@ -23,3 +27,5 @@ public:
     virtual void buildSpecialAttributes() = 0;
     virtual Champion getResult() = 0;
 };
+
+#endif // !_BUILDER_H_

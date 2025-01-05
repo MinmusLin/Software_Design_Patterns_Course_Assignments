@@ -16,6 +16,8 @@
 #include <mutex>
 #include <vector>
 #include "Control.h"
+#include "Reactor/Reactor.h"
+#include "EventHandler/EventHandler.h"
 
 /*
  * Class Name:     OnlineModeControl
@@ -80,8 +82,7 @@ public:
      *
      ********************************************************************************/
 
-    // 事件处理器
-    void handleMessage(const std::string& message);
+    void start();
 
 private:
     char ipv4[IPV4_ADDRESS_MAX_LENGTH + 1];                 // IPv4 地址
@@ -100,8 +101,23 @@ private:
     std::atomic<bool> keepListening;                        // 监听服务器消息线程控制标志
     mutable std::mutex healthPointsMutex;                   // 用于保护 playerHealthPoints 的互斥量（确保线程安全性）
 
+    /********************************************************************************
+     *
+     *   使用反应器模式重构 - 重构后代码
+     *
+     ********************************************************************************/
+
+    Reactor* reactor;
+    EventHandler* eventHandler;
+
+    /********************************************************************************
+     *
+     *   使用反应器模式重构 - 重构前代码
+     *
+     ********************************************************************************/
+
     // 监听服务器消息线程
-    void listenForServerMessages();
+    // void listenForServerMessages();
 
     // 更新玩家生命值
     void updatePlayerHealthPoints(const int healthPoint, const SOCKET socket);

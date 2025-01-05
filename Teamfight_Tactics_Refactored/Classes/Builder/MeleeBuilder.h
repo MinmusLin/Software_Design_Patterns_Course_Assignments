@@ -13,6 +13,10 @@
  *
  ********************************************************************************/
 
+#pragma once
+#ifndef _MELEE_BUILDER_H_
+#define _MELEE_BUILDER_H_
+
 #include "Builder.h"
 
 class MeleeBuilder : public Builder {
@@ -24,3 +28,5 @@ public:
     void buildSpecialAttributes() override {}
     Champion getResult() override {}
 };
+
+#endif // !_MELEE_BUILDER_H_

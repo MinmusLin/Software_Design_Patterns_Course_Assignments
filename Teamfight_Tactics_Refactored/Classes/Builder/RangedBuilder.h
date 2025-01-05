@@ -13,6 +13,10 @@
  *
  ********************************************************************************/
 
+#pragma once
+#ifndef _RANGED_BUILDER_H_
+#define _RANGED_BUILDER_H_
+
 #include "Builder.h"
 
 class RangedBuilder : public Builder {
@@ -24,3 +28,5 @@ public:
     void buildSpecialAttributes() override {}
     Champion getResult() override {}
 };
+
+#endif // !_RANGED_BUILDER_H_

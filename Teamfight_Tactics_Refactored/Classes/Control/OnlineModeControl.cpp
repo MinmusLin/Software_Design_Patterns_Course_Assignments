@@ -41,6 +41,16 @@ OnlineModeControl::OnlineModeControl(std::string ipv4, std::string portStr) :
         throw;
     }
     listeningThread = std::thread(&OnlineModeControl::listenForServerMessages, this);
+
+    /********************************************************************************
+    *
+    *   使用反应器模式重构 - 重构后代码
+    *
+    ********************************************************************************/
+
+    reactor = new Reactor();
+    eventHandler = new ConcreteEventHandler(s, reactor);
+    reactor->registerHandler(eventHandler);
 }
 
 // 析构函数
@@ -57,6 +67,15 @@ OnlineModeControl::~OnlineModeControl()
     if (battle) {
         delete battle;
     }
+
+    /********************************************************************************
+     *
+     *   使用反应器模式重构 - 重构后代码
+     *
+     ********************************************************************************/
+
+    delete reactor;
+    delete eventHandler;
 }
 
 // 创建客户端
@@ -340,31 +359,6 @@ int OnlineModeControl::getSocketIndex()
 //     }
 // }
 
-/********************************************************************************
- *
- *   使用反应器模式重构 - 重构后代码
- *
- ********************************************************************************/
-
-// 监听服务器消息线程
-void OnlineModeControl::listenForServerMessages() {
-    // 注册事件处理器
-    reactor->registerHandler(s, [this](SOCKET socket) {
-        char buffer[BUFFER_SIZE];
-        int recvSize = recv(socket, buffer, BUFFER_SIZE, 0);
-        if (recvSize > 0) {
-            buffer[recvSize] = '\0';
-            handleMessage(buffer); // 处理接收到的消息
-        }
-    });
-
-    // 启动事件循环
-    while (keepListening) {
-        reactor->handleEvents();
-        std::this_thread::sleep_for(std::chrono::milliseconds(THREAD_SLEEP_DURATION_MILLISECONDS));
-    }
-}
-
 // 更新玩家生命值
 void OnlineModeControl::updatePlayerHealthPoints(const int healthPoint, const SOCKET socket)
 {
@@ -385,11 +379,9 @@ void OnlineModeControl::updatePlayerHealthPoints(const int healthPoint, const SO
  *
  ********************************************************************************/
 
-void OnlineModeControl::handleMessage(const std::string& message) {
-    if (!strncmp(message.c_str(), HEALTH_POINTS_IDENTIFIER, MESSAGE_IDENTIFIER_LENGTH)) {
-        int healthPoints;
-        SOCKET socket;
-        sscanf(message.c_str(), HEALTH_POINTS_FORMAT, &healthPoints, &socket);
-        updatePlayerHealthPoints(healthPoints, socket);
+void OnlineModeControl::start() {
+    while (keepListening) {
+        reactor->handleEvents();
+        std::this_thread::sleep_for(std::chrono::milliseconds(THREAD_SLEEP_DURATION_MILLISECONDS));
     }
 }
