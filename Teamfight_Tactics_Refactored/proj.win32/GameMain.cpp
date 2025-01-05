@@ -38,15 +38,6 @@
 #include "platform/CCStdC.h"
 #include "AppDelegate/AppDelegate.h"
 
-/********************************************************************************
- *
- *   使用生成器模式重构 - 重构后代码
- *
- ********************************************************************************/
-
-#include "Champion/ChampionBuilder.h"
-#include "Champion/ChampionConfig.h"
-
 /*
  * Function Name:    _tWinMain
  * Function:         游戏程序入口点
@@ -60,28 +51,6 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 {
     // 初始化随机数生成器
     srand(static_cast<unsigned int>(time(0)));
-
-    /********************************************************************************
-    *
-    *   使用生成器模式重构 - 重构后代码
-    *
-    ********************************************************************************/
-
-    json config = ChampionConfig::loadConfig("Config/ChampionConfig.json");
-    for (const auto& championConfig : config["champions"]) {
-        Champion champion = ChampionBuilder()
-            .setHealthPoints(championConfig["healthPoints"])
-            .setAttackDamage(championConfig["attackDamage"])
-            .setAttackSpeed(championConfig["attackSpeed"])
-            .setAttackRange(championConfig["attackRange"])
-            .setDefenseCoefficient(championConfig["defenseCoefficient"])
-            .setMovementSpeed(championConfig["movementSpeed"])
-            .setSkillTriggerThreshold(championConfig["skillTriggerThreshold"])
-            .setPrice(championConfig["price"])
-            .setBond(championConfig["bond"])
-            .setImagePath(championConfig["imagePath"])
-            .build();
-    }
 
     // 初始化 Cocos2d-x 应用程序实例
     UNREFERENCED_PARAMETER(hPrevInstance);
