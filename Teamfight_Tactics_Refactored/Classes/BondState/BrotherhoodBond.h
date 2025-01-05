@@ -29,6 +29,9 @@ public:
     void setContent(Champion* content) override {
         this->content = content;
     }
+
+private:
+    Champion* content;
 };
 
 #endif // !_BROTHERHOOD_BOND_H_

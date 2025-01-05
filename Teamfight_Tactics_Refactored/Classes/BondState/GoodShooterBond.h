@@ -28,6 +28,9 @@ public:
     void setContent(Champion* content) override {
         this->content = content;
     }
+
+private:
+    Champion* content;
 };
 
 #endif // !_GOOD_SHOOTER_BOND_H_
