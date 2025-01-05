@@ -21,9 +21,9 @@
 
 class BrotherhoodBond : public BondState {
 public:
-    void applyEffect(ChampionAttributes& attributes) override {
-        attributes.movementSpeed *= BROTHERHOOD_MOVEMENT_SPEED_MULTIPLIER;
-        attributes.attackSpeed *= BROTHERHOOD_ATTACK_SPEED_MULTIPLIER;
+    void applyEffect() override {
+        this->getAttributes().movementSpeed *= BROTHERHOOD_MOVEMENT_SPEED_MULTIPLIER;
+        this->getAttributes().attackSpeed *= BROTHERHOOD_ATTACK_SPEED_MULTIPLIER;
     }
 
     void setContent(Champion* content) override {

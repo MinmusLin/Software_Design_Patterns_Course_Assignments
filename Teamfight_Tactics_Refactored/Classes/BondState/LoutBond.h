@@ -21,10 +21,10 @@
 
 class LoutBond : public BondState {
 public:
-    void applyEffect(ChampionAttributes& attributes) override {
-        attributes.healthPoints = static_cast<int>(attributes.healthPoints * LOUT_HEALTH_POINTS_MULTIPLIER);
-        attributes.movementSpeed *= LOUT_MOVEMENT_SPEED_MULTIPLIER;
-        attributes.attackDamage *= LOUT_ATTACK_DAMAGE_MULTIPLIER;
+    void applyEffect() override {
+        this->getAttributes().healthPoints = static_cast<int>(this->getAttributes().healthPoints * LOUT_HEALTH_POINTS_MULTIPLIER);
+        this->getAttributes().movementSpeed *= LOUT_MOVEMENT_SPEED_MULTIPLIER;
+        this->getAttributes().attackDamage *= LOUT_ATTACK_DAMAGE_MULTIPLIER;
     }
 
     void setContent(Champion* content) override {

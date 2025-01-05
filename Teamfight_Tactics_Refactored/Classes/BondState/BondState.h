@@ -22,7 +22,7 @@
 
 class BondState {
 public:
-    virtual void applyEffect(ChampionAttributes& attributes) = 0;
+    virtual void applyEffect() = 0;
     virtual void setContent(Champion* content) = 0;
     virtual ~BondState() = default;
 };

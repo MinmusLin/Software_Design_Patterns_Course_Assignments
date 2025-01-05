@@ -21,9 +21,9 @@
 
 class DarkSideBond : public BondState {
 public:
-    void applyEffect(ChampionAttributes& attributes) override {
-        attributes.skillTriggerThreshold = static_cast<int>(attributes.skillTriggerThreshold * DARKSIDE_SKILL_TRIGGER_MULTIPLIER);
-        attributes.attackDamage *= DARKSIDE_ATTACK_DAMAGE_MULTIPLIER;
+    void applyEffect() override {
+        this->getAttributes().skillTriggerThreshold = static_cast<int>(this->getAttributes().skillTriggerThreshold * DARKSIDE_SKILL_TRIGGER_MULTIPLIER);
+        this->getAttributes().attackDamage *= DARKSIDE_ATTACK_DAMAGE_MULTIPLIER;
     }
 
     void setContent(Champion* content) override {

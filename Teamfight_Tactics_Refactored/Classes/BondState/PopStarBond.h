@@ -21,9 +21,9 @@
 
 class PopStarBond : public BondState {
 public:
-    void applyEffect(ChampionAttributes& attributes) override {
-        attributes.attackSpeed *= POPSTAR_ATTACK_SPEED_MULTIPLIER;
-        attributes.movementSpeed *= POPSTAR_MOVEMENT_SPEED_MULTIPLIER;
+    void applyEffect() override {
+        this->getAttributes().attackSpeed *= POPSTAR_ATTACK_SPEED_MULTIPLIER;
+        this->getAttributes().movementSpeed *= POPSTAR_MOVEMENT_SPEED_MULTIPLIER;
     }
 
     void setContent(Champion* content) override {

@@ -21,8 +21,8 @@
 
 class GoodShooterBond : public BondState {
 public:
-    void applyEffect(ChampionAttributes& attributes) override {
-        attributes.attackSpeed *= GOODSHOOTER_ATTACK_SPEED_MULTIPLIER;
+    void applyEffect() override {
+        this->getAttributes().attackSpeed *= GOODSHOOTER_ATTACK_SPEED_MULTIPLIER;
     }
 
     void setContent(Champion* content) override {
