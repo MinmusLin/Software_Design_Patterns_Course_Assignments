@@ -28,3 +28,7 @@ void CompositeComponent::display(float x, float y) {
         component->display(x, y);
     }
 }
+
+std::vector<Component*> CompositeComponent::getChild() const {
+    return components;
+}

@@ -28,6 +28,7 @@ public:
     virtual void add(Component* component) override;
     virtual void remove(Component* component) override;
     virtual void display(float x, float y) override;
+    std::vector<Component*> getChild() const;
 
 private:
     std::vector<Component*> components;
