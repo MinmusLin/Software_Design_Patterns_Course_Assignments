@@ -14,6 +14,8 @@
 #include "cocos2d.h"
 #include "Battle/Battle.h"
 #include "proj.win32/Constant.h"
+#include "SkillStrategy/SkillStrategy.h"
+#include "BondState/BondState.h"
 
 // Battle 类前声明（用于解决循环依赖）
 class Battle;
@@ -162,6 +164,16 @@ public:
     // 羁绊效果
     void bond();
 
+    /********************************************************************************
+    *
+    *   使用策略模式重构 - 重构后代码
+    *
+    ********************************************************************************/
+
+    void setStrategy(SkillStrategy* strategy);
+    void changeState(BondState* newState);
+    void setBond(BondType bondType);
+
 private:
     Battle* currentBattle;             // 战斗类
     ChampionAttributes attributes;     // 战斗英雄属性
@@ -189,6 +201,15 @@ private:
 
     // 触发技能
     void triggerSkill(const int magnification, bool isCondition = true);
+
+    /********************************************************************************
+     *
+     *   使用策略模式重构 - 重构后代码
+     *
+     ********************************************************************************/
+
+    SkillStrategy* currentStrategy;
+    BondState* state;
 };
 
 #endif // !_CHAMPION_H_

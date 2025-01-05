@@ -3,7 +3,7 @@
  * File Name:     LoutBond.h
  * File Function: LoutBond类的定义
  * Author:        林继申
- * Update Date:   2025/1/4
+ * Update Date:   2025/1/5
  * License:       MIT License
  ****************************************************************/
 
@@ -25,6 +25,10 @@ public:
         attributes.healthPoints = static_cast<int>(attributes.healthPoints * LOUT_HEALTH_POINTS_MULTIPLIER);
         attributes.movementSpeed *= LOUT_MOVEMENT_SPEED_MULTIPLIER;
         attributes.attackDamage *= LOUT_ATTACK_DAMAGE_MULTIPLIER;
+    }
+
+    void setContent(Champion* content) override {
+        this->content = content;
     }
 };
 

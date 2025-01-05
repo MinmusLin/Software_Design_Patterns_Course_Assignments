@@ -692,38 +692,16 @@ void Champion::attack()
  *
  ********************************************************************************/
 
-void Champion::skill() {
-    SkillStrategy* strategy = nullptr;
-
-    if (attributes.price == CHAMPION_ATTR_MAP.at(FIFTH_LEVEL[1]).price) {
-        strategy = new HighAttackDamageSkill();
-    } else if (attributes.price == CHAMPION_ATTR_MAP.at(FOURTH_LEVEL[1]).price) {
-        if (attributes.championCategory == Champion25 || attributes.championCategory == Champion26) {
-            strategy = new AttackSpeedAndDefenseSkill();
-        } else {
-            strategy = new MiddleAttackDamageSkill();
-        }
-    } else if (attributes.price == CHAMPION_ATTR_MAP.at(SECOND_LEVEL[1]).price || attributes.price == CHAMPION_ATTR_MAP.at(THIRD_LEVEL[1]).price) {
-        if (attributes.attackRange > ATTACK_RANGE_THRESHOLD) {
-            strategy = new AttackSpeedAndDefenseSkill();
-        } else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_HIGH) {
-            strategy = new AttackSpeedAndDefenseSkill();
-        } else {
-            strategy = new LowAttackDamageSkill();
-        }
-    } else if (attributes.price == CHAMPION_ATTR_MAP.at(FIRST_LEVEL[1]).price) {
-        if (attributes.attackRange > ATTACK_RANGE_THRESHOLD) {
-            strategy = new AttackSpeedAndDefenseSkill();
-        } else if (attributes.defenseCoefficient >= DEFENSE_COEFFICIENT_THRESHOLD_LOW) {
-            strategy = new AttackSpeedAndDefenseSkill();
-        } else {
-            strategy = new LowAttackDamageSkill();
-        }
+void Champion::setStrategy(SkillStrategy* strategy) {
+    if (currentStrategy) {
+        delete currentStrategy;
     }
+    currentStrategy = strategy;
+}
 
-    if (strategy) {
-        strategy->execute(attributes);
-        delete strategy;
+void Champion::skill() {
+    if (currentStrategy) {
+        currentStrategy->execute(attributes);
     }
 
     attributes.magicPoints = 0;
@@ -890,31 +868,41 @@ void Champion::triggerSkill(const int magnification, bool isCondition)
  *
  ********************************************************************************/
 
-void Champion::bond() {
-    BondState* state = nullptr;
-
-    switch (attributes.bond) {
-        case Brotherhood:
-            state = new BrotherhoodBond();
-            break;
-        case Lout:
-            state = new LoutBond();
-            break;
-        case DarkSide:
-            state = new DarkSideBond();
-            break;
-        case GoodShooter:
-            state = new GoodShooterBond();
-            break;
-        case PopStar:
-            state = new PopStarBond();
-            break;
-        default:
-            break;
+void Champion::changeState(BondState* newState) {
+        if (state) {
+            delete state;
+        }
+        state = newState;
+        if (state) {
+            state->setContent(this);
+        }
     }
 
+void Champion::bond() {
     if (state) {
         state->applyEffect(attributes);
-        delete state;
+    }
+}
+
+void Champion::setBond(BondType bondType) {
+    switch (bondType) {
+        case Brotherhood:
+            changeState(new BrotherhoodBond());
+            break;
+        case Lout:
+            changeState(new LoutBond());
+            break;
+        case DarkSide:
+            changeState(new DarkSideBond());
+            break;
+        case GoodShooter:
+            changeState(new GoodShooterBond());
+            break;
+        case PopStar:
+            changeState(new PopStarBond());
+            break;
+        default:
+            changeState(nullptr);
+            break;
     }
 }

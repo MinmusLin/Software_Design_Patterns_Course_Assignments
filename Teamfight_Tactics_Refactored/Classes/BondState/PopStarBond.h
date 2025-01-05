@@ -3,7 +3,7 @@
  * File Name:     PopStarBond.h
  * File Function: PopStarBond类的定义
  * Author:        林继申
- * Update Date:   2025/1/4
+ * Update Date:   2025/1/5
  * License:       MIT License
  ****************************************************************/
 
@@ -24,6 +24,10 @@ public:
     void applyEffect(ChampionAttributes& attributes) override {
         attributes.attackSpeed *= POPSTAR_ATTACK_SPEED_MULTIPLIER;
         attributes.movementSpeed *= POPSTAR_MOVEMENT_SPEED_MULTIPLIER;
+    }
+
+    void setContent(Champion* content) override {
+        this->content = content;
     }
 };
 
