@@ -3,7 +3,7 @@
  * File Name:     Reactor.h
  * File Function: Reactor类的定义
  * Author:        林继申
- * Update Date:   2025/1/4
+ * Update Date:   2025/1/5
  * License:       MIT License
  ****************************************************************/
 
@@ -17,24 +17,41 @@
 #ifndef _REACTOR_H_
 #define _REACTOR_H_
 
+#include "EventDemultiplexer.h"
+#include "EventHandler.h"
 #include <unordered_map>
 #include <functional>
-#include <WinSock2.h>
 
-/*
- * Class Name:     Reactor
- * Class Function: Reactor事件处理器
- */
 class Reactor {
 public:
-    // 注册事件处理器
-    void registerHandler(SOCKET socket, std::function<void(SOCKET)> handler);
+    Reactor() : demultiplexer(new SelectDemultiplexer()) {}
 
-    // 处理事件
-    void handleEvents();
+    ~Reactor() {
+        delete demultiplexer;
+    }
+
+    void registerHandler(EventHandler* handler) {
+        handlers[handler->getHandle()] = handler;
+        demultiplexer->registerEvent(handler->getHandle(), EventType::READ_EVENT);
+    }
+
+    void removeHandler(Handle handle) {
+        demultiplexer->removeEvent(handle);
+        handlers.erase(handle);
+    }
+
+    void handleEvents() {
+        auto activeHandles = demultiplexer->waitForEvents(100);
+        for (auto handle : activeHandles) {
+            if (handlers.find(handle) != handlers.end()) {
+                handlers[handle]->handleEvent(handle);
+            }
+        }
+    }
 
 private:
-    std::unordered_map<SOCKET, std::function<void(SOCKET)>> handlers; // 事件处理器映射
+    EventDemultiplexer* demultiplexer;
+    std::unordered_map<Handle, EventHandler*> handlers;
 };
 
 #endif // !_REACTOR_H_

@@ -16,8 +16,7 @@
 #include <mutex>
 #include <vector>
 #include "Control.h"
-#include "Reactor/Reactor.h"
-#include "EventHandler/EventHandler.h"
+#include "../Server/Classes/Reactor/Reactor.h"
 
 /*
  * Class Name:     OnlineModeControl

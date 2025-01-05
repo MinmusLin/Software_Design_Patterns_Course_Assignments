@@ -49,7 +49,7 @@ OnlineModeControl::OnlineModeControl(std::string ipv4, std::string portStr) :
     ********************************************************************************/
 
     reactor = new Reactor();
-    eventHandler = new ConcreteEventHandler(s, reactor);
+    eventHandler = new OnlineEventHandler(s, reactor);
     reactor->registerHandler(eventHandler);
 }
 
