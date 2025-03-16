@@ -6,7 +6,7 @@ Software_Design_Patterns_Course_Assignments
 
 ## 仓库简介
 
-A collection of my software design patterns course Assignments.
+A collection of my software design patterns course assignments.
 
 2024年同济大学软件设计模式课程作业合集。
 
@@ -32,4 +32,4 @@ The code and materials contained in this repository are intended for personal le
 
 ## 文档更新日期
 
-2025年1月11日
+2025年3月16日
