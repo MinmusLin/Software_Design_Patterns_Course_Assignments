@@ -16,9 +16,6 @@ A collection of my software design patterns course assignments.
 
 ## 仓库组成
 
-* [Course Handout](Course_Handout)
-课程讲义
-
 * [Teamfight Tactics (Refactored)](Teamfight_Tactics_Refactored)
 基于 Cocos2d-x 3.17.2 开发的金铲铲之战游戏项目（重构版本）
 
